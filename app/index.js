@@ -9,7 +9,7 @@ const index = () => {
         <Image 
           source={require('../assets/images/starting image.png')}
           className="h-[500] w-[500]"
-          resizeMode='cover'
+          resizeMode='contain'
         />
       </View>
       {/* Application Tagline */}
