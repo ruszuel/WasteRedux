@@ -1,11 +1,12 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { router } from 'expo-router'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const index = () => {
   return (
     <View className="gap-8"> 
       {/* Top Image */}
-      <View className="flex justify-end items-center h-[700] bg-tertiary">
+      <View className="justify-end items-center h-[700] bg-tertiary">
         <Image 
           source={require('../assets/images/starting image.png')}
           className="h-[500] w-[800] -mb-9"
@@ -22,7 +23,7 @@ const index = () => {
         </Text>
       </View>
       {/* Applicaiton purpose */}
-      <View className="px-4 mt-24">
+      <View className="px-4 mt-24 ">
         <Text className="font-pregular text-xl">Learn how to recycle effectively through smart scanning</Text>
       </View>
       {/* Application Buttons */}

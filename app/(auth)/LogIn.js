@@ -63,7 +63,7 @@ const LogIn = () => {
         <View>
             {/* Buttons */}
             <TouchableOpacity className="bg-primary p-5 rounded-xl">
-                <Text className="text-center text-xl text-white font-pregular" onPress={() => router.push("home")}>Log in</Text>
+                <Text className="text-center text-xl text-white font-pregular" onPress={() => router.push("Onboard")}>Log in</Text>
             </TouchableOpacity>
         </View>
         <View className="flex-row items-center gap-6 p-5">
