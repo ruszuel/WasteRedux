@@ -8,7 +8,7 @@ const index = () => {
       <View className="flex justify-end items-center h-[700] bg-tertiary">
         <Image 
           source={require('../assets/images/starting image.png')}
-          className="h-[500] w-[500]"
+          className="h-[500] w-[800] -mb-9"
           resizeMode='contain'
         />
       </View>
