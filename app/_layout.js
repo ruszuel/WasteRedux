@@ -6,13 +6,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 
-  // const navigation = useNavigation()
-  // useLayoutEffect(() => {
-  //     navigation.setOptions({
-  //        headerShown: false,
-  //     })
-  // }, []);
-
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
