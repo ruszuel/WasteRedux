@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { router } from 'expo-router'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 const index = () => {
   return (
@@ -28,7 +27,7 @@ const index = () => {
       </View>
       {/* Application Buttons */}
       <View className="px-4 flex-row justify-between mt-11">
-        <TouchableOpacity className="p-5 bg-primary w-48 rounded-2xl" onPress={() => router.push("LogIn")}>
+        <TouchableOpacity className="p-5 bg-primary w-48 rounded-2xl" onPress={() => router.push("Onboard")}>
           <Text className="text-white text-xl text-center">Log in</Text>
         </TouchableOpacity>
 

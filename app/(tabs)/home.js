@@ -16,10 +16,11 @@ const Home = () => {
 
       <View className='h-52 bg-primary rounded-2xl p-3 items-center mt-6'>
         <>
-        {/* cloud icon */}
-        <Text className='text-white font-psemibold text-2xl mt-4'>Did you know?</Text>
-        <TriviaList />
+          {/* cloud icon */}
+          <Text className='text-white font-psemibold text-2xl mt-4'>Did you know?</Text>
         </>
+        <TriviaList />
+       
       </View>
       {/* Articles */}
       <View className='mt-6'>
