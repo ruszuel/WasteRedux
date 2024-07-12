@@ -4,7 +4,7 @@ import React from 'react'
 const TriviaPaginator = ({ datas }) => {
   return (
     <View className='flex-row'>
-      {datas.map((i) => {
+      {datas.map((_, i) => {
         return <View className='h-3 w-3 rounded-full bg-secondary ml-2' key={i.toString()}/>
       })}
     </View>

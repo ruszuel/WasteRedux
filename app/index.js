@@ -27,11 +27,11 @@ const index = () => {
       </View>
       {/* Application Buttons */}
       <View className="px-4 flex-row justify-between mt-11">
-        <TouchableOpacity className="p-5 bg-primary w-48 rounded-2xl" onPress={() => router.push("Onboard")}>
+        <TouchableOpacity className="p-5 bg-primary w-48 rounded-2xl" onPress={() => router.push("LogIn")}>
           <Text className="text-white text-xl text-center">Log in</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity className="p-5 border-primary border w-48 rounded-2xl" onPress={() => router.push("SignUp")}>
+        <TouchableOpacity className="p-5 border-primary border w-48 rounded-2xl" onPress={() => router.push("Recycle")}>
           <Text className="text-primary text-xl text-center">Sign up</Text>
         </TouchableOpacity>
       </View>

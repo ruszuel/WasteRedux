@@ -11,11 +11,11 @@ const TriviaList = () => {
         <FlatList data={Trivia} 
         renderItem={({item}) => <TriviaItem item={item}/>} 
         horizontal
-        showsHorizontalScrollIndicator
+        showsHorizontalScrollIndicator={false}
         pagingEnabled
         bounces={false}/>
 
-        <TriviaPaginator datas={ Trivia } />    
+        {/* <TriviaPaginator datas={ Trivia } />     */}
       </View>
     </>
     
