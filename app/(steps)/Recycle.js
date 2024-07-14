@@ -5,7 +5,7 @@ import Icon from 'react-native-remix-icon'
 
 const Recycle = () => {
   return (
-    <SafeAreaView className='flex-1 mt-10 px-5' style={{gap: 40}} >
+    <SafeAreaView className='flex-1 mt-10 px-5' style={{gap: 50}}>
       <View className='justify-end  flex-row'>
         <Icon name='close-line' size={24} color='black'/>
       </View>
@@ -13,9 +13,9 @@ const Recycle = () => {
         <Icon name='check-line' size={32} color='#81A969'/>
         <Text className='text-primary font-psemibold text-lg'>The waste material is recyclable!</Text>
       </View>
-      <Text className='text-secondary font-pbold text-3xl'> How to Recycle </Text>
       {/* should be in array for clean and efficient execution of code */}
       <View className='gap-y-4'>
+        <Text className='text-secondary font-pbold text-3xl'> How to Recycle </Text>
         <View className='flex-row items-center gap-2'>
             <View className='h-11 w-11 bg-white rounded-full justify-center items-center'>
                 <Text className='text-2xl font-pbold text-primary'>1</Text>
@@ -57,7 +57,7 @@ const Recycle = () => {
         <Text className='text-xl font-pregular text-justify'>The number on the bottom of a plastic bottle indicates its resin type, determining its recyclability. Resin numbers range from 1 to 7, with 1 and 2 being the most recyclable, while 7 is the least recyclable.</Text>
       </View>
     
-      <TouchableOpacity className='bg-primary h-24 rounded-2xl justify-center items-center'>
+      <TouchableOpacity className='bg-primary h-20 rounded-2xl justify-center items-center'>
         <Text className='text-white font-psemibold text-xl'>Scan again</Text>
       </TouchableOpacity>
       

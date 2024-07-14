@@ -49,7 +49,7 @@ const Home = () => {
         </View>
         <View className='mt-6 flex-row' style={{gap: 10}}>
             {/*History of user getting into database*/}
-            <View className='w-12 h-12 bg-white rounded-md justify-center items-center'>
+            <View className='w-12 h-12 bg-white rounded-xl justify-center items-center'>
               <Icon name='check-line' size={32} color='#81A969'/>
             </View>
             <View>
