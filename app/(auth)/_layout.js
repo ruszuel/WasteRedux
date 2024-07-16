@@ -11,6 +11,8 @@ const AuthLayout = () => {
       <Stack.Screen name='ForgotPass'/>
       <Stack.Screen name='otpVerification'/>
       <Stack.Screen name='ResetPass'/>
+      <Stack.Screen name='SuccessReset'/>
+      <Stack.Screen name='SuccessEmail'/>
     </Stack>
   )
 }

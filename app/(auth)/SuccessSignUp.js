@@ -5,12 +5,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const SuccessSignUp = () => {
-    const navigation = useNavigation();
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerShown: false,
-        })
-    })
   return (
     <SafeAreaView className="py-20 px-20 sm:py-30 h-screen flex justify-center">
         <View className='items-center p-14'>
