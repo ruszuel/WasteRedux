@@ -27,7 +27,7 @@ const index = () => {
       </View>
       {/* Application Buttons */}
       <View className="px-4 flex-row justify-between mt-11">
-        <TouchableOpacity className="p-5 bg-primary w-48 rounded-2xl" onPress={() => router.push("SuccessReset")}>
+        <TouchableOpacity className="p-5 bg-primary w-48 rounded-2xl" onPress={() => router.push("LogIn")}>
           <Text className="text-white text-xl text-center">Log in</Text>
         </TouchableOpacity>
 
