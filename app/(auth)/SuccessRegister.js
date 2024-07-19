@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon';
 import { router } from 'expo-router';
 
-const SuccessEmail = () => {
+const SuccessRegister = () => {
   return (
     <SafeAreaView className="py-20 px-20 sm:py-30 h-screen flex justify-center">
         <View className='items-center p-14'>
@@ -13,15 +13,15 @@ const SuccessEmail = () => {
         </View>
         <View className="gap-5">
             <Text className=" text-primary text-5xl text-center font-medium font-pbold">Success!</Text>
-            <Text className="font-pregular text-center text-lg">Your email address has been changed successfully!</Text>
+            <Text className="font-pregular text-center text-lg">You have successfully registered a solid waste material</Text>
         </View>
         <View className="mt-16">
-            <TouchableOpacity className="bg-primary p-5 rounded-xl" onPress={() => router.replace('profile')}>
-                <Text className="font-pmedium text-center text-xl text-white">View Profile</Text>
+            <TouchableOpacity className="bg-primary p-5 rounded-xl" onPress={() => router.replace('home')}>
+                <Text className="font-pmedium text-center text-xl text-white">Go to Home</Text>
             </TouchableOpacity>
         </View>
     </SafeAreaView>
   )
 }
 
-export default SuccessEmail
+export default SuccessRegister

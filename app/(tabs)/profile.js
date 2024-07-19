@@ -2,6 +2,7 @@ import { View, Text, Image, Pressable, TextInput, ScrollView, TouchableHighlight
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-remix-icon';
+import { router } from 'expo-router';
 
 const Profile = () => {
   const [press, setPress] = useState(true);
@@ -54,7 +55,7 @@ const Profile = () => {
               </View>
               <View style={{gap: 10}}> 
                 <Text className='font-pmedium text-lg'>Email Adress</Text>
-                <TextInput keyboardType='default' className='border-2 border-gray-400 p-3 px-5 rounded-lg font-pregular text-xl' style={{borderColor: edit ? "#81A969" : "#9ca3af"}} editable={edit} placeholder='ethanjay@mail.com' placeholderTextColor={'black'}/>
+                <TextInput keyboardType='email-address' className='border-2 border-gray-400 p-3 px-5 rounded-lg font-pregular text-xl' style={{borderColor: edit ? "#81A969" : "#9ca3af"}} editable={edit} placeholder='ethanjay@mail.com' placeholderTextColor={'black'}/>
               </View>
               <View className='mb-52' style={{display: edit ? "flex" : "none"}}>
                 <TouchableHighlight underlayColor={"#81A969"} className='rounded-xl h-16 bg-primary justify-center items-center mb-32' onPress={() => setEdit(false)}>
@@ -65,29 +66,29 @@ const Profile = () => {
           </View>
 
           {/* Profile Settings */}
-          <View className='w-full' style={{display: press ? 'none' : 'flex', rowGap: 25}}>
-           <View className='flex-row justify-between'>
+          <View className='w-full' style={{display: press ? 'none' : 'flex', rowGap: 22}}>
+           <Pressable className='flex-row justify-between p-1' onPress={() => router.push('VerifyPass')}>
             <View className='flex-row items-center' style={{gap: 15}}>
-              <Icon name='lock-2-fill' size={32} color='#81A969'/>  
+              <Icon name='mail-fill' size={28} color='#81A969'/>  
+              <Text className='font-pregular text-xl'>Change Email</Text>
+            </View>
+            <Icon name='arrow-right-s-line' size={28} color='#81A969'/>
+           </Pressable>
+
+           <Pressable className='flex-row justify-between p-1' onPress={() => router.push('SetUpPass')}>
+            <View className='flex-row items-center' style={{gap: 15}}>
+              <Icon name='lock-2-fill' size={28} color='#81A969'/>  
               <Text className='font-pregular text-xl'>Change Password</Text>
             </View>
-            <Icon name='arrow-right-s-line' size={32} color='#81A969'/>
-           </View>
+            <Icon name='arrow-right-s-line' size={28} color='#81A969'/>
+           </Pressable>
 
-           <View className='flex-row justify-between'>
-            <View className='flex-row items-center' style={{gap: 15}}>
-              <Icon name='close-circle-fill' size={32} color='black'/>  
-              <Text className='font-pregular text-xl'>Delete Account</Text>
-            </View>
-            <Icon name='arrow-right-s-line' size={32} color='#81A969'/>
-           </View>
-
-           <View >
-            <View className='flex-row items-center' style={{gap: 15}}>
-              <Icon name='logout-box-fill' size={32} color='#9B3A1C'/>  
+           <Pressable>
+            <View className='flex-row items-center p-1' style={{gap: 15}}>
+              <Icon name='logout-box-fill' size={28} color='#9B3A1C'/>  
               <Text className='font-pregular text-xl'>Log out</Text>
             </View>
-           </View>
+           </Pressable>
           </View>
         </View>
       </View>

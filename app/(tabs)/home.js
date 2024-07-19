@@ -30,10 +30,10 @@ const Home = () => {
           <Text className='font-pextrabold text-secondary text-3xl'>Articles</Text>
           <Link href='#' className='font-pregular text-base'>See all</Link>
         </View>
-        <View className='mt-6 rounded-2xl h-48 w-80'>
+        <View className='mt-6 rounded-2xl h-48 w-72'>
           {/* articles in flat list API will be used in this section */}
-          <View className='flex-[0.6] bg-secondary w-full rounded-t-2xl items-center justify-center'>
-            <Text className='text-white'>Image here</Text>
+          <View className='flex-[0.6] bg-tertiary w-full rounded-t-2xl items-center justify-center'>
+            <Image source={require("../../assets/images/WasteRedux_Logo.png")} className='h-16 w-16' resizeMode='contain'/>
           </View>
           <View className='flex-[0.5] justify-center px-5 border-gray-400 border border-t-0 rounded-b-2xl' style={{gap: 5}}>
             <Text className='font-pmedium text-2xl text-secondary'>Reycling Contamination</Text>

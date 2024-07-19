@@ -16,8 +16,8 @@ const SuccessReset = () => {
             <Text className="font-pregular text-center text-lg">Your password has been changed successfully!</Text>
         </View>
         <View className="mt-16">
-            <TouchableOpacity className="bg-primary p-5 rounded-xl">
-                <Text className=" font-pmedium text-center text-xl text-white" onPress={() => router.replace('SuccessEmail')}>Go to Login</Text>
+            <TouchableOpacity className="bg-primary p-5 rounded-xl" onPress={() => router.replace('LogIn')}>
+                <Text className=" font-pmedium text-center text-xl text-white">Go to Login</Text>
             </TouchableOpacity>
         </View>
     </SafeAreaView>

@@ -1,8 +1,9 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 import Icon from 'react-native-remix-icon';
+import SuccessReset from './SuccessReset';
 
 const ResetPass = () => {
   return (
@@ -22,7 +23,7 @@ const ResetPass = () => {
                 <Icon name='eye-fill' size={24} color='gray'/>
             </View>
         </View>
-        <TouchableOpacity className='p-6 bg-primary rounded-2xl'>
+        <TouchableOpacity className='p-6 bg-primary rounded-2xl' onPress={()=> router.push('SuccessReset')}>
             <Text className='text-center text-white font-pmedium text-lg'>Reset Password</Text>
         </TouchableOpacity>
         <Link href={'/LogIn'} className='text-center text-primary font-medium text-md'>Back to Login</Link>

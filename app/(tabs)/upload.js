@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon'
 import Dropdown from '@/components/Dropdown';
+import { router } from 'expo-router';
 
 const Upload = () => {
   return (
@@ -25,7 +26,7 @@ const Upload = () => {
           <Text className='font-psemibold text-lg'>Cancel</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity className='h-14 flex-[0.45] bg-primary justify-center items-center rounded-xl'>
+        <TouchableOpacity className='h-14 flex-[0.45] bg-primary justify-center items-center rounded-xl' onPress={() => router.push('SuccessRegister')}>
           <Text className='font-psemibold text-lg text-white'>Register</Text>
         </TouchableOpacity>
       </View>

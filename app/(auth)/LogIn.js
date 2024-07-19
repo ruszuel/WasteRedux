@@ -1,55 +1,47 @@
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { Checkbox } from 'expo-checkbox'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
+import Icon from 'react-native-remix-icon';
 
 const LogIn = () => {
-    const navigation = useNavigation()
-    useLayoutEffect(() => {
-        navigation.setOptions({
-           headerShown: false,
-        })
-    }, []);
-
     const [isChecked, setChecked] = useState(false);
-
-    const [showPassword, setShowPassword] = useState(false);
-    const toggleShowPassword = () => { 
-        setShowPassword(!showPassword); 
-    }; 
+    const [showPassword, setShowPassword] = useState(false); 
 
   return (
     <SafeAreaView className="py-20 px-5 sm:py-30 h-screen flex justify-center">
         <View className='py-5 flex gap-2'>
             {/* header */}
-            <Text className="text-4xl text-secondary text-center font-medium font-psemibold">
+            <Text className='font-psemibold text-4xl text-secondary text-center'>
                Welcome Back
             </Text>
-            <Text className="text-lg text-center text-gray-400">
+            <Text className="font-pregular text-lg text-center text-gray-400">
                 Log in to continue
             </Text>
         </View>
         <View className="gap-5 py-10">
             {/* inputs */}
-            <View className="">
-                <TextInput className="text-xl p-5 rounded-2xl border-2 border-gray-400" placeholder='Email address' keyboardType='default'/>    
+            <View style={{gap: 38}}>
+                <View className="justify-center">
+                    <TextInput className="text-xl p-5 rounded-xl border-2 border-gray-400 font-pregular" placeholder='Email address' keyboardType='default'/>    
+                </View>
+                <View className="flex-row items-center justify-center rounded-xl border-2 border-gray-400">
+                    <TextInput className="flex-1 text-xl p-5" 
+                        placeholder='Password' 
+                        keyboardType='default' 
+                        secureTextEntry={showPassword ? false : true}
+                    /> 
+                    <Icon
+                        name={showPassword ? 'eye-fill' : 'eye-off-fill'}
+                        size={24}
+                        color={'gray'}
+                        style={{paddingHorizontal: 24}}
+                        onPress={() => setShowPassword(showPassword ? false : true)}
+                    />   
+                </View>
             </View>
-            <View className="flex-row items-center justify-center rounded-2xl border-2 border-gray-400">
-                <TextInput className="flex-1 text-xl p-5" 
-                    placeholder='Password' 
-                    keyboardType='default' 
-                    secureTextEntry={!showPassword}
-                /> 
-                <MaterialCommunityIcons
-                    name={showPassword ? 'eye-off' : 'eye'}
-                    size={24}
-                    color={'#aaa'}
-                    style={{paddingHorizontal: 24}}
-                    onPress={toggleShowPassword}
-                />   
-            </View>
+            
             <View className="pt-5 flex-row justify-between">
                 <View className="flex-row gap-3">
                  <Checkbox value={isChecked} onValueChange={setChecked} color={'#81A969'}/>
