@@ -6,6 +6,8 @@ const StepsLayout = () => {
   return (
     <Stack screenOptions={{headerShown: false}}>
         <Stack.Screen name='Recycle'/>
+        <Stack.Screen name='NonRecycle'/>
+        <Stack.Screen name='NonRecognizable'/>
     </Stack>
   )
 }

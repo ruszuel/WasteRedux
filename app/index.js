@@ -31,7 +31,7 @@ const index = () => {
           <Text className="text-white text-xl text-center">Log in</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity className="p-5 border-primary border w-48 rounded-2xl" onPress={() => router.push("Recycle")}>
+        <TouchableOpacity className="p-5 border-primary border w-48 rounded-2xl" onPress={() => router.push("NonRecognizable")}>
           <Text className="text-primary text-xl text-center">Sign up</Text>
         </TouchableOpacity>
       </View>
