@@ -1,10 +1,18 @@
 import Icon from 'react-native-remix-icon';
 import React from 'react'
-import { Tabs } from 'expo-router'
+import { router, Tabs } from 'expo-router'
 import { View } from 'react-native';
+import { useCameraPermissions } from 'expo-camera';
 
 
 const TabsLayout = () => {
+  const [permission, requestPermission] = useCameraPermissions();
+  function reqCamera(){
+    if(!permission.granted){
+      router.push('home')
+    }
+  }
+
   return (
     <Tabs screenOptions={{headerShown: false, tabBarActiveTintColor: '#41644A', tabBarShowLabel: false, tabBarStyle: {height: 60}}}>
       <Tabs.Screen 
