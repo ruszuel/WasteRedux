@@ -1,13 +1,33 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { Checkbox } from 'expo-checkbox'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import Icon from 'react-native-remix-icon';
+import { useCameraPermissions } from 'expo-camera'
 
 const LogIn = () => {
     const [isChecked, setChecked] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
+    // const [permission, requestPermission] = useCameraPermissions();
+
+    // const handlePress = async () => {
+    //     const cameraPermission = await requestPerm();
+    //     if(cameraPermission){
+    //       router.replace('home')
+    //     }else {
+    //        router.replace('home')
+    //     }
+    //   }
+    
+    //   const requestPerm = async () => {
+    //     const status = await requestPermission();
+    //     if(!status.granted){
+    //       Alert.alert("Error", "Camera permission is required to use the Scan feature")
+    //       return false;
+    //     }
+    //     return true;
+    //   }
 
   return (
     <SafeAreaView className="py-20 px-5 sm:py-30 h-screen flex justify-center">
