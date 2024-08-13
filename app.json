@@ -8,16 +8,17 @@
     "scheme": "WasteRedux",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/WasteRedux_Logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+      
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/WasteRedux_Logo.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [

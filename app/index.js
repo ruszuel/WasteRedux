@@ -1,11 +1,11 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { router } from 'expo-router'
 
 const index = () => {
   return (
-    <View className="gap-8"> 
+    <View className="gap-8 flex-1"> 
       {/* Top Image */}
-      <View className="justify-end items-center h-[700] bg-tertiary">
+      <View className="flex-[0.9] justify-end items-center bg-tertiary">
         <Image 
           source={require('../assets/images/starting image.png')}
           className="h-[500] w-[800] -mb-9"

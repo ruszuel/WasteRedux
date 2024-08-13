@@ -20,7 +20,7 @@ const TabsLayout = () => {
         <View className='justify-center items-center rounded-full bg-primary w-20 h-20 -mt-14'>
           <Icon name='qr-scan-2-line' size={24} color='white'/>
         </View>
-      )}}/>
+      ), unmountOnBlur:true}}/>
       <Tabs.Screen name='upload' options={{tabBarIcon: ({ color }) => <Icon name='file-add-line' size={24} color={color}/>}}/>
       <Tabs.Screen name='profile' options={{tabBarIcon: ({ color }) => <Icon name='user-line' size={24} color={color}/>}}/>
     </Tabs>

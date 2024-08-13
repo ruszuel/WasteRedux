@@ -9,26 +9,7 @@ import { useCameraPermissions } from 'expo-camera'
 const LogIn = () => {
     const [isChecked, setChecked] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
-    // const [permission, requestPermission] = useCameraPermissions();
-
-    // const handlePress = async () => {
-    //     const cameraPermission = await requestPerm();
-    //     if(cameraPermission){
-    //       router.replace('home')
-    //     }else {
-    //        router.replace('home')
-    //     }
-    //   }
     
-    //   const requestPerm = async () => {
-    //     const status = await requestPermission();
-    //     if(!status.granted){
-    //       Alert.alert("Error", "Camera permission is required to use the Scan feature")
-    //       return false;
-    //     }
-    //     return true;
-    //   }
-
   return (
     <SafeAreaView className="py-20 px-5 sm:py-30 h-screen flex justify-center">
         <View className='py-5 flex gap-2'>
