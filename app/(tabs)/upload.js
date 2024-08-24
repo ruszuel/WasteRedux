@@ -1,11 +1,27 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Pressable, Image } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon'
 import Dropdown from '@/components/Dropdown';
 import { router } from 'expo-router';
+import * as ImagePicker from 'expo-image-picker';
 
 const Upload = () => {
+
+  const [image, setImage] = useState(null);
+
+  const picker = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4,3],
+      quality: 1,
+    });
+
+    if(!result.canceled){
+      setImage(result.assets[0].uri);
+    }
+  }
   return (
     <SafeAreaView className=' bg-fourth flex-1 pt-10 px-5' style={{gap: 40}}>
       <View>
@@ -17,10 +33,16 @@ const Upload = () => {
       <Text className='font-pbold text-3xl text-secondary'>Solid Waste Composition</Text>
       <Dropdown />
       <Text className='font-pbold text-3xl text-secondary'>Upload Image</Text>
-      <View className='h-52 border-2 border-dashed border-gray-400 justify-center items-center' style={{gap: 15, }}>
-        <Icon name='upload-2-fill' size={38} color='gray'/>
-        <Text className='text-gray-400 font-pregular text-base'>Click to upload an image</Text>
-      </View>
+
+      <Pressable className='flex-1 justify-center items-center' style={{gap: 15, borderColor: '#9ca3af', borderStyle: 'dashed', borderWidth: image ? 0 : 2, borderRadius: 15}} onPress={picker}>
+        {image ? <Image source={{uri: image}} className='w-full h-full rounded-2xl'/> : 
+        <View className='justify-center items-center'>
+          <Icon name='upload-2-fill' size={38} color='gray'/>
+          <Text className='text-gray-400 font-pregular text-base'>Click to upload an image</Text>
+        </View>
+        }
+      </Pressable>
+
       <View className='flex-1 flex-row justify-between'>
         <TouchableOpacity className='h-14 flex-[0.45] border border-gray-300 bg-white justify-center items-center rounded-xl'>
           <Text className='font-psemibold text-lg'>Cancel</Text>
@@ -30,10 +52,6 @@ const Upload = () => {
           <Text className='font-psemibold text-lg text-white'>Register</Text>
         </TouchableOpacity>
       </View>
-    
-      
-      
-      
     </SafeAreaView>
   )
 }

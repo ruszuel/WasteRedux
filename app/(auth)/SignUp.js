@@ -1,48 +1,42 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { router } from 'expo-router'
 
 const SignUp = () => {
-  const nav = useNavigation()
-  useLayoutEffect(() => {
-    nav.setOptions({
-      headerShown: false,
-    })
-  }, []);
-
+  const {height, width} = Dimensions.get('window');
   return (
-    <SafeAreaView className="py-20 px-5 sm:py-30 h-screen flex justify-center">
-      <View className='py-5 flex gap-2'>
+    <SafeAreaView className="flex-1 px-5  justify-center" style={{paddingVertical: moderateScale(80)}}>
+      <View className='flex gap-2' style={{paddingVertical: moderateScale(20)}}>
         {/* header */}
-        <Text className="text-4xl text-secondary text-center font-medium font-psemibold">
+        <Text className="text-secondary text-center font-medium font-psemibold" style={{fontSize: moderateScale(32)}}>
           Create an Account
         </Text>
-        <Text className="text-lg text-center text-gray-400">
+        <Text className="text-lg text-center font-pregular text-gray-400" style={{fontSize: moderateScale(16)}}>
           Enter your personal details
         </Text>
       </View>
-      <View className="gap-5 py-10"> 
+      <View className="gap-5" style={{paddingVertical: moderateScale(38)}}> 
         {/* Inputs */}
         <View className="">
-          <TextInput className="text-xl p-5 rounded-2xl border-2 border-gray-400" placeholder='First Name' keyboardType='default'/>    
+          <TextInput className="rounded-xl border-2 font-pregular border-gray-400" style={{fontSize: moderateScale(14,1), padding: moderateScale(16)}} placeholder='First Name' keyboardType='default'/>    
         </View>
         <View className="">
-          <TextInput className="text-xl p-5 rounded-2xl border-2 border-gray-400" placeholder='Last Name' keyboardType='default' /> 
+          <TextInput className="rounded-xl border-2 font-pregular border-gray-400" style={{padding: width * 0.041, fontSize: width * 0.04}} placeholder='Last Name' keyboardType='default' /> 
         </View>
         <View className="">
-          <TextInput className="text-xl p-5 rounded-2xl border-2 border-gray-400" placeholder='Email Address' keyboardType='default' /> 
+          <TextInput className="rounded-xl border-2 font-pregular border-gray-400" style={{padding: width * 0.041, fontSize: width * 0.04}} placeholder='Email Address' keyboardType='default' /> 
         </View>
       </View>
       <View>
         {/* Buttons */}
-        <TouchableOpacity className="bg-primary p-5 rounded-xl">
-          <Text className="text-center text-xl text-white" onPress={() => router.push('SetPass')}>Next</Text>
+        <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: width * 0.045}}>
+          <Text className="text-center font-pregular text-white" style={{fontSize: width * 0.04}} onPress={() => router.push('SetPass')}>Next</Text>
         </TouchableOpacity>
       </View>
       <View className="flex-row gap-2 items-center justify-center mt-16">
-        <Text className="text-[16px]">Already have an account?</Text>
-        <Text className="text-[16px] text-primary font-medium" onPress={() => router.push('LogIn')}>Log in</Text>
+        <Text style={{fontSize: moderateScale(14)}}>Already have an account?</Text>
+        <Text className="text-primary font-medium" style={{fontSize: moderateScale(14)}} onPress={() => router.push('LogIn')}>Log in</Text>
       </View>
     </SafeAreaView>
   )

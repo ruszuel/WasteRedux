@@ -2,6 +2,7 @@ import { View, Text, Button, Pressable, StatusBar, Alert, Linking } from 'react-
 import React, { useEffect, useRef, useState } from 'react'
 import { CameraView, useCameraPermissions } from 'expo-camera'
 import Icon from 'react-native-remix-icon';
+import { router } from 'expo-router';
 
 const Scan = () => {
   const [permission, requestPermission] = useCameraPermissions();
@@ -41,10 +42,21 @@ const Scan = () => {
 
   return (
     <View className='flex-1'>
-      <CameraView className='flex-1' facing={type} ref={cameraRef} flash='auto'>
-      <Pressable className='justify-end flex-1 mb-5 px-5'>
-        <Icon name='repeat-2-line' size={28} color='white' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}/>
-      </Pressable>
+      <CameraView className='flex-1 justify-center items-end flex-row pb-20' facing={type} ref={cameraRef} flash='auto' style={{gap:90}}>
+        <Pressable className='h-16 w-16 rounded-full justify-center'>
+          <Pressable className='bg-white rounded-full flex-1 justify-center items-center'>
+            <Icon name='upload-fill' size={28} color='black' onPress={() => router.push('upload')}/>
+          </Pressable>
+        </Pressable>
+        <View className='h-20 w-20 rounded-full border-white border-2 justify-center p-1'>
+          <Pressable className='bg-white rounded-full flex-1'>
+          </Pressable>
+        </View>
+        <View className='h-16 w-16 rounded-full justify-center'>
+          <Pressable className='bg-white rounded-full flex-1 justify-center items-center'>
+            <Icon name='repeat-2-line' size={28} color='black' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}/>
+          </Pressable>
+        </View>
       </CameraView>
     </View>
   )

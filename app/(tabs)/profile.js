@@ -13,7 +13,7 @@ const Profile = () => {
     <SafeAreaView className='flex-1 bg-white'>
       {/* Profile picture */}
       <View className='flex-[0.2] bg-primary items-center'>
-        <View className='h-40 w-40 rounded-full border-[5px] border-white bg-gray-400 p-2 mt-28 mb-5 justify-center items-center'> 
+        <View className='h-40 w-40 rounded-full border-[5px] border-white bg-gray-400 p-2 fixed mt-28 mb-5 justify-center items-center'> 
           <Image source={require("../../assets/images/react-logo.png")} className='h-40 w-40' resizeMode='contain'/>
           <View className='items-center justify-center h-8 w-8 rounded-full absolute bg-white right-0 bottom-1 border-4 border-white'>
             <Icon name='camera-line' size={24} color='#81A969'/>
@@ -75,7 +75,7 @@ const Profile = () => {
             <Icon name='arrow-right-s-line' size={28} color='#81A969'/>
            </Pressable>
 
-           <Pressable className='flex-row justify-between p-1' onPress={() => router.push('SetUpPass')}>
+           <Pressable className='flex-row justify-between p-1' onPress={() => router.push('ChangePass')}>
             <View className='flex-row items-center' style={{gap: 15}}>
               <Icon name='lock-2-fill' size={28} color='#81A969'/>  
               <Text className='font-pregular text-xl'>Change Password</Text>

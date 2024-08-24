@@ -4,11 +4,11 @@
     "slug": "WasteRedux",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/WasteRedux_Logo_hh.png",
     "scheme": "WasteRedux",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/WasteRedux_Logo.png",
+      "image": "./assets/images/WasteRedux_Logo_hh.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
       
@@ -35,13 +35,18 @@
       "expo-router",
       [
         "expo-camera",
-      {
-        "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-        "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
-        "recordAudioAndroid": true
-      }
-    ]
-      
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

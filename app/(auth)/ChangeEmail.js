@@ -2,21 +2,22 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { router } from 'expo-router'
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ChangeEmail = () => {
   return (
-    <SafeAreaView className='py-32 px-5 flex-1 gap-12 bg-fourth'>
-        <View className='justify-center items-center' style={{gap: 15}}>
-            <Text className='font-psemibold text-4xl text-secondary'>Change Email</Text>
-            <Text className=' font-pregular text-base text-gray-400 w-60 text-center'>Enter your new email address</Text>
+    <SafeAreaView className='px-5 flex-1 gap-12 bg-fourth' style={{paddingVertical: verticalScale(90)}}>
+        <View className='justify-center items-center' style={{gap: 5}}>
+            <Text className='font-psemibold text-secondary' style={{fontSize: moderateScale(32)}}>Change Email</Text>
+            <Text className='font-pregular text-gray-400 text-center' style={{fontSize: moderateScale(16)}}>Enter your new email address</Text>
         </View>
         
-        <View className='border border-gray-400 rounded-xl p-5'>
-            <TextInput className='text-xl font-pregular' placeholder='Email Address' keyboardType='email-address' cursorColor={'black'}/>    
+        <View className='border border-gray-400 rounded-xl'>
+          <TextInput className='font-pregular' style={{fontSize: moderateScale(14,1), padding: moderateScale(16)}} placeholder='Email Address' keyboardType='email-address' cursorColor={'black'}/>    
         </View>
         
-        <TouchableOpacity className='p-6 bg-primary rounded-2xl' onPress={() => router.push('EmailVerif')}>
-            <Text className='text-center text-white font-pmedium text-lg'>Next</Text>
+        <TouchableOpacity className='bg-primary rounded-2xl' style={{padding: moderateScale(18)}} onPress={() => router.push('EmailVerif')}>
+            <Text className='text-center text-white font-pmedium' style={{fontSize: moderateScale(16.5)}}>Next</Text>
         </TouchableOpacity>
     </SafeAreaView>
   )

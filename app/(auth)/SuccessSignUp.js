@@ -1,27 +1,26 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Icon from 'react-native-remix-icon';
 import { router } from 'expo-router';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const SuccessSignUp = () => {
   return (
-    <SafeAreaView className="py-20 px-20 sm:py-30 h-screen flex justify-center">
-        <View className='items-center p-14'>
-            {/* Inmage here */}
-            <MaterialCommunityIcons
-                name='shield-check'
+    <SafeAreaView className="px-14 flex-1 justify-center gap-10">
+        <View className='items-center'>
+            {/* Image here */}
+            <Icon
+                name='shield-check-fill'
                 color={'#81A969'}
-                size={152}
+                size={200}
             />
         </View>
-        <View className="gap-5">
-            <Text className=" text-primary text-5xl text-center font-medium font-pbold">You're all set!</Text>
-            <Text className="text-center text-lg">Your account has been successfully created!</Text>
+        <View className="gap-y-7">
+            <Text className=" text-primary text-5xl text-center font-pbold" style={{fontSize: moderateScale(40), lineHeight: 51}}>You're all set!</Text>
+            <Text className="text-center font-pregular" style={{fontSize: moderateScale(16)}}>Your account has been successfully created!</Text>
         </View>
         <View className="mt-16">
-            <TouchableOpacity className="bg-primary p-5 rounded-xl">
-                <Text className="text-center text-2xl text-white" onPress={() => router.replace('LogIn')}>Go to Login</Text>
+            <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: moderateScale(18)}} onPress={() => router.replace('LogIn')}>
+                <Text className="text-center font-pregular text-white" style={{fontSize: moderateScale(16.5)}}>Go to Login</Text>
             </TouchableOpacity>
         </View>
     </SafeAreaView>

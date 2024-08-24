@@ -1,36 +1,31 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 
 const SetPass = () => {
-    const nav = useNavigation()
-    useLayoutEffect(() => {
-        nav.setOptions({
-        headerShown: false,
-        })
-    }, []);
-
     const [showPassword, setShowPassword] = useState(false);
+    const [confPass, setConfPass] = useState(false);
     const toggleShowPassword = () => { 
         setShowPassword(!showPassword); 
     }; 
-    
+    const {height, width} = Dimensions.get('window');
   return (
-    <SafeAreaView className="py-20 px-5 sm:py-30 h-screen flex justify-center">
-      <View className='py-5 flex gap-2'>
+    <SafeAreaView className="px-5 flex-1 justify-center" style={{paddingVertical: width * 0.16}}>
+      <View className='flex gap-2 justify-center' style={{paddingVertical: moderateScale(10)}}>
         {/* header */}
-        <Text className="text-4xl text-secondary text-center font-medium font-psemibold">
+        <Text className="text-secondary text-center font-psemibold" style={{fontSize: moderateScale(32)}}>
           Set up a password
         </Text>
-        <Text className="text-lg text-center text-gray-400">
+        <Text className="text-center self-center font-pregular text-gray-400" style={{fontSize: moderateScale(16), width: scale(230)}}>
           Create a password with at least 6 letters or numbers
         </Text>
       </View>
-      <View className="gap-5 py-10">
-        <View className="flex-row items-center justify-center rounded-2xl border-2 border-gray-400">
-          <TextInput className="flex-1 text-xl p-5" 
+      <View className="gap-7" style={{paddingVertical: moderateScale(38)}}>
+        <View className="flex-row items-center justify-center rounded-xl border-2 border-gray-400">
+          <TextInput className="flex-1 font-pregular" 
+            style={{fontSize: moderateScale(14,1), padding: moderateScale(17)}}
             placeholder='Password' 
             keyboardType='default' 
             secureTextEntry={!showPassword}
@@ -39,35 +34,36 @@ const SetPass = () => {
             name={showPassword ? 'eye-off' : 'eye'}
             size={24}
             color={'#aaa'}
-            style={{paddingHorizontal: 24}}
+            style={{paddingHorizontal: moderateScale(20)}}
             onPress={toggleShowPassword}
           />   
         </View> 
-        <View className="flex-row items-center justify-center rounded-2xl border-2 border-gray-400">
-          <TextInput className="flex-1 text-xl p-5" 
+        <View className="flex-row items-center justify-center rounded-xl border-2 border-gray-400">
+          <TextInput className="flex-1 font-pregular" 
+            style={{fontSize: moderateScale(14,1), padding: moderateScale(17)}}
             placeholder='Confirm Password' 
             keyboardType='default' 
-            secureTextEntry={!showPassword}
+            secureTextEntry={confPass ? false : true}
           /> 
           <MaterialCommunityIcons
-            name={showPassword ? 'eye-off' : 'eye'}
+            name={confPass ? 'eye-off' : 'eye'}
             size={24}
             color={'#aaa'}
-            style={{paddingHorizontal: 24}}
-            onPress={toggleShowPassword}
+            style={{paddingHorizontal:moderateScale(20)}}
+            onPress={() => setConfPass(confPass ? false : true)}
           />   
         </View>
       </View>
       <View>
         {/* Buttons */}
-        <TouchableOpacity className="bg-primary p-5 rounded-xl">
-          <Text className="text-center text-xl text-white" onPress={() => router.push('SuccessSignUp ')}>Sign up</Text>
+        <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: moderateScale(18)}} onPress={() => router.push('SuccessSignUp ')}>
+          <Text className="text-center font-pregular text-white" style={{fontSize: moderateScale(16.5)}}>Sign up</Text>
         </TouchableOpacity>
       </View>
-      <View className="gap-1 items-center justify-center mt-10">
-        <Text className="text-[16px]">By continuing, you agree with Waste Redux'</Text>
-        <Text className="text-[16px] text-primary font-medium">Terms of Service 
-        <Text className="text-black font-normal"> and </Text> 
+      <View className="items-center justify-center" style={{marginTop: moderateScale(60)}}>
+        <Text className='font-pregular' style={{fontSize: moderateScale(14)}}>By continuing, you agree with Waste Redux'</Text>
+        <Text className="text-primary font-medium font-pregular" style={{fontSize: moderateScale(14)}}>Terms of Service 
+        <Text className="text-black font-normal font-pregular"> and </Text> 
         Privacy Policy</Text>
       </View>
     </SafeAreaView>

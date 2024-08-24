@@ -4,22 +4,23 @@ import { Link } from 'expo-router'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon';
 import TriviaList from '@/components/TriviaList';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const Home = () => {
   return (
     <SafeAreaProvider className='pt-20 px-5'> 
-      <View className=' flex-row justify-between'>
-        <Text className='font-batangas text-secondary text-5xl'>Waste<Text className='font-batangas text-primary'>Redux</Text></Text>
+      <View className=' flex-row justify-between items-center'>
+        <Text className='font-batangas text-secondary' style={{fontSize: moderateScale(40)}}>Waste<Text className='font-batangas text-primary'>Redux</Text></Text>
         {/* settings icon */}
-        <Icon name='settings-4-line' color='gray' size={28}/>
+        <Icon name='settings-4-line' color='gray' size={32}/>
       </View>
 
-      <View className='h-52 bg-primary rounded-2xl p-3 items-center mt-6'>
-        <View className='flex-[0.3] flex-row gap-2 items-center justify-center'>
-          <Image source={require("../../assets/images/cloud.png")} className='h-[60] w-[60]'/>
-          <Text className='text-white font-psemibold text-2xl mt-4'>Did you know?</Text>
+      <View className='bg-primary rounded-2xl items-center mt-6' style={{height: verticalScale(150)}}>
+        <View className='flex-[0.3] flex-row gap-x-5 items-center justify-center' style={{ paddingTop: moderateScale(20)}}>
+          <Image source={require("../../assets/images/cloud.png")} style={{height: verticalScale(50), width: scale(50)}}/>
+          <Text className='text-white font-psemibold' style={{fontSize: moderateScale(28)}}>Did you know?</Text>
         </View>
-        <View className='flex-[0.7]'>
+        <View className='flex-[0.6]'>
           <TriviaList />
         </View>
         
