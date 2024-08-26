@@ -1,7 +1,6 @@
 import { View, Text, useWindowDimensions } from 'react-native'
 import React from 'react'
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import Animated, {useSharedValue, useAnimatedScrollHandler, useAnimatedRef,useAnimatedStyle, interpolate, Extrapolation} from 'react-native-reanimated';
 
 const TriviaItem = ({item, index}) => {
   return (

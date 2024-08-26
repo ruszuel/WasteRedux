@@ -14,7 +14,8 @@ const TriviaList = () => {
   })
   return (
     <View>
-      <Animated.FlatList data={Trivia} 
+      <Animated.FlatList 
+      data={Trivia} 
       onScroll={onScroll}
       renderItem={({item, index}) => <TriviaItem item={item} index={index}/>} 
       horizontal
@@ -23,7 +24,7 @@ const TriviaList = () => {
       bounces={false}
       keyExtractor={item => item.id}/>
 
-      <TriviaPaginator datas={ Trivia }  x={x}/>    
+      <TriviaPaginator data={Trivia}  x={x}/>    
     </View>
   )
 }
