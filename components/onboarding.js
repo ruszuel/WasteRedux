@@ -32,19 +32,8 @@ const Onboarding = () => {
         Extrapolation.CLAMP
       );
 
-      // const transYAnimation = interpolate(
-      //   x.value,
-      //   [
-      //     (index - 1) * width,
-      //     index * width,
-      //     (index + 1) * width
-      //   ],
-      //   [100, 0, 100],
-      //   Extrapolation.CLAMP
-      // );
       return{
         opacity: opacityAnimation,
-        // transform: [{translateY: transYAnimation}]
       }
     });
 
@@ -60,39 +49,28 @@ const Onboarding = () => {
         Extrapolation.CLAMP
       );
 
-      // const transYAnimation = interpolate(
-      //   x.value,
-      //   [
-      //     (index - 1) * width,
-      //     index * width,
-      //     (index + 1) * width
-      //   ],
-      //   [100, 0, 100],
-      //   Extrapolation.CLAMP
-      // );
       return{
         opacity: opacityAnimation,
-        // transform: [{translateY: transYAnimation}]
       }
     });
 
     return (
       <View className='flex-1 justify-center items-center py-7'>
-        <Animated.Image source={item.image} style={[{flex: 0.6, justifyContent: 'center', resizeMode: 'contain', width}, imageAnimation]}/>
-        <Paginator data={slides} x={x}/>
-        <Animated.View className='flex-[0.2] gap-y-5' style={textAnimation}> 
-          <Text className='text-center text-4xl font-pbold text-secondary w-96'>{item.title}</Text>
+        <Animated.Image source={item.image} style={[{flex: 0.7, justifyContent: 'center', resizeMode: 'contain', width}, imageAnimation]}/>
+        <Animated.View className='flex-[0.11] gap-y-5' style={textAnimation}> 
+          <Text className='text-center text-3xl font-pbold text-secondary w-96'>{item.title}</Text>
           <Text className='text-center font-pregular text-xl w-96' >{item.description}</Text>
         </Animated.View>
-        <CustomButton flatlistRef={flatlistRef} flatlistIndex={flatlistIndex} dataLength={slides.length}/>
+        {/* <CustomButton flatlistRef={flatlistRef} flatlistIndex={flatlistIndex} dataLength={slides.length}/> */}
       </View>
     )
   }
 
   return (
     <View className='flex-1 justify-center items-center'> 
-      <View>
+      <View className='flex-1'>
         <Animated.FlatList 
+        ref={flatlistRef}
         data={slides} 
         renderItem={({item, index}) => <Items item={item} index={index}/>} 
         horizontal
@@ -104,8 +82,10 @@ const Onboarding = () => {
         onScroll={onScroll}
         onViewableItemsChanged={onViewableItemsChanged}
         />
-       
       </View>
+      <View className='flex-[0.1]'><CustomButton flatlistRef={flatlistRef} flatlistIndex={flatlistIndex} dataLength={slides.length}/></View>
+      <View className='flex-[0.1] items-center justify-center'><Paginator data={slides} x={x}/></View>
+      
     </View>
   )
 }
