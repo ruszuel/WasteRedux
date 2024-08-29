@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable, TextInput, ScrollView, TouchableHighlight} from 'react-native'
+import { View, Text, Image, Pressable, TextInput, ScrollView, TouchableHighlight, Alert} from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-remix-icon';
@@ -8,6 +8,17 @@ const Profile = () => {
   const [press, setPress] = useState(true);
   const [edit, setEdit] = useState(false);
   const [profile, setProfile] = useState(false);
+
+  function logOut(){
+    Alert.alert("Log out", "Are you sure you want to log out?", [
+      {
+        text: 'Cancel', style: 'cancel'
+      },
+      {
+        text: 'Log Out', onPress: () => router.push("LogIn")
+      }
+    ])
+  }
 
   return (
     <SafeAreaView className='flex-1 bg-white'>
@@ -83,7 +94,7 @@ const Profile = () => {
             <Icon name='arrow-right-s-line' size={28} color='#81A969'/>
            </Pressable>
 
-           <Pressable>
+           <Pressable onPress={logOut}>
             <View className='flex-row items-center p-1' style={{gap: 15}}>
               <Icon name='logout-box-fill' size={28} color='#9B3A1C'/>  
               <Text className='font-pregular text-xl'>Log out</Text>

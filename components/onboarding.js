@@ -1,9 +1,10 @@
-import { View, Text, FlatList, useWindowDimensions } from 'react-native'
+import { View, Text, FlatList, useWindowDimensions, ImageBackground } from 'react-native'
 import React, { useRef, useState } from 'react'
 import slides from '@/components/slides'
 import Paginator from './Paginator'
 import Animated, {useSharedValue, useAnimatedScrollHandler, useAnimatedRef,useAnimatedStyle, interpolate, Extrapolation} from 'react-native-reanimated';
 import CustomButton from './CustomButton';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 const Onboarding = () => {
   const x = useSharedValue(0);
@@ -68,20 +69,22 @@ const Onboarding = () => {
 
   return (
     <View className='flex-1 justify-center items-center'> 
-      <View className='flex-1'>
-        <Animated.FlatList 
-        ref={flatlistRef}
-        data={slides} 
-        renderItem={({item, index}) => <Items item={item} index={index}/>} 
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        bounces={false}
-        keyExtractor={item => item.id}
-        scrollEventThrottle={16}
-        onScroll={onScroll}
-        onViewableItemsChanged={onViewableItemsChanged}
-        />
+      <View className='flex-1 justify-center items-center'>
+        <ImageBackground source={require("../assets/images/onboardBG.png")} resizeMode='contain'>
+          <Animated.FlatList 
+          ref={flatlistRef}
+          data={slides} 
+          renderItem={({item, index}) => <Items item={item} index={index}/>} 
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
+          keyExtractor={item => item.id}
+          scrollEventThrottle={16}
+          onScroll={onScroll}
+          onViewableItemsChanged={onViewableItemsChanged}
+          />
+        </ImageBackground>     
       </View>
       <View className='flex-[0.1]'><CustomButton flatlistRef={flatlistRef} flatlistIndex={flatlistIndex} dataLength={slides.length}/></View>
       <View className='flex-[0.1] items-center justify-center'><Paginator data={slides} x={x}/></View>

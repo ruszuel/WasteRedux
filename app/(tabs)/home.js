@@ -32,7 +32,7 @@ const Home = () => {
           <Link href='#' className='font-pregular text-base'>See all</Link>
         </View>
         <View className='mt-6 rounded-2xl h-48 w-72'>
-          {/* articles in flat list API will be used in this section */}
+          {/* articles */}
           <View className='flex-[0.6] bg-tertiary w-full rounded-t-2xl items-center justify-center'>
             <Image source={require("../../assets/images/WasteRedux_Logo.png")} className='h-16 w-16' resizeMode='contain'/>
           </View>
