@@ -59,7 +59,7 @@ const LogIn = () => {
         </View>
         <View>
             {/* Buttons */}
-            <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: width * 0.04}} onPress={() => router.push("home")}>
+            <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: width * 0.04}} onPress={() => router.push("Onboard")}>
                 <Text className="text-center text-white font-pregular" style={{fontSize: width * 0.045}}>Log in</Text>
             </TouchableOpacity>
         </View>

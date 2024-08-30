@@ -42,6 +42,7 @@ export default function RootLayout() {
       <Stack.Screen name="Onboard" options={{headerShown: false}}/>
       <Stack.Screen name="(steps)" options={{headerShown: false}}/>
       <Stack.Screen name="(articles)" options={{headerShown: false}}/>
+      <Stack.Screen name="(settings)" options={{headerShown: false}}/>
     </Stack>
   );
 }
