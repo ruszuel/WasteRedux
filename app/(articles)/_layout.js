@@ -6,6 +6,7 @@ const ArticleLayout = () => {
   return (
     <Stack screenOptions={{headerShown: false}}>
         <Stack.Screen name='articleList'/>
+        <Stack.Screen name='plastics' />
     </Stack>
   )
 }

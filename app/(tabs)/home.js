@@ -9,9 +9,23 @@ import articleList from '../(articles)/articleList';
 
 const Home = () => {
   const {width} = useWindowDimensions();
+
   const ArticleItem = ({item}) => {
+
+    const handlePress = () => {
+      if(item.id === 1){
+        router.push('profile')
+      }else if(item.id === 2){
+        router.push('plastics')
+      }else if(item.id === 3){
+        router.push('scan')
+      }else if(item.id === 4){
+        router.push('LogIn')
+      }
+    }
+
     return(
-      <Pressable className='flex-1 justify-center px-5'>
+      <Pressable className='flex-1 justify-center px-5' onPress={handlePress}>
         <View className='flex-[0.7] w-full h-full'>
           <Image source={item.image} className='h-full justify-center items-center rounded-t-2xl' style={{width: width * 0.6}} resizeMode='cover'/>
         </View>
