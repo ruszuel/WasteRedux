@@ -6,6 +6,9 @@ const SettingsLayout = () => {
   return (
     <Stack screenOptions={{headerShown: false}}>
         <Stack.Screen name='mainSetting'/>
+        <Stack.Screen name='aboutUs'/>
+        <Stack.Screen name='legalPolicies'/>
+        <Stack.Screen name='termsCondition'/>
     </Stack>
   )
 }
