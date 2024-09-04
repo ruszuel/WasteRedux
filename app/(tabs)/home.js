@@ -14,18 +14,20 @@ const Home = () => {
 
     const handlePress = () => {
       if(item.id === 1){
-        router.push('profile')
+        router.push('recyclingContamination')
       }else if(item.id === 2){
         router.push('plastics')
       }else if(item.id === 3){
-        router.push('scan')
+        router.push('glassOrPlastic')
       }else if(item.id === 4){
-        router.push('LogIn')
+        router.push('plasticDecomposition')
+      }else if(item.id === 5){
+        router.push('solidWasteDisposal')
       }
     }
 
     return(
-      <Pressable className='flex-1 justify-center px-5' onPress={handlePress}>
+      <Pressable className='flex-1 justify-center px-3' onPress={handlePress}>
         <View className='flex-[0.7] w-full h-full'>
           <Image source={item.image} className='h-full justify-center items-center rounded-t-2xl' style={{width: width * 0.6}} resizeMode='cover'/>
         </View>
@@ -50,7 +52,7 @@ const Home = () => {
           <Image source={require("../../assets/images/cloud.png")} style={{height: verticalScale(50), width: scale(50)}}/>
           <Text className='text-white font-psemibold' style={{fontSize: moderateScale(28)}}>Did you know?</Text>
         </View>
-        <View className='flex-[0.6] px'>
+        <View className='flex-[0.6]'>
           <TriviaList />
         </View>
         
@@ -61,7 +63,7 @@ const Home = () => {
           <Text className='font-pextrabold text-secondary text-3xl'>Articles</Text>
           <Link href='#' className='font-pregular text-base'>See all</Link>
         </View>
-        <View className='mt-6 h-48 w-screen -mx-5'>
+        <View className='mt-6 h-48 w-screen' style={{marginHorizontal: -20}}>
           {/* articles */}
           <FlatList
             data={articleList}
@@ -72,13 +74,6 @@ const Home = () => {
             style={{ flex: 1}}
             bounces
           />
-          {/* <View className='flex-[0.6] bg-tertiary w-full rounded-t-2xl items-center justify-center'>
-            <Image source={require("../../assets/images/WasteRedux_Logo.png")} className='h-16 w-16' resizeMode='contain'/>
-          </View>
-          <View className='flex-[0.5] justify-center px-5 border-gray-400 border border-t-0 rounded-b-2xl' style={{gap: 5}}>
-            <Text className='font-pmedium text-2xl text-secondary'>Reycling Contamination</Text>
-            <Text className='font-pregular text-base text-gray-400'>How to reduce it?</Text>
-          </View> */}
         </View>
       </View>
       {/* Recent Scan */}

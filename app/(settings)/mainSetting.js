@@ -21,7 +21,6 @@ const mainSetting = ({props}) => {
       </View>
 
       <View>
-        <SettingsButton name='Help and Support' push=''/>
         <SettingsButton name='Contact us' push=''/>
       </View>
     </SafeAreaView>
