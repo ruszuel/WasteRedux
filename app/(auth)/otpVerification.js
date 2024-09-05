@@ -24,10 +24,6 @@ const otpVerification = () => {
             <InputField/>
             <InputField/>
             <InputField/>
-            {/* <TextInput className='border border-gray-400 rounded-xl text-center' style={{fontSize: moderateScale(14,1), padding: moderateScale(16), width: scale(52), height: verticalScale(48)}} keyboardType='number-pad' maxLength={1} caretHidden/>   
-            <TextInput className='border border-gray-400 rounded-xl text-center' style={{fontSize: moderateScale(14,1), padding: moderateScale(16), width: scale(52), height: verticalScale(48)}} keyboardType='number-pad' maxLength={1} caretHidden/>
-            <TextInput className='border border-gray-400 rounded-xl text-center' style={{fontSize: moderateScale(14,1), padding: moderateScale(16), width: scale(52), height: verticalScale(48)}} keyboardType='number-pad' maxLength={1} caretHidden/>
-            <TextInput className='border border-gray-400 rounded-xl text-center' style={{fontSize: moderateScale(14,1), padding: moderateScale(16), width: scale(52), height: verticalScale(48)}} keyboardType='number-pad' maxLength={1} caretHidden/>  */}
         </View>
         <TouchableOpacity className='bg-primary rounded-2xl w-[70%]' style={{padding: moderateScale(18)}} onPress={() => router.push('ResetPass')}>
             <Text className='text-center text-white font-pmedium' style={{fontSize: moderateScale(16.5)}}>Verify</Text>

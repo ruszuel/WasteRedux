@@ -15,12 +15,6 @@ const CustomButton = ({flatlistIndex, flatlistRef, dataLength}) => {
     }
   })
 
-  const arrowOpacityAnimation = useAnimatedStyle(() => {
-    return {
-      display: flatlistIndex.value === dataLength - 1 ? "none" : "flex"
-    }
-  })
-
   const textDisplayAnimation = useAnimatedStyle(() => {
     return{
       display: flatlistIndex.value === dataLength - 1 ? "flex" : "none"
@@ -32,9 +26,6 @@ const CustomButton = ({flatlistIndex, flatlistRef, dataLength}) => {
       <Animated.View className='items-center justify-center bg-primary' style={[{height: verticalScale(50)}, buttonAnimation]}>
         <Animated.View style={buttonAnimation} className='items-center justify-center'>
           <Animated.Text className='font-pmedium text-white text-xl' style={textDisplayAnimation}>Let's Go!</Animated.Text>
-          <Animated.View style={arrowOpacityAnimation}>
-            <Icon name='arrow-right-line' color='white' size={52}/>
-          </Animated.View>
         </Animated.View>
       </Animated.View>
     </Pressable>
