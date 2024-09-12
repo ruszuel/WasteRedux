@@ -23,8 +23,8 @@ const TriviaList = () => {
       pagingEnabled = {true}
       bounces={false}
       keyExtractor={item => item.id}/>
-
-      <TriviaPaginator data={Trivia}  x={x}/>    
+      
+      <View className='flex-[0.1] items-center justify-center'><TriviaPaginator data={Trivia}  x={x}/></View>
     </View>
   )
 }

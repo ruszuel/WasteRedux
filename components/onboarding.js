@@ -4,7 +4,7 @@ import slides from '@/components/slides'
 import Paginator from './Paginator'
 import Animated, {useSharedValue, useAnimatedScrollHandler, useAnimatedRef,useAnimatedStyle, interpolate, Extrapolation} from 'react-native-reanimated';
 import CustomButton from './CustomButton';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const Onboarding = () => {
   const x = useSharedValue(0);
@@ -58,11 +58,10 @@ const Onboarding = () => {
     return (
       <View className='flex-1 justify-center items-center py-7'>
         <Animated.Image source={item.image} style={[{flex: 0.7, justifyContent: 'center', resizeMode: 'contain', width}, imageAnimation]}/>
-        <Animated.View className='flex-[0.11] gap-y-5' style={textAnimation}> 
-          <Text className='text-center text-3xl font-pbold text-secondary w-96'>{item.title}</Text>
-          <Text className='text-center font-pregular text-xl w-96' >{item.description}</Text>
+        <Animated.View className='flex-[0.11] gap-y-5 items-center' style={textAnimation}> 
+          <Text className='text-center font-pbold text-secondary' style={{fontSize: moderateScale(26), width: scale(300)}}>{item.title}</Text>
+          <Text className='text-center font-pregular' style={{fontSize: moderateScale(17), width: scale(250)}}>{item.description}</Text>
         </Animated.View>
-        {/* <CustomButton flatlistRef={flatlistRef} flatlistIndex={flatlistIndex} dataLength={slides.length}/> */}
       </View>
     )
   }

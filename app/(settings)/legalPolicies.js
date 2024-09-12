@@ -15,7 +15,7 @@ const legalPolicies = () => {
 
       <View>
         <SettingsButton name='Terms and Condition' push='termsCondition'/>
-        <SettingsButton name='Privacy Policy' push=''/>
+        <SettingsButton name='Privacy Policy' push='privacyPolicy'/>
         <SettingsButton name='App Policy and Regulation' push=''/>
       </View>
     </SafeAreaView>

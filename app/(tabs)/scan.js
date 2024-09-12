@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { CameraView, useCameraPermissions } from 'expo-camera'
 import Icon from 'react-native-remix-icon';
 import { router } from 'expo-router';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const Scan = () => {
   const [permission, requestPermission] = useCameraPermissions();
@@ -20,10 +21,10 @@ const Scan = () => {
       <View className='justify-center items-center flex-1 bg-black p-4' style={{gap: 20}}>
         <View className='justify-center items-center' style={{gap: 20}}>
           <Icon name='camera-fill' size={28} color='white'/>
-          <Text className='text-white font-pmedium text-base text-center'>Allow WasteRedux access your camera to scan photos within the app.</Text>
+          <Text className='text-white font-pmedium text-center' style={{fontSize: moderateScale(15)}}>Allow WasteRedux access your camera to scan photos within the app.</Text>
         </View>
         <Pressable className='bg-blue-600 p-2 rounded-md' onPress={ permission.canAskAgain ? requestPermission : blocked}>
-          <Text className='text-white font-pmedium text-base'>Turn On</Text>
+          <Text className='text-white font-pmedium' style={{fontSize: moderateScale(15)}}>Turn On</Text>
         </Pressable>
       </View>
     )
@@ -42,19 +43,19 @@ const Scan = () => {
 
   return (
     <View className='flex-1'>
-      <CameraView className='flex-1 justify-center items-end flex-row pb-20' facing={type} ref={cameraRef} flash='auto' style={{gap:90}}>
-        <Pressable className='h-16 w-16 rounded-full justify-center'>
-          <Pressable className='bg-white rounded-full flex-1 justify-center items-center'>
-            <Icon name='upload-fill' size={28} color='black' onPress={() => router.push('upload')}/>
+      <CameraView className='flex-1 justify-center items-end flex-row' facing={type} ref={cameraRef} flash='auto' style={{gap:90, paddingBottom: moderateScale(40)}}>
+        <Pressable className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
+          <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => router.push('upload')}>
+            <Icon name='upload-fill' size={28} color='black'/>
           </Pressable>
         </Pressable>
-        <View className='h-20 w-20 rounded-full border-white border-2 justify-center p-1'>
+        <View className='rounded-full border-white border-2 justify-center p-1' style={{height: verticalScale(55), width: scale(60)}}>
           <Pressable className='bg-white rounded-full flex-1'>
           </Pressable>
         </View>
-        <View className='h-16 w-16 rounded-full justify-center'>
-          <Pressable className='bg-white rounded-full flex-1 justify-center items-center'>
-            <Icon name='repeat-2-line' size={28} color='black' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}/>
+        <View className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
+          <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}>
+            <Icon name='repeat-2-line' size={28} color='black'/>
           </Pressable>
         </View>
       </CameraView>

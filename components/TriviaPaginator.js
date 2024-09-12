@@ -1,6 +1,7 @@
 import { View, Text, useWindowDimensions } from 'react-native'
 import React from 'react'
 import Animated, {useAnimatedStyle, interpolate, Extrapolation, interpolateColor} from 'react-native-reanimated';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 
 const TriviaPaginator = ({ data, x }) => {
@@ -12,7 +13,7 @@ const TriviaPaginator = ({ data, x }) => {
         [
           (i - 1) * width, i * width - 1, (i + 1) * width
         ],
-        [12, 30, 12],
+        [15, 30, 15],
         Extrapolation.CLAMP
       )
       const colorAnimation = interpolateColor(
@@ -36,7 +37,7 @@ const TriviaPaginator = ({ data, x }) => {
         opacity: opacityAnimation
       };
     });
-    return <Animated.View style={[{width: 12, height: 12, backgroundColor: "white", marginHorizontal: 7, borderRadius: 10}, AnimatedDotStyle]}/>
+    return <Animated.View style={[{width: scale(12), height: verticalScale(8), backgroundColor: "white", marginHorizontal: scale(3), borderRadius: 10}, AnimatedDotStyle]}/>
   }
   return (
     <View className='flex-row items-center justify-center'>
