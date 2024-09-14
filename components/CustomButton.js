@@ -25,7 +25,7 @@ const CustomButton = ({flatlistIndex, flatlistRef, dataLength}) => {
     <Pressable onPress={() => flatlistIndex.value === dataLength - 1 ? router.push('home') : flatlistRef.current.scrollToIndex({index: flatlistIndex.value + 1})}>
       <Animated.View className='items-center justify-center bg-primary' style={[{height: verticalScale(50)}, buttonAnimation]}>
         <Animated.View style={buttonAnimation} className='items-center justify-center'>
-          <Animated.Text className='font-pmedium text-white' style={[textDisplayAnimation,{fontSize: moderateScale(17)}]}>Let's Go!</Animated.Text>
+          <Animated.Text className='font-pmedium text-white' style={[textDisplayAnimation,{fontSize: moderateScale(15)}]}>Let's Go!</Animated.Text>
         </Animated.View>
       </Animated.View>
     </Pressable>

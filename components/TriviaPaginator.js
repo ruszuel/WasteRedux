@@ -13,7 +13,7 @@ const TriviaPaginator = ({ data, x }) => {
         [
           (i - 1) * width, i * width - 1, (i + 1) * width
         ],
-        [15, 30, 15],
+        [10, 25, 10],
         Extrapolation.CLAMP
       )
       const colorAnimation = interpolateColor(

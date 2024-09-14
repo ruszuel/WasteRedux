@@ -4,7 +4,7 @@ import { Link, router } from 'expo-router'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon';
 import TriviaList from '@/components/TriviaList';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { scale, verticalScale, moderateScale, s } from 'react-native-size-matters';
 import articleList from '../(articles)/articleList';
 import { StatusBar } from 'expo-status-bar';
 
@@ -30,11 +30,11 @@ const Home = () => {
     return(
       <Pressable className='flex-1 justify-center' style={{paddingHorizontal: moderateScale(12)}} onPress={handlePress}>
         <View className='flex-[0.7] w-full h-full'>
-          <Image source={item.image} className='h-full justify-center items-center rounded-t-2xl' style={{width: width * 0.6}} resizeMode='cover'/>
+          <Image source={item.image} className='h-full w-full justify-center items-center rounded-t-2xl'  resizeMode='cover'/>
         </View>
         <View className='flex-[0.5] px-5 border border-gray-500 rounded-b-2xl border-t-0 border-b gap-y-2 bg-fourth'>
-          <Text className='font-psemibold text-secondary' style={{fontSize: moderateScale(17)}}>{item.title}</Text>
-          <Text className='font-pregular text-gray-500' style={{fontSize: moderateScale(13)}}>{item.description}</Text>
+          <Text className='font-psemibold text-secondary' style={{fontSize: moderateScale(15)}}>{item.title}</Text>
+          <Text className='font-pregular text-gray-500' style={{fontSize: moderateScale(12)}}>{item.description}</Text>
         </View>
       </Pressable>
     )
@@ -44,15 +44,15 @@ const Home = () => {
     <SafeAreaProvider className='px-5' style={{paddingTop: moderateScale(40)}}> 
     <StatusBar hidden={true} translucent={true} /> 
       <View className=' flex-row justify-between items-center'>
-        <Text className='font-batangas text-secondary' style={{fontSize: moderateScale(42)}}>Waste<Text className='font-batangas text-primary'>Redux</Text></Text>
+        <Text className='font-batangas text-secondary' style={{fontSize: moderateScale(34)}}>Waste<Text className='font-batangas text-primary'>Redux</Text></Text>
         {/* settings icon */}
-        <Icon name='settings-4-line' color='gray' size={moderateScale(28)} onPress={() => router.push('mainSetting')}/>
+        <Icon name='settings-4-line' color='gray' size={moderateScale(26)} onPress={() => router.push('mainSetting')}/>
       </View>
 
       <View className='bg-primary rounded-2xl items-center' style={{height: verticalScale(150), marginTop: moderateScale(26)}}>
         <View className='flex-[0.3] flex-row gap-x-5 items-center justify-center' style={{ paddingTop: moderateScale(20)}}>
-          <Image source={require("../../assets/images/cloud.png")} style={{height: verticalScale(50), width: scale(50)}}/>
-          <Text className='text-white font-psemibold' style={{fontSize: moderateScale(28)}}>Did you know?</Text>
+          <Image source={require("../../assets/images/cloud.png")} style={{height: verticalScale(40), width: scale(40)}}/>
+          <Text className='text-white font-psemibold' style={{fontSize: moderateScale(22)}}>Did you know?</Text>
         </View>
         <View className='flex-[0.6]'>
           <TriviaList />
@@ -62,7 +62,7 @@ const Home = () => {
       {/* Articles */}
       <View style={{marginTop: moderateScale(26)}}>
         <View className='flex-row justify-between'>
-          <Text className='font-pextrabold text-secondary' style={{fontSize: moderateScale(30)}}>Articles</Text>
+          <Text className='font-pextrabold text-secondary' style={{fontSize: moderateScale(22)}}>Articles</Text>
         </View>
         <View className='w-screen' style={{marginHorizontal: -20, height: verticalScale(130), marginTop: moderateScale(22)}}>
           {/* articles */}
@@ -80,17 +80,17 @@ const Home = () => {
       {/* Recent Scan */}
       <View style={{marginTop: moderateScale(26)}}>
         <View className='flex-row justify-between items-center'>
-          <Text className='font-pextrabold text-secondary' style={{fontSize: moderateScale(30)}}> Recent Scan</Text>
-          <Link href='#' className='font-pregular' style={{fontSize: moderateScale(16)}}>See all</Link>
+          <Text className='font-pextrabold text-secondary' style={{fontSize: moderateScale(22)}}> Recent Scan</Text>
+          <Link href='#' className='font-pregular' style={{fontSize: moderateScale(14)}}>See all</Link>
         </View>
         <View className='mt-6 flex-row' style={{gap: 10}}>
             {/*History of user getting into database*/}
-            <View className='w-12 h-12 bg-white rounded-xl justify-center items-center'>
-              <Icon name='check-line' size={32} color='#81A969'/>
+            <View className='bg-white rounded-xl justify-center items-center' style={{width: scale(35), height: verticalScale(33)}}>
+              <Icon name='check-line' size={moderateScale(26)} color='#81A969'/>
             </View>
             <View>
-              <Text className='text-gray-400 font-pregular text-lg'>Recyclable</Text>
-              <Text className='text-secondary font-pregular text-xl'>Plastic Bottle</Text>
+              <Text className='text-gray-400 font-pregular' style={{fontSize: moderateScale(12)}}>Recyclable</Text>
+              <Text className='text-secondary font-pregular' style={{fontSize: moderateScale(14)}}>Plastic Bottle</Text>
             </View>
         </View>
       </View>

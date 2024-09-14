@@ -10,16 +10,16 @@ const glassOrPlastic = () => {
   return (
     <SafeAreaView className='flex-1 px-5 gap-y-3' style={{paddingTop: verticalScale(20)}}>
       <View className='mb-5'>
-        <Text className='font-pbold text-secondary' style={{fontSize: moderateScale(26)}}>Glass or Plastic</Text>
-        <Text className='font-pregular' style={{fontSize: moderateScale(14)}}>from goingzerowaste.com</Text>
+        <Text className='font-pbold text-secondary' style={{fontSize: moderateScale(22)}}>Glass or Plastic</Text>
+        <Text className='font-pregular' style={{fontSize: moderateScale(12)}}>from goingzerowaste.com</Text>
       </View>
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <View className='mb-5'>
             <Image source={require('../../assets/images/articles/glass.jpg')} style={{height: verticalScale(150), width: '100%'}} resizeMode='cover'/>
         </View>
-        <Text className='font-pregular text-justify mb-5' style={{fontSize: moderateScale(16)}}>Glass is endlessly recyclable without losing quality or purity. However, the recycling process isn't as straightforward as it seems.</Text>
+        <Text className='font-pregular text-justify mb-5' style={{fontSize: moderateScale(14)}}>Glass is endlessly recyclable without losing quality or purity. However, the recycling process isn't as straightforward as it seems.</Text>
         <View>
-            <Text className='font-pbold text-secondary mb-5' style={{fontSize: moderateScale(26)}}>The Truth About Glass</Text>
+            <Text className='font-pbold text-secondary mb-5' style={{fontSize: moderateScale(20)}}>The Truth About Glass</Text>
 
             <ArticleParags parags='Glass takes an incredibly long time to break down—up to' bold='one million years or more in a landfill.' 
                 con='Its long life cycle and the fact that it doesn’t leach harmful chemicals make it better to reuse and repurpose glass rather than recycle it immediately.'
@@ -36,7 +36,7 @@ const glassOrPlastic = () => {
         </View>
 
         <View>
-            <Text className='font-pbold text-secondary mb-5' style={{fontSize: moderateScale(26)}}>Problems with Glass</Text>
+            <Text className='font-pbold text-secondary mb-5' style={{fontSize: moderateScale(20)}}>Problems with Glass</Text>
             <ArticleParags parags='Creating new glass requires specific sand, which is being consumed faster than it can be replenished. Unlike desert sand, only a particular type of sand is suitable, mostly harvested from riverbeds and seabeds.' 
                 bold='This extraction disrupts ecosystems, harms microorganisms, and increases the risk of flooding and erosion in coastal areas.'
             />

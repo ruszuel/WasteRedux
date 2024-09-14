@@ -9,8 +9,8 @@ const recyclingContamination = () => {
   return (
     <SafeAreaView className='flex-1 px-5 gap-y-3' style={{paddingTop: verticalScale(20)}}>
       <View className='mb-5'>
-        <Text className='font-pbold text-secondary' style={{fontSize: moderateScale(26)}}>Recycling Contamination</Text>
-        <Text className='font-pregular' style={{fontSize: moderateScale(14)}}>from cleanriver.com</Text>
+        <Text className='font-pbold text-secondary' style={{fontSize: moderateScale(22)}}>Recycling Contamination</Text>
+        <Text className='font-pregular' style={{fontSize: moderateScale(12)}}>from cleanriver.com</Text>
       </View>
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <View className='mb-5'>

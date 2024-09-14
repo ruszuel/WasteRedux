@@ -5,8 +5,8 @@ import { moderateScale } from 'react-native-size-matters'
 const NumberedContent = (props) => {
   return (
     <View className='flex-row gap-x-3 mb-5'>
-      <Text className='font-pregular' style={{fontSize: moderateScale(16)}}>{props.num}</Text>
-      <Text className='font-pregular text-justify flex-[1]' style={{fontSize: moderateScale(16), width: '100%'}}>{props.content}</Text>
+      <Text className='font-pregular' style={{fontSize: moderateScale(14)}}>{props.num}</Text>
+      <Text className='font-pregular text-justify flex-[1]' style={{fontSize: moderateScale(14), width: '100%'}}>{props.content}</Text>
     </View>
   )
 }

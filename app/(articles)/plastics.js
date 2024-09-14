@@ -9,8 +9,8 @@ const plastics = () => {
   return (
     <SafeAreaView className='flex-1 px-5 gap-y-3' style={{paddingTop: verticalScale(20)}}>
       <View className='mb-5'>
-        <Text className='font-pbold text-secondary' style={{fontSize: moderateScale(26)}}>Plastics - Resin Codes</Text>
-        <Text className='font-pregular' style={{fontSize: moderateScale(14)}}>from fnbreport.ph</Text>
+        <Text className='font-pbold text-secondary' style={{fontSize: moderateScale(22)}}>Plastics - Resin Codes</Text>
+        <Text className='font-pregular' style={{fontSize: moderateScale(12)}}>from fnbreport.ph</Text>
       </View>
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <View className='mb-5'>
@@ -24,7 +24,7 @@ const plastics = () => {
           It typically ranges from 1 to 7 and is displayed at the center of arrows on the product label.'
         />
        <View>
-        <Text className='font-pbold text-secondary mb-5' style={{fontSize: moderateScale(26)}}>What do they mean?</Text>
+        <Text className='font-pbold text-secondary mb-5' style={{fontSize: moderateScale(20)}}>What do they mean?</Text>
           <SubContent title='Recycling Code No. 1 - PETE/PET:' desc='Polyethylene Terephthalate (PETE/PET) is commonly used for beverage bottles, 
           medicine jars, and clothing fibers, and should not be reused or heated due to potential bacterial growth; 
           it is widely accepted in recycling programs if emptied and cleaned.'/>

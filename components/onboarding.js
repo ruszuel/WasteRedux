@@ -58,9 +58,9 @@ const Onboarding = () => {
     return (
       <View className='flex-1 justify-center items-center py-7'>
         <Animated.Image source={item.image} style={[{flex: 0.7, justifyContent: 'center', resizeMode: 'contain', width}, imageAnimation]}/>
-        <Animated.View className='flex-[0.11] gap-y-5 items-center' style={textAnimation}> 
-          <Text className='text-center font-pbold text-secondary' style={{fontSize: moderateScale(26), width: scale(300)}}>{item.title}</Text>
-          <Text className='text-center font-pregular' style={{fontSize: moderateScale(17), width: scale(250)}}>{item.description}</Text>
+        <Animated.View className='flex-[0.15] gap-y-5 items-center' style={textAnimation}> 
+          <Text className='text-center font-pbold text-secondary' style={{fontSize: moderateScale(22), width: scale(300)}}>{item.title}</Text>
+          <Text className='text-center font-pregular' style={{fontSize: moderateScale(14), width: scale(250)}}>{item.description}</Text>
         </Animated.View>
       </View>
     )

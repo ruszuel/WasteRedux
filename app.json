@@ -5,26 +5,27 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/WasteRedux_Logo_hh.png",
-    "scheme": "WasteRedux",
+    "scheme": "wasteredux",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/resized-logoo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-      
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/WasteRedux_Logo.png",
+        "foregroundImage": "./assets/images/WasteRedux_Logo_hh.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "android.permission.CAMERA"
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
       ],
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.russuel.WasteRedux"
     },
     "web": {
       "bundler": "metro",
@@ -50,6 +51,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "579597f5-c40c-49e6-b4a7-3a4689427967"
+      }
     }
   }
 }

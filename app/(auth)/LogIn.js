@@ -1,66 +1,65 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Alert, Dimensions, PixelRatio } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions, PixelRatio, Pressable } from 'react-native'
+import React, { useState } from 'react'
 import { Checkbox } from 'expo-checkbox'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import Icon from 'react-native-remix-icon';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
 
 const LogIn = () => {
     const [isChecked, setChecked] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
     const {height, width} = Dimensions.get('window');
-    const fontScales = PixelRatio.getFontScale();
-    const getFontSize = size => size / fontScales;
-    
+
   return (
     <SafeAreaView className="flex-1 px-5 justify-center" style={{paddingVertical: width * 0.16}}>
         <View className='flex gap-2' style={{paddingTop: height * 0.07}}>
             {/* header */}
-            <Text className='font-psemibold text-secondary text-center' style={{fontSize: width * 0.08, lineHeight: 45 }}>
+            <Text className='font-psemibold text-secondary text-center' style={{fontSize: moderateScale(27), lineHeight: 45 }}>
                Welcome Back
             </Text>
-            <Text className="font-pregular text-center text-gray-400" style={{fontSize: width * 0.04}}>
+            <Text className="font-pregular text-center text-gray-400" style={{fontSize: moderateScale(14)}}>
                 Log in to continue
             </Text>
         </View>
         <View className="py-10" style={{gap: 20}}>
             {/* inputs */}
-            <View style={{gap: 35}}>
+            <View style={{gap: 25}}>
                 <View className="justify-center">
-                    <TextInput className="rounded-xl border-2 border-gray-400 font-pregular" style={{padding: width * 0.04, fontSize: width * 0.04}} placeholder='Email address' keyboardType='default'/>    
+                    <TextInput className="rounded-xl border border-gray-400 font-pregular" style={{fontSize: moderateScale(13.5), padding: moderateScale(14)}} placeholder='Email address' keyboardType='default'/>    
                 </View>
-                <View className="flex-row items-center justify-center rounded-xl border-2 border-gray-400">
+                <View className="flex-row items-center justify-center rounded-xl border border-gray-400">
                     <TextInput className="flex-1" 
-                        style={{padding: width * 0.04, fontSize: width * 0.04}}
+                        style={{fontSize: moderateScale(13.5), padding: moderateScale(14)}}
                         placeholder='Password' 
                         keyboardType='default' 
                         secureTextEntry={showPassword ? false : true}
                     /> 
                     <Icon
                         name={showPassword ? 'eye-fill' : 'eye-off-fill'}
-                        size={width * 0.05}
+                        size={moderateScale(18)}
                         color={'gray'}
-                        style={{paddingHorizontal: 24}}
+                        style={{paddingHorizontal: 25}}
                         onPress={() => setShowPassword(showPassword ? false : true)}
                     />   
                 </View>
             </View>
             
-            <View className="flex-row justify-between" style={{paddingTop: width * 0.04}}>
-                <View className="flex-row items-center gap-2">
-                 <Checkbox value={isChecked} onValueChange={setChecked} color={'#81A969'} style={{width: width * 0.035, height: height * 0.018}}/>
-                 <Text className='font-pregular' style={{fontSize: width * 0.035}}>Remember me</Text>
-                </View>
+            <View className="flex-row justify-between items-end" style={{paddingTop: width * 0.04}}>
+                <Pressable className="flex-row items-start gap-2">
+                 <Checkbox value={isChecked} onValueChange={setChecked} color={'#81A969'} style={{width: scale(12), height: verticalScale(11)}}/>
+                 <Text className='font-pregular' style={{fontSize: moderateScale(12)}}>Remember me</Text>
+                </Pressable>
                 <View>
-                    <Text className="text-primary font-psemibold text-base" style={{fontSize: width * 0.035}} onPress={() => router.push('ForgotPass')}>Forgot Password</Text>
+                    <Text className="text-primary font-psemibold text-base" style={{fontSize: moderateScale(12)}} onPress={() => router.push('ForgotPass')}>Forgot Password</Text>
                 </View>
             </View>
         </View>
         <View>
             {/* Buttons */}
-            <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: width * 0.04}} onPress={() => router.push("Onboard")}>
-                <Text className="text-center text-white font-pregular" style={{fontSize: width * 0.045}}>Log in</Text>
+            <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: moderateScale(15)}} onPress={() => router.push("Onboard")}>
+                <Text className="text-center text-white font-pregular" style={{fontSize: moderateScale(14)}}>Log in</Text>
             </TouchableOpacity>
         </View>
         <View className="flex-row items-center gap-6" style={{padding: width * 0.035}}>
@@ -78,12 +77,12 @@ const LogIn = () => {
                 name='google'
                 color={'#81A969'}
                 size={24}/>
-                <Text className="text-center self-center text-primary font-psemibold" style={{fontSize: width * 0.045}}>Continue with Google</Text>
+                <Text className="text-center self-center text-primary font-psemibold" style={{fontSize: moderateScale(14)}}>Continue with Google</Text>
             </TouchableOpacity>
         </View>
         <View className="flex-row gap-2 items-center justify-center mt-16" style={{marginTop: height * 0.09}}>
-            <Text style={{fontSize: width * 0.035}}>Don't have an account?</Text>
-            <Text className="text-primary font-medium" style={{fontSize: width * 0.035}} onPress={() => router.push("SignUp")}>Register</Text>
+            <Text style={{fontSize: moderateScale(12)}}>Don't have an account?</Text>
+            <Text className="text-primary font-medium" style={{fontSize: moderateScale(12)}} onPress={() => router.push("SignUp")}>Register</Text>
         </View>
     </SafeAreaView>
   )

@@ -21,10 +21,10 @@ const Scan = () => {
       <View className='justify-center items-center flex-1 bg-black p-4' style={{gap: 20}}>
         <View className='justify-center items-center' style={{gap: 20}}>
           <Icon name='camera-fill' size={28} color='white'/>
-          <Text className='text-white font-pmedium text-center' style={{fontSize: moderateScale(15)}}>Allow WasteRedux access your camera to scan photos within the app.</Text>
+          <Text className='text-white font-pmedium text-center' style={{fontSize: moderateScale(14)}}>Allow WasteRedux access your camera to scan photos within the app.</Text>
         </View>
         <Pressable className='bg-blue-600 p-2 rounded-md' onPress={ permission.canAskAgain ? requestPermission : blocked}>
-          <Text className='text-white font-pmedium' style={{fontSize: moderateScale(15)}}>Turn On</Text>
+          <Text className='text-white font-pmedium' style={{fontSize: moderateScale(14)}}>Turn On</Text>
         </Pressable>
       </View>
     )

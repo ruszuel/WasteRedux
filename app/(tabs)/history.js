@@ -8,8 +8,8 @@ const History = () => {
   return (
     <SafeAreaView className='px-5' style={{paddingTop: moderateScale(40)}}>
       <View className='flex-row justify-between items-center'>
-        <Text className='font-batangas text-secondary' style={{fontSize: moderateScale(42)}}>Scan <Text className='text-primary'>History</Text></Text>
-        <Icon name='equalizer-line' size={moderateScale(28)} color='gray'/>
+        <Text className='font-batangas text-secondary' style={{fontSize: moderateScale(34)}}>Scan <Text className='text-primary'>History</Text></Text>
+        <Icon name='equalizer-line' size={moderateScale(24)} color='gray'/>
       </View>
     </SafeAreaView>
   )

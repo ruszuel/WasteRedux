@@ -5,7 +5,7 @@ import { moderateScale } from 'react-native-size-matters'
 const ArticleParags = (props) => {
   return (
     <View style={{width: '100%'}} className='mb-5'>
-      <Text className='font-pregular text-justify' style={{fontSize: moderateScale(16)}}>{props.parags}{' '}
+      <Text className='font-pregular text-justify' style={{fontSize: moderateScale(14)}}>{props.parags}{' '}
         <Text className='font-pbold text-secondary'>{props.bold} </Text>
         {props.con}
       </Text>
