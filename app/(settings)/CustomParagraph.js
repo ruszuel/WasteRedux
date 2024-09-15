@@ -5,7 +5,7 @@ import { moderateScale } from 'react-native-size-matters'
 const CustomParagraph = (props) => {
   return (
     <View>
-      <Text className='font-pregular text-justify mb-1' style={{fontSize: moderateScale(15)}}>{props.text}</Text>
+      <Text className='font-plight text-justify mb-1' style={{fontSize: moderateScale(14.5)}}>{props.text}</Text>
     </View>
   )
 }

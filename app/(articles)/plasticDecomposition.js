@@ -16,7 +16,7 @@ const plasticDecomposition = () => {
         <View className='mb-5'>
             <Image source={require('../../assets/images/articles/plastic-decomposition.jpg')} style={{height: verticalScale(150), width: '100%'}} resizeMode='cover'/>
         </View>
-        <Text className='font-pregular text-justify mb-5' style={{fontSize: moderateScale(14)}}>
+        <Text className='font-plight text-justify mb-5' style={{fontSize: moderateScale(14)}}>
             Plastic has revolutionized our lives but poses significant problems. It persists in the environment for decades, if not centuries, 
             with every plastic item ever used still on Earth—either as it was, recycled, or broken down into microplastics. Despite its utility, 
             plastic waste is overwhelming and problematic, with estimates suggesting it can last for hundreds of years.

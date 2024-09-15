@@ -8,8 +8,8 @@ const SettingsButton = (props) => {
   return (
     <TouchableOpacity onPress={() => router.push(props.push)}>
         <View className='px-5 flex-row justify-between items-center bg-white py-3'>
-            <Text className='font-pregular' style={{fontSize: moderateScale(16)}}>{props.name}</Text>
-            <Icon name='arrow-right-s-line' color='black' size={28}/> 
+            <Text className='font-pregular' style={{fontSize: moderateScale(14.5)}}>{props.name}</Text>
+            <Icon name='arrow-right-s-line' color='black' size={22}/> 
         </View>
     </TouchableOpacity>
   )

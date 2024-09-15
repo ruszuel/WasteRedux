@@ -11,6 +11,12 @@ const Profile = () => {
   const [edit, setEdit] = useState(false);
   const [profile, setProfile] = useState(null);
 
+  const [fname, setFname] = useState('Ethan Jay');
+  const [lname, setLname] = useState('Park');
+  const [coldept, setColdept] = useState('CICT');
+  const [em, setEm] = useState('ethanjay@mail.com');
+  const fullName = fname + ' ' + lname;
+
   const picker = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -52,7 +58,7 @@ const Profile = () => {
         {/* Name */}
         <View className='w-full' style={{gap: 30, paddingTop: verticalScale(20)}}>
           <View className='flex-row  justify-center items-center' style={{gap: 12}}>
-            <Text className='font-psemibold text-center' style={{fontSize: moderateScale(15)}}>Ethan Jay Park {' '}
+            <Text className='font-psemibold text-center' style={{fontSize: moderateScale(15)}}>{fullName} {' '}
               <Text><Icon name='pencil-line' color={edit ? 'transparent' : 'gray'} onPress={() => setEdit(true)}/></Text>
             </Text>
             
@@ -72,19 +78,19 @@ const Profile = () => {
             <ScrollView contentContainerStyle={{rowGap: 35, paddingVertical: 7, paddingBottom: verticalScale(20)}} showsVerticalScrollIndicator={false}>
               <View style={{gap: 10}}>
                 <Text className='font-pmedium' style={{fontSize: moderateScale(12)}}>First Name</Text>
-                <TextInput keyboardType='default' className='border-2 border-gray-400 rounded-lg font-pregular px-5' style={{borderColor: edit ? "#81A969" : "#9ca3af", fontSize: moderateScale(12), padding: moderateScale(8)}} editable={edit} placeholder='Ethan Jay' placeholderTextColor={'black'}/>
+                <TextInput keyboardType='default' className='border-2 border-gray-400 rounded-lg font-pregular px-5' style={{borderColor: edit ? "#81A969" : "#9ca3af", fontSize: moderateScale(12), padding: moderateScale(8), color: 'black'}} editable={edit} value={fname} onChangeText={setFname}/>
               </View>
               <View style={{gap: 10}}>
                 <Text className='font-pmedium' style={{fontSize: moderateScale(12)}}>Last name</Text> 
-                <TextInput keyboardType='default' className='border-2 border-gray-400 px-5 rounded-lg font-pregular text-xl' style={{borderColor: edit ? "#81A969" : "#9ca3af", fontSize: moderateScale(12), padding: moderateScale(8)}} editable={edit} placeholder='Park' placeholderTextColor={'black'}/>
+                <TextInput keyboardType='default' className='border-2 border-gray-400 px-5 rounded-lg font-pregular text-xl' style={{borderColor: edit ? "#81A969" : "#9ca3af", fontSize: moderateScale(12), padding: moderateScale(8), color: 'black'}} editable={edit} value={lname} onChangeText={setLname}/>
               </View>
               <View style={{gap: 10}}>
                 <Text className='font-pmedium' style={{fontSize: moderateScale(12)}}>College Department</Text>
-                <TextInput keyboardType='default' className='border-2 border-gray-400 px-5 rounded-lg font-pregular text-xl' style={{borderColor: edit ? "#81A969" : "#9ca3af", fontSize: moderateScale(12), padding: moderateScale(8)}} editable={edit} placeholder='CICT' placeholderTextColor={'black'}/>
+                <TextInput keyboardType='default' className='border-2 border-gray-400 px-5 rounded-lg font-pregular text-xl' style={{borderColor: edit ? "#81A969" : "#9ca3af", fontSize: moderateScale(12), padding: moderateScale(8), color: 'black'}} editable={edit} value={coldept} onChangeText={setColdept}/>
               </View>
               <View style={{gap: 10, marginBottom: verticalScale(10)}}> 
                 <Text className='font-pmedium' style={{fontSize: moderateScale(12)}}>Email Adress</Text>
-                <TextInput keyboardType='email-address' className='border-2 border-gray-400 px-5 rounded-lg font-pregular text-xl' style={{borderColor: edit ? "#81A969" : "#9ca3af", fontSize: moderateScale(12), padding: moderateScale(8)}} editable={edit} placeholder='ethanjay@mail.com' placeholderTextColor={'black'}/>
+                <TextInput keyboardType='email-address' className='border-2 border-gray-400 px-5 rounded-lg font-pregular text-xl' style={{borderColor: edit ? "#81A969" : "#9ca3af", fontSize: moderateScale(12), padding: moderateScale(8), color: 'black'}} editable={edit} value={em} onChangeText={setEm}/>
               </View>
               <View style={{display: edit ? "flex" : "none", marginBottom: moderateScale(20)}}>
                 <TouchableHighlight underlayColor={"#81A969"} className='rounded-xl bg-primary justify-center items-center' style={{padding: moderateScale(15), marginBottom: moderateScale(120)}} onPress={() => setEdit(false)}>

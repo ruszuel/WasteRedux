@@ -29,11 +29,11 @@ const Home = () => {
 
     return(
       <Pressable className='flex-1 justify-center' style={{paddingHorizontal: moderateScale(12)}} onPress={handlePress}>
-        <View className='flex-[0.7] w-full h-full'>
+        <View className='flex-[0.7] w-full h-full' >
           <Image source={item.image} className='h-full w-full justify-center items-center rounded-t-2xl'  resizeMode='cover'/>
         </View>
         <View className='flex-[0.5] px-5 border border-gray-500 rounded-b-2xl border-t-0 border-b gap-y-2 bg-fourth'>
-          <Text className='font-psemibold text-secondary' style={{fontSize: moderateScale(15)}}>{item.title}</Text>
+          <Text className='font-psemibold text-secondary' style={{fontSize: moderateScale(15), width: moderateScale(230)}}>{item.title}</Text>
           <Text className='font-pregular text-gray-500' style={{fontSize: moderateScale(12)}}>{item.description}</Text>
         </View>
       </Pressable>

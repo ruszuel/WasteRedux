@@ -5,39 +5,40 @@ import CustomParagraph from './CustomParagraph'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 import CustomText from './CustomText'
 import Icon from 'react-native-remix-icon'
+import { router } from 'expo-router'
 
 const privacyPolicy = () => {
   return (
     <SafeAreaView className='px-5' style={{paddingTop: verticalScale(20)}}>
       <View className='bg-white'>
         <View className='border-b-[1px] border-gray-400 flex-row items-center py-3'>
-            <Icon name='arrow-left-s-line' color='black' size={28} className='mr-3'/>
+            <Icon name='arrow-left-s-line' color='black' size={28} className='mr-3' onPress={() => router.back()}/>
             <Text className='font-psemibold text-primary' style={{fontSize: moderateScale(16)}}>Privacy Policy</Text>
         </View>
         <View className='h-screen py-5 px-3'>
             <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
                 <View className='mb-5'>
                     <View className='gap-y-7 mb-5'>
-                        <Text className='font-pregular' style={{fontSize: moderateScale(15)}}>Privacy Policy</Text>
-                        <Text className='font-pregular' style={{fontSize: moderateScale(15)}}>Last updated: April 22, 2024</Text>
-                        <Text className='font-pregular' style={{fontSize: moderateScale(15)}}>This Privacy Policy describes Our policies and procedures on the collection, 
+                        <Text className='font-plight' style={{fontSize: moderateScale(14.5)}}>Privacy Policy</Text>
+                        <Text className='font-plight' style={{fontSize: moderateScale(14.5)}}>Last updated: April 22, 2024</Text>
+                        <Text className='font-plight' style={{fontSize: moderateScale(14.5)}}>This Privacy Policy describes Our policies and procedures on the collection, 
                             use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
                         </Text>
-                        <Text className='font-pregular' style={{fontSize: moderateScale(15)}}>We use Your Personal data to provide and improve the Service. 
+                        <Text className='font-plight' style={{fontSize: moderateScale(14.5)}}>We use Your Personal data to provide and improve the Service. 
                             By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. 
                             This Privacy Policy has been created with the help of the Privacy Policy Generator.
                         </Text>
                     </View>
                     <View>
-                        <Text className='font-pbold mb-3' style={{fontSize: moderateScale(20)}}>Interpretation and Definition</Text>
+                        <Text className='font-pbold mb-3' style={{fontSize: moderateScale(16)}}>Interpretation and Definition</Text>
                         <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Interpretation</Text>
                         <CustomParagraph text='The words of which the initial letter is capitalized have meanings defined under the following conditions. 
                             The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.'
                         />
                     </View>
                     <View>
-                        <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Definitions</Text>
-                        <Text className='font-pregular' style={{fontSize: moderateScale(15)}}>For the purpose of this Privacy Policy:</Text>
+                        <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Definitions</Text>
+                        <Text className='font-pregular' style={{fontSize: moderateScale(14.5)}}>For the purpose of this Privacy Policy:</Text>
                         <CustomText bold='Account' light='means a unique account created for You to access our Service pr parts of our Service'/>
                         <CustomParagraph text='Affiliate means an entity that controls, is controlled by or is under common control with a party, 
                             where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.'
@@ -55,17 +56,17 @@ const privacyPolicy = () => {
                         <CustomText bold={'You'} light={'means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.'}/>
                     </View>
                     <View className='mb-7'> 
-                        <Text className='font-pbold' style={{fontSize: moderateScale(20)}}>Collecting and Using Your Personal Data</Text>
-                        <Text className='font-pregular' style={{fontSize: moderateScale(15)}}>Types of Data Collected</Text>
+                        <Text className='font-pbold' style={{fontSize: moderateScale(16)}}>Collecting and Using Your Personal Data</Text>
+                        <Text className='font-pregular' style={{fontSize: moderateScale(14.5)}}>Types of Data Collected</Text>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Personal Data</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Personal Data</Text>
                             <CustomParagraph text='While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:'/>
                             <CustomParagraph text='Email address'/>
                             <CustomParagraph text='First name and last name'/>
                             <CustomParagraph text='Usage Data'/>
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Usage Data</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Usage Data</Text>
                             <CustomParagraph text='Usage Data is collected automatically when using the service.'/>
                             <CustomParagraph text="Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data."/>
                             <CustomParagraph text='When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, 
@@ -79,7 +80,7 @@ const privacyPolicy = () => {
                             <CustomParagraph text="You can enable or disable access to this information at any time, through Your Device settings."/>
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Use of Your Personal Data</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Use of Your Personal Data</Text>
                             <CustomParagraph text='The Company may use Personal Data for the following purposes:'/>
                             <CustomParagraph text="To provide and maintain our Service, including to monitor the usage of our Service."/>
                             <CustomParagraph text="To manage Your Account: to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user."/>
@@ -102,25 +103,25 @@ const privacyPolicy = () => {
                             <CustomParagraph text='·        With Your consent: We may disclose Your personal information for any other purpose with Your consent.'/>
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Retention of Your Personal Data</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Retention of Your Personal Data</Text>
                             <CustomParagraph text='The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.'/>
                             <CustomParagraph text='The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.'/>
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Transfer of Your Personal Data</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Transfer of Your Personal Data</Text>
                             <CustomParagraph text="Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction."/>
                             <CustomParagraph text='Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.'/>
                             <CustomParagraph text='The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.'/>
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Delete Your Personal Data</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Delete Your Personal Data</Text>
                             <CustomParagraph text='You have the right to delete or request that We assist in deleting the Personal Data that We have collected about You.'/>
                             <CustomParagraph text='Our Service may give You the ability to delete certain information about You from within the Service.'/>
                             <CustomParagraph text='You may update, amend, or delete Your information at any time by signing in to Your Account, if you have one, and visiting the account settings section that allows you to manage Your personal information. You may also contact Us to request access to, correct, or delete any personal information that You have provided to Us.'/>
                             <CustomParagraph text='Please note, however, that We may need to retain certain information when we have a legal obligation or lawful basis to do so.'/>
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Disclosure of Your Personal Data</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Disclosure of Your Personal Data</Text>
                             <CustomParagraph text='Business Transactions'/>
                             <CustomParagraph text='If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred. We will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy Policy.'/>
                             <CustomParagraph text='Law enforcement'/>
@@ -134,13 +135,13 @@ const privacyPolicy = () => {
                             <CustomParagraph text='·        Protect against legal liability'/>
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Security of Your Personal Data</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Security of Your Personal Data</Text>
                             <CustomParagraph text='The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. 
                                 While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.'
                             />
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Children's Privacy</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Children's Privacy</Text>
                             <CustomParagraph text='Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. 
                                 If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us. 
                                 If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.'
@@ -148,7 +149,7 @@ const privacyPolicy = () => {
                             <CustomParagraph text="If We need to rely on consent as a legal basis for processing Your information and Your country requires consent from a parent, We may require Your parent's consent before We collect and use that information."/>
                         </View>
                         <View>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Link to Other Websites</Text>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(14.5)}}>Link to Other Websites</Text>
                             <CustomParagraph text="Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You visit."/>
                             <CustomParagraph text='We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.'/>
                             <CustomParagraph text='Changes to this Privacy Policy'/>
@@ -156,8 +157,8 @@ const privacyPolicy = () => {
                             <CustomParagraph text='We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the "Last updated" date at the top of this Privacy Policy.'/>
                             <CustomParagraph text='You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.'/>
                         </View>
-                        <View className=''>
-                            <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>Contact Us</Text>
+                        <View className='mb-10'>
+                            <Text className='font-pbold' style={{fontSize: moderateScale(16)}}>Contact Us</Text>
                             <CustomParagraph text='If you have any questions about this Privacy Policy, You can contact us:'/>
                             <Text className='font-pregular' style={{fontSize: moderateScale(15)}}>By email: <Text className='text-primary font-pbold'> wastereduxoffice@gmail.com</Text></Text>
                         </View>

@@ -6,8 +6,8 @@ const CustomText = ({bold, light}) => {
   return (
     <View className='justify-center'>
     <Text className='text-justify'>
-        <Text className='font-pbold' style={{fontSize: moderateScale(15)}}>{bold} </Text>
-        <Text className='font-pregular' style={{fontSize: moderateScale(15)}}> {light}</Text>
+        <Text className='font-psemibold' style={{fontSize: moderateScale(14.5)}}>{bold} </Text>
+        <Text className='font-plight' style={{fontSize: moderateScale(14.5)}}> {light}</Text>
       </Text>
       
     </View>

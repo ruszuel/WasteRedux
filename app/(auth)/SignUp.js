@@ -2,6 +2,8 @@ import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions } fro
 import React, { useLayoutEffect } from 'react'
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { router } from 'expo-router'
+import CollegesDropdown from '@/components/CollegesDropdown';
+import Dropdown from '@/components/Dropdown';
 
 const SignUp = () => {
   const {height, width} = Dimensions.get('window');
@@ -16,22 +18,26 @@ const SignUp = () => {
           Enter your personal details
         </Text>
       </View>
-      <View className="gap-5" style={{paddingVertical: moderateScale(38)}}> 
+      <View className="gap-y-5" style={{paddingVertical: moderateScale(38)}}> 
         {/* Inputs */}
-        <View className="">
-          <TextInput className="rounded-xl border-2 font-pregular border-gray-400" style={{fontSize: moderateScale(13.5), padding: moderateScale(14)}} placeholder='First Name' keyboardType='default'/>    
+        <View >
+          <TextInput className="rounded-xl border font-pregular border-gray-400" style={{fontSize: moderateScale(13.5), padding: moderateScale(14)}} placeholder='First Name' keyboardType='default'/>    
         </View>
-        <View className="">
-          <TextInput className="rounded-xl border-2 font-pregular border-gray-400" style={{fontSize: moderateScale(13.5), padding: moderateScale(14)}} placeholder='Last Name' keyboardType='default' /> 
+        <View>
+          <TextInput className="rounded-xl border font-pregular border-gray-400" style={{fontSize: moderateScale(13.5), padding: moderateScale(14)}} placeholder='Last Name' keyboardType='default' /> 
         </View>
-        <View className="">
-          <TextInput className="rounded-xl border-2 font-pregular border-gray-400" style={{fontSize: moderateScale(13.5), padding: moderateScale(14)}} placeholder='Email Address' keyboardType='default' /> 
+        <View>
+          <TextInput className="rounded-xl border font-pregular border-gray-400" style={{fontSize: moderateScale(13.5), padding: moderateScale(14)}} placeholder='Email Address' keyboardType='default' /> 
         </View>
+        <View>
+          <CollegesDropdown />
+        </View>
+
       </View>
       <View>
         {/* Buttons */}
-        <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: moderateScale(15)}}>
-          <Text className="text-center font-pregular text-white" style={{fontSize: moderateScale(14)}} onPress={() => router.push('SetPass')}>Next</Text>
+        <TouchableOpacity className="bg-primary rounded-2xl" style={{padding: moderateScale(15)}} onPress={() => router.push('SetPass')}>
+          <Text className="text-center font-pregular text-white" style={{fontSize: moderateScale(14)}}>Next</Text>
         </TouchableOpacity>
       </View>
       <View className="flex-row gap-2 items-center justify-center mt-16">

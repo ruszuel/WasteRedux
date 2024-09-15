@@ -35,7 +35,7 @@ const recyclingContamination = () => {
         <SubContent title='Container Cleanlinness' 
             desc='Rinse containers to remove food residues, oils, or liquids before recycling. While thorough cleaning is not necessary, a simple rinse helps reduce contamination.'
         />
-        <Text className='font-pregular text-justify mb-5' style={{fontSize: moderateScale(16)}}>Implementing these strategies can enhance recycling efficiency and support effective waste management practices.</Text>
+        <Text className='font-plight text-justify mb-5' style={{fontSize: moderateScale(14)}}>Implementing these strategies can enhance recycling efficiency and support effective waste management practices.</Text>
       </ScrollView>
     </SafeAreaView>
   )

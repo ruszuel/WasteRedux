@@ -15,7 +15,7 @@ const Dropdown = () => {
         </Pressable>
         <View className='bg-white w-full h-32 rounded-md p-3 absolute top-16 left-0 z-10' style={{display: expand ? 'flex' : 'none'}}>
             <FlatList
-                scrollEnabled={false}
+                scrollEnabled={true}
                 data={labels}
                 renderItem={({ item }) => (
                     <TouchableOpacity className='h-10' onPress={() => {

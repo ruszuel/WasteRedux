@@ -17,7 +17,7 @@ const glassOrPlastic = () => {
         <View className='mb-5'>
             <Image source={require('../../assets/images/articles/glass.jpg')} style={{height: verticalScale(150), width: '100%'}} resizeMode='cover'/>
         </View>
-        <Text className='font-pregular text-justify mb-5' style={{fontSize: moderateScale(14)}}>Glass is endlessly recyclable without losing quality or purity. However, the recycling process isn't as straightforward as it seems.</Text>
+        <Text className='font-plight text-justify mb-5' style={{fontSize: moderateScale(14)}}>Glass is endlessly recyclable without losing quality or purity. However, the recycling process isn't as straightforward as it seems.</Text>
         <View>
             <Text className='font-pbold text-secondary mb-5' style={{fontSize: moderateScale(20)}}>The Truth About Glass</Text>
 
