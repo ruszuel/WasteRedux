@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Icon from 'react-native-remix-icon' 
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 
-const CollegesDropdown = () => {
+const CollegesDropdown = ({onSelect}) => {
     const [expand, setExpand] = useState(false);
     const [placeholder, setPlaceholder] = useState('College Department');
     const labels = [
@@ -28,7 +28,7 @@ const CollegesDropdown = () => {
                 data={labels}
                 renderItem={({ item }) => (
                     <TouchableOpacity className='h-10' onPress={() => {
-                        setPlaceholder(item.label); setExpand(expand ? false : true)}}>
+                        setPlaceholder(item.label); setExpand(expand ? false : true); onSelect(item.value)}}>
                         <Text className='font-pmedium text-center text-gray-400' style={{fontSize: moderateScale(14)}}>{item.label}</Text>
                     </TouchableOpacity>
                 )} />

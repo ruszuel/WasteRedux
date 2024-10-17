@@ -1,6 +1,8 @@
-import { SplashScreen, Stack, useNavigation } from "expo-router";
+import { router, SplashScreen, Stack, useNavigation } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from "axios";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,10 +22,23 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    const checkSession = async () => {
+      const isValidId = await AsyncStorage.getItem('auto_log_id')
+      if(isValidId){
+        const response = await axios.post('http://192.168.100.117:3000/user/auto_login', {auto_id: isValidId})
+        if(response && response.status){
+          if(response.status === 200){
+            router.replace('/(tabs)/home')
+          }
+        }
+      }
+      SplashScreen.hideAsync();
+    }
+
     if (error) throw error;
 
     if (fontsLoaded) {
-      SplashScreen.hideAsync();
+      checkSession()
     }
   }, [fontsLoaded, error]);
 
