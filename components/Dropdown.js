@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import Icon from 'react-native-remix-icon' 
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 
-const Dropdown = () => {
+const Dropdown = ({onSelect}) => {
     const [expand, setExpand] = useState(false);
     const [placeholder, setPlaceholder] = useState('Choose a category');
-    const labels = [{label: 'Plastic', value: 'pl'}, {label: 'Metal', value: 'mt'}, {label: 'Glass', value: 'gl'}]
+    const labels = [{label: 'Plastic', value: 'Plastic'}, {label: 'Metal', value: 'Metal'}, {label: 'Glass', value: 'Glass'}]
   return (
     <View className='justify-center items-center w-full gap-2 relative'>
         <Pressable className='flex-row justify-between items-center w-full p-3 px-2 bg-white rounded-md' style={{height: verticalScale(40)}} onPress={() => setExpand(expand ? false : true)}>
@@ -19,7 +19,7 @@ const Dropdown = () => {
                 data={labels}
                 renderItem={({ item }) => (
                     <TouchableOpacity className='h-10' onPress={() => {
-                        setPlaceholder(item.label); setExpand(expand ? false : true)}}>
+                        setPlaceholder(item.label); setExpand(expand ? false : true); onSelect(item.value)}}>
                         <Text className='font-pmedium text-center text-gray-400' style={{fontSize: moderateScale(14)}}>{item.label}</Text>
                     </TouchableOpacity>
                 )} />

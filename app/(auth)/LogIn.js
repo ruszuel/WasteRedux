@@ -46,7 +46,9 @@ const LogIn = () => {
                             const res = await axios.post('http://192.168.100.117:3000/user/login', data)
                             if(res && res.status){
                                 if(res.status === 200){
-                                    await AsyncStorage.setItem('auto_log_id', res.data.sessionId)
+                                    if(val.rememberme){
+                                        await AsyncStorage.setItem('auto_log_id', res.data.sessionId)
+                                    }
                                     router.push('home')
                                 }else if(res.status === 201){
                                     router.push('Onboard')
