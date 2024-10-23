@@ -7,6 +7,7 @@ import { router } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
+import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
 const Upload = () => {
   const [category, setCategory] = useState('')
@@ -24,12 +25,18 @@ const Upload = () => {
       const uri = result.assets[0].uri;
       const fileExtension = uri.split('.').pop();
       const mimeType = `image/${fileExtension}`;
+
+      const compressed = await manipulateAsync(
+        uri,
+        [{resize: {width: 800}}],
+        { compress: 0.5, format: SaveFormat.JPEG }
+       )
+
       setImage({
-        uri: uri,
+        uri: compressed.uri,
         type: mimeType,
         name: `image.${fileExtension}`
       });
-      // setImage(result.assets[0].uri)
     }
   }
 

@@ -1,9 +1,28 @@
 import { View, Text, TouchableOpacity, Image, useWindowDimensions, Dimensions, PixelRatio, ImageBackground } from 'react-native'
 import { router } from 'expo-router'
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const index = () => {
   const {height, width} = useWindowDimensions();
+
+ 
+  const checkSession = async () => {
+    const isValidId = await AsyncStorage.getItem('auto_log_id')
+    if(isValidId){
+      const response = await axios.post('http://192.168.100.117:3000/user/auto_login', {auto_id: isValidId})
+      if(response && response.status){
+        if(response.status === 200){
+          router.replace('home')
+        }
+
+        if(response.status === 201){
+          router.replace('LogIn')
+        }
+      }
+    }
+  }
 
   return (
     <View className="gap-8 flex-1"> 
@@ -31,7 +50,7 @@ const index = () => {
       </View>
       {/* Application Buttons */}
       <View className="px-4 flex-row justify-between" style={{marginTop: moderateScale(96)}}>
-        <TouchableOpacity className="items-center justify-center bg-primary rounded-2xl" style={{width: width * 0.45, height: height * 0.07}} onPress={() => router.push("LogIn")}>
+        <TouchableOpacity className="items-center justify-center bg-primary rounded-2xl" style={{width: width * 0.45, height: height * 0.07}} onPress={() => router.replace('LogIn')}>
           <Text className="text-white font-pregular text-center" style={{fontSize: moderateScale(15)}}>Log in</Text>
         </TouchableOpacity>
 

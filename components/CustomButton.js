@@ -29,12 +29,11 @@ const CustomButton = ({flatlistIndex, flatlistRef, dataLength}) => {
       if(response && response.status){
         if(response.status === 200){
           AsyncStorage.setItem('auto_log_id', response.data.sessionId)
-          router.push('home')
+          router.replace('home')
         }
       }
     }catch(err){
       console.log(err)
-      console.log(err.response)
     }
   }
 

@@ -22,23 +22,8 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    const checkSession = async () => {
-      const isValidId = await AsyncStorage.getItem('auto_log_id')
-      if(isValidId){
-        const response = await axios.post('http://192.168.100.117:3000/user/auto_login', {auto_id: isValidId})
-        if(response && response.status){
-          if(response.status === 200){
-            router.replace('/(tabs)/home')
-          }
-        }
-      }
-      SplashScreen.hideAsync();
-    }
-
-    if (error) throw error;
-
     if (fontsLoaded) {
-      checkSession()
+      SplashScreen.hideAsync();
     }
   }, [fontsLoaded, error]);
 

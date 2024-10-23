@@ -8,6 +8,7 @@ import axios from 'axios'
 import { Formik } from 'formik';
 import * as yup from 'yup'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
 const Profile = () => {
   const [press, setPress] = useState(true);
@@ -34,8 +35,14 @@ const Profile = () => {
       const uri = result.assets[0].uri;
        const fileExtension = uri.split('.').pop();
        const mimeType = `image/${fileExtension}`;
+
+       const compressed = await manipulateAsync(
+        uri,
+        [{resize: {width: 800}}],
+        { compress: 0.5, format: SaveFormat.JPEG }
+       )
        setProfile({
-         uri: uri,
+         uri: compressed.uri,
          type: mimeType,
          name: `profile.${fileExtension}`
        });
@@ -55,6 +62,12 @@ const Profile = () => {
       }
     }catch(err){
       console.log(err)
+      if(err.response && err.response === 401){
+        Alert.alert('Session Expired', 'Please Log in again', [
+          {
+          text: 'OK', onPress: () => sessionDestroy()
+        }])
+      }
     }
   }
 
@@ -157,12 +170,18 @@ const Profile = () => {
                         if(res.status === 200) {
                           setSubmit(true)
                         }else {
-                          console.log(err.response ? err.response.data : err.message);
+                          console.log(err.response ? err.response.data : err.response);
                         }
                       }
                       
                     }catch(err){
-                      console.log(err.response ? err.response.data : err.message);
+                      console.log('Still the same profile');
+                      if(err.response && err.response.status === 401){
+                        Alert.alert('Session Expired', 'Please Log in again', [
+                          {
+                          text: 'OK', onPress: () => router.push('LogIn')
+                        }])
+                      }
                     }
                   }
   
@@ -173,7 +192,6 @@ const Profile = () => {
   
                   try{
                     const res = await axios.patch('http://192.168.100.117:3000/user/login/update_profile', data)
-  
                     if(res && res.status){
                       if(res.status === 200) {
                         console.log('Profile picture updated successfully');
@@ -185,6 +203,12 @@ const Profile = () => {
                     
                   }catch(err){
                     console.log(err.response ? err.response.data : err.message);
+                    if(err.response && err.response.status === 401){
+                      Alert.alert('Session Expired', 'Please Log in again', [
+                        {
+                        text: 'OK', onPress: () => router.push('LogIn')
+                      }])
+                    }
                   }
                 }
                 update()

@@ -35,7 +35,7 @@ const LogIn = () => {
             <Formik 
                 initialValues={{email: '', password: '', rememberme: false}}
                 validationSchema={loginSchema}
-                onSubmit={(val) => {
+                onSubmit={(val, actions) => {
                     const passData = async () => {
                         try {
                             const data = {
@@ -57,10 +57,13 @@ const LogIn = () => {
                         }catch(err){
                             console.log(err)
                             if(err.response){
-                                if (err.response.status === 403)
+                                if (err.response.status === 403){
                                     Alert.alert("Error", "Email not yet verified")
-                                else if(err.response.status === 401)
-                                    Alert.alert("Error", "Unauthorized: Invalid credentials");
+                                }else if(err.response.status === 401){
+                                    // Alert.alert("Unauthorized", "Invalid credentials");
+                                    actions.setFieldError('email', 'Invalid credential')
+                                    actions.setFieldError('password', 'Invalid credential')
+                                }
                             } 
                             
                         }

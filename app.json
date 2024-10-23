@@ -47,6 +47,12 @@
         {
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos"
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
       ]
     ],
     "experiments": {
