@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable, TextInput, ScrollView, TouchableHighlight, Alert} from 'react-native'
+import { View, Text, Image, Pressable, TextInput, ScrollView, TouchableHighlight, Alert, ActivityIndicator} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-remix-icon';
@@ -9,12 +9,20 @@ import { Formik } from 'formik';
 import * as yup from 'yup'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
+import { LinearGradient } from 'expo-linear-gradient';
+import Constant from 'expo-constants'
 
 const Profile = () => {
+  const apiURl = Constant.expoConfig.extra.apiUrl
+  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
+  const apiLocal = Constant.expoConfig.extra.apiLocal
+  const [loading, setLoading] = useState(false)
+
   const [press, setPress] = useState(true);
   const [edit, setEdit] = useState(false);
   const [profile, setProfile] = useState(null);
   const [infos, setInfos] = useState([])
+  
 
   const [submit, setSubmit] = useState('')
 
@@ -50,8 +58,9 @@ const Profile = () => {
   }
 
   const getData = async () => {
+    setLoading(true)
     try{
-      const res = await axios.get('http://192.168.100.117:3000/user/login/profile')
+      const res = await axios.get(`${apiVercel}/user/login/profile`)
       const users = res.data
       setInfos(res.data)
 
@@ -60,6 +69,7 @@ const Profile = () => {
       } else {
         setProfile(null);
       }
+      
     }catch(err){
       console.log(err)
       if(err.response && err.response === 401){
@@ -68,6 +78,8 @@ const Profile = () => {
           text: 'OK', onPress: () => sessionDestroy()
         }])
       }
+    }finally{
+      setLoading(false)
     }
   }
 
@@ -77,7 +89,7 @@ const Profile = () => {
 
   const sessionDestroy = async () => {
     try{
-      const response = await axios.get('http://192.168.100.117:3000/user/logout')
+      const response = await axios.get(`${apiVercel}/user/logout`)
       if(response && response.status){
         if(response.status === 200){
           router.push('LogIn')
@@ -110,14 +122,14 @@ const Profile = () => {
   return (
     <SafeAreaView className='flex-1 bg-white'>
       {/* Profile picture */}
-      <View className='bg-primary items-center justify-center' style={{height: verticalScale(130)}}>
+      <LinearGradient className='bg-primary items-center justify-center' style={{height: verticalScale(140)}} colors={['#81A969', '#DDEEE7']}>
         <View className='rounded-full border-[5px] border-white bg-tertiary justify-center items-center' style={{height: verticalScale(98), width: scale(110), marginTop: verticalScale(140)}}> 
         <Image source={profile ? { uri: profile.uri } : require( "../../assets/images/react-logo.png")} className='rounded-full w-full h-full' resizeMode='cover'/>
           <Pressable className='items-center justify-center rounded-full absolute bg-white right-0 bottom-1 border-4 border-white' style={{height: verticalScale(20), width: scale(22), display: edit ? 'flex' : 'none'}} onPress={picker}>
             <Icon name='camera-line' size={20} color='#81A969'/>
           </Pressable>
         </View>
-      </View>
+      </LinearGradient>
       
       <View className='flex-[0.8] items-center px-5' style={{marginTop: verticalScale(50)}}>
         {/* Name */}
@@ -164,7 +176,7 @@ const Profile = () => {
                     };
   
                     try{
-                      const res = await axios.patch('http://192.168.100.117:3000/user/login/update_profile', formData, config)
+                      const res = await axios.patch(`${apiVercel}/user/login/update_profile`, formData, config)
     
                       if(res && res.status){
                         if(res.status === 200) {
@@ -191,7 +203,7 @@ const Profile = () => {
                   }
   
                   try{
-                    const res = await axios.patch('http://192.168.100.117:3000/user/login/update_profile', data)
+                    const res = await axios.patch(`${apiVercel}/user/login/update_profile`, data)
                     if(res && res.status){
                       if(res.status === 200) {
                         console.log('Profile picture updated successfully');
@@ -292,6 +304,21 @@ const Profile = () => {
           </View>
         </View>
       </View>
+
+      {loading && (
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          justifyContent: 'center',
+          alignItems: 'center'
+          }}>
+          <ActivityIndicator size="large" color="#81A969" />
+      </View>
+      )}
     </SafeAreaView>
   )
 }

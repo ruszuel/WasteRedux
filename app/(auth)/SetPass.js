@@ -6,21 +6,24 @@ import { router, useLocalSearchParams} from 'expo-router'
 import { Formik } from 'formik';
 import * as yup from'yup'
 import axios from 'axios'
+import Constant from 'expo-constants'
 
 const SetPass = () => {
-    const [showPassword, setShowPassword] = useState(false);
-    const {fname, lname, email, college} = useLocalSearchParams()
-    const [confPass, setConfPass] = useState(false);
-    const toggleShowPassword = () => { 
-      setShowPassword(!showPassword); 
-    }; 
-    const {height, width} = Dimensions.get('window');
+  const apiURl = Constant.expoConfig.extra.apiUrl
+  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
+  const [showPassword, setShowPassword] = useState(false);
+  const {fname, lname, email, college} = useLocalSearchParams()
+  const [confPass, setConfPass] = useState(false);
+  const toggleShowPassword = () => { 
+    setShowPassword(!showPassword); 
+  }; 
+  const {height, width} = Dimensions.get('window');
 
-    const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/
-    const passSchema = yup.object().shape({
-      password: yup.string().min(6).matches(passwordRules, 'Password must have 1 Uppercase 1 digit').required('Password is required'),
-      confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Password doesn\'t match').required('Password is required')
-    })
+  const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/
+  const passSchema = yup.object().shape({
+    password: yup.string().min(6).matches(passwordRules, 'Password must have 1 Uppercase 1 digit').required('Password is required'),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Password doesn\'t match').required('Password is required')
+  })
 
   return (
     <SafeAreaView className="px-5 flex-1 justify-center" style={{paddingVertical: width * 0.16}}>
@@ -53,11 +56,11 @@ const SetPass = () => {
                   email_address: email
                 }
 
-                const res = await axios.post('http://192.168.100.117:3000/user/create', data)
-                const response = await axios.post('http://192.168.100.117:3000/user/verify', mail)
+                const res = await axios.post(`${apiVercel}/user/create`, data)
+                const response = await axios.post(`${apiVercel}/user/verify`, mail)
                 console.log(res.data)
                 console.log(response.data)
-                router.push('/LogIn')
+                router.push('/SuccessSignUp')
               }catch(err){
                 console.log(err)
               }

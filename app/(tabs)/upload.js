@@ -8,8 +8,11 @@ import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
+import Constant from 'expo-constants'
 
 const Upload = () => {
+  const apiURl = Constant.expoConfig.extra.apiUrl
+  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
   const [category, setCategory] = useState('')
   const [image, setImage] = useState(null);
 
@@ -59,7 +62,7 @@ const Upload = () => {
       };
 
       try{
-        const response = await axios.post('http://192.168.100.117:3000/user/register_waste', formData, config)
+        const response = await axios.post(`${apiVercel}/user/register_waste`, formData, config)
         if(response && response.status){
           if(response.status === 204){
             Alert.alert('Error', 'Please upload an image')
@@ -69,6 +72,9 @@ const Upload = () => {
         }
       }catch(err){
         console.log(err)
+        if(err.response && err.response.status === 403){
+          Alert.alert('Forbidden', 'You are temporarily ban for registering waste.')
+        }
       }
     }else{
       Alert.alert('Error', 'Please upload an image and choose a category')

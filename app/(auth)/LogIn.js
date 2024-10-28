@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions, PixelRatio, Pressable, Alert } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions, PixelRatio, Pressable, Alert, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { Checkbox } from 'expo-checkbox'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -9,16 +9,22 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Constant from 'expo-constants'
 
 
 const LogIn = () => {
     const [showPassword, setShowPassword] = useState(false); 
+    const [loading, setLoading] = useState(false)
     const {height, width} = Dimensions.get('window');
     const loginSchema = yup.object().shape({
         email: yup.string().email("Enter a valid email").required("Email is required"),
         password: yup.string().required("Password is required"),
         rememberme: yup.boolean()
     })
+    const apiURl = Constant.expoConfig.extra.apiUrl
+    const apiVercel = Constant.expoConfig.extra.apiUrlVercel
+    const apiULocal = Constant.expoConfig.extra.apiLocal
+
   return (
     <SafeAreaView className="flex-1 px-5 justify-center" style={{paddingVertical: width * 0.16}}>
         <View className='flex gap-2' style={{paddingTop: height * 0.07}}>
@@ -36,6 +42,7 @@ const LogIn = () => {
                 initialValues={{email: '', password: '', rememberme: false}}
                 validationSchema={loginSchema}
                 onSubmit={(val, actions) => {
+                    setLoading(true); 
                     const passData = async () => {
                         try {
                             const data = {
@@ -43,7 +50,7 @@ const LogIn = () => {
                                 user_password: val.password,
                                 rememberme: val.rememberme
                             }
-                            const res = await axios.post('http://192.168.100.117:3000/user/login', data)
+                            const res = await axios.post(`${apiVercel}/user/login`, data)
                             if(res && res.status){
                                 if(res.status === 200){
                                     if(val.rememberme){
@@ -66,6 +73,8 @@ const LogIn = () => {
                                 }
                             } 
                             
+                        }finally{
+                            setLoading(false)
                         }
                     }
                     passData()
@@ -154,6 +163,22 @@ const LogIn = () => {
             <Text style={{fontSize: moderateScale(12)}}>Don't have an account?</Text>
             <Text className="text-primary font-medium" style={{fontSize: moderateScale(12)}} onPress={() => router.push("SignUp")}>Register</Text>
         </View>
+
+        {/* Loading Overlay */}
+        {loading && (
+        <View style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            justifyContent: 'center',
+            alignItems: 'center'
+            }}>
+            <ActivityIndicator size="large" color="#81A969" />
+        </View>
+        )}
     </SafeAreaView>
   )
 }

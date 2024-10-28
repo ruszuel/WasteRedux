@@ -6,9 +6,12 @@ import Animated, {useAnimatedStyle, withTiming, withSpring} from 'react-native-r
 import { router } from 'expo-router';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Constant from 'expo-constants'
 
 const CustomButton = ({flatlistIndex, flatlistRef, dataLength}) => {
   const {width} = useWindowDimensions();
+  const apiURl = Constant.expoConfig.extra.apiUrl
+  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
   const buttonAnimation = useAnimatedStyle(() => {
     return {
       width: flatlistIndex.value === dataLength - 1 ? withSpring(width - 120) : withSpring(80),
@@ -25,7 +28,7 @@ const CustomButton = ({flatlistIndex, flatlistRef, dataLength}) => {
 
   const updateData = async () => {
     try{
-      const response = await axios.get('http://192.168.100.117:3000/user/first_time')
+      const response = await axios.get(`${apiVercel}/user/first_time`)
       if(response && response.status){
         if(response.status === 200){
           AsyncStorage.setItem('auto_log_id', response.data.sessionId)

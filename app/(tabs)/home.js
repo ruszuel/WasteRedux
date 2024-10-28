@@ -81,7 +81,7 @@ const Home = () => {
       <View style={{marginTop: moderateScale(26)}}>
         <View className='flex-row justify-between items-center'>
           <Text className='font-pextrabold text-secondary' style={{fontSize: moderateScale(22)}}> Recent Scan</Text>
-          <Link href='#' className='font-pregular' style={{fontSize: moderateScale(14)}}>See all</Link>
+          <Text href='' className='font-pregular' style={{fontSize: moderateScale(14)}}>See all</Text>
         </View>
         <View className='mt-6 flex-row' style={{gap: 10}}>
             {/*History of user getting into database*/}

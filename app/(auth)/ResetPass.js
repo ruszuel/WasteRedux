@@ -7,8 +7,11 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import * as yup from 'yup'
 import { Formik } from 'formik';
 import axios from 'axios';
+import Constant from 'expo-constants'
 
 const ResetPass = () => {
+    const apiURl = Constant.expoConfig.extra.apiUrl
+    const apiVercel = Constant.expoConfig.extra.apiUrlVercel
     const [newP, setNewP] = useState(false);
     const [confirm, setConfirm] = useState(false);
     const { email } = useLocalSearchParams()
@@ -35,7 +38,7 @@ const ResetPass = () => {
                     }
 
                     try{    
-                        const response = await axios.patch('http://192.168.100.117:3000/user/reset_pass', data)
+                        const response = await axios.patch(`${apiVercel}/user/reset_pass`, data)
                         if(response && response.status){
                             if(response.status === 200){
                                 router.push('SuccessReset')

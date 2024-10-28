@@ -4,12 +4,15 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Link, router, useLocalSearchParams } from 'expo-router'
 import axios from 'axios';
+import Constant from 'expo-constants'
 
 const otpVerification = () => {
   // const [count, setCount] = useState(1);
   const { email } = useLocalSearchParams()
   const [otp, setOtp] = useState(['', '', '', '']);
   const inputRefs = useRef([])
+  const apiURl = Constant.expoConfig.extra.apiUrl
+  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
 
   const handleVerify = async () => {
     const otpValue = otp.join('')
@@ -21,7 +24,7 @@ const otpVerification = () => {
     }
 
     try{
-      const response = await axios.post('http://192.168.100.117:3000/user/request/verify_otp', data)
+      const response = await axios.post(`${apiVercel}/user/request/verify_otp`, data)
       if(response && response.status){
         if(response.status === 200){
           router.push(`/ResetPass?email=${encodeURIComponent(email)}`)
@@ -67,12 +70,6 @@ const otpVerification = () => {
         const newOTP = [...otp]
         newOTP[index] = value
         setOtp(newOTP)
-
-        if (value && index < 3) {
-          setTimeout(() => {
-            inputRefs.current[index + 1].focus();
-          }, 100);
-        }
       }}
       onKeyPress={({ nativeEvent }) => {
         if (nativeEvent.key === 'Backspace' && !otp[index] && index > 0) {

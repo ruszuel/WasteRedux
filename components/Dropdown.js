@@ -13,7 +13,7 @@ const Dropdown = ({onSelect}) => {
             <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(14)}}>{placeholder}</Text>
             <Icon name={expand ? 'arrow-drop-up-fill' : 'arrow-drop-down-fill'} size={moderateScale(30)} color='#81A969'/>
         </Pressable>
-        <View className='bg-white w-full h-32 rounded-md p-3 absolute top-16 left-0 z-10' style={{display: expand ? 'flex' : 'none'}}>
+        <View className='bg-white w-full h-32 rounded-md p-3 absolute top-[66] -left-1 z-10' style={{display: expand ? 'flex' : 'none'}}>
             <FlatList
                 scrollEnabled={true}
                 data={labels}
