@@ -60,7 +60,7 @@ const Profile = () => {
   const getData = async () => {
     setLoading(true)
     try{
-      const res = await axios.get(`${apiVercel}/user/login/profile`)
+      const res = await axios.get('https://waste-redux-server-side.vercel.app/user/login/profile')
       const users = res.data
       setInfos(res.data)
 
@@ -77,6 +77,8 @@ const Profile = () => {
           {
           text: 'OK', onPress: () => sessionDestroy()
         }])
+      } else if(err.response && err.response === 500){
+        Alert.alert('Error Occured', 'Please try again.')
       }
     }finally{
       setLoading(false)
@@ -89,7 +91,7 @@ const Profile = () => {
 
   const sessionDestroy = async () => {
     try{
-      const response = await axios.get(`${apiVercel}/user/logout`)
+      const response = await axios.get('https://waste-redux-server-side.vercel.app/user/logout')
       if(response && response.status){
         if(response.status === 200){
           router.push('LogIn')
@@ -97,7 +99,9 @@ const Profile = () => {
       }
     }catch(err){
       console.log(err)
-      console.log(err.response)
+      if(err.response && err.response === 500){
+        Alert.alert('Error Occured', 'Please try again.')
+      }
     }
   }
 
@@ -176,7 +180,7 @@ const Profile = () => {
                     };
   
                     try{
-                      const res = await axios.patch(`${apiVercel}/user/login/update_profile`, formData, config)
+                      const res = await axios.patch('https://waste-redux-server-side.vercel.app/user/login/update_profile', formData, config)
     
                       if(res && res.status){
                         if(res.status === 200) {
@@ -193,6 +197,8 @@ const Profile = () => {
                           {
                           text: 'OK', onPress: () => router.push('LogIn')
                         }])
+                      }else if(err.response && err.response === 500){
+                        Alert.alert('Error Occured', 'Please try again.')
                       }
                     }
                   }
@@ -203,7 +209,7 @@ const Profile = () => {
                   }
   
                   try{
-                    const res = await axios.patch(`${apiVercel}/user/login/update_profile`, data)
+                    const res = await axios.patch('https://waste-redux-server-side.vercel.app/user/login/update_profile', data)
                     if(res && res.status){
                       if(res.status === 200) {
                         console.log('Profile picture updated successfully');
@@ -220,10 +226,13 @@ const Profile = () => {
                         {
                         text: 'OK', onPress: () => router.push('LogIn')
                       }])
+                    }else if(err.response && err.response === 500){
+                      Alert.alert('Error Occured', 'Please try again.')
                     }
                   }
+                  getData()
                 }
-                update()
+                update() 
               }}
               enableReinitialize
             >
@@ -279,14 +288,6 @@ const Profile = () => {
 
           {/* Profile Settings */}
           <View className='w-full' style={{display: press ? 'none' : 'flex', rowGap: moderateScale(16)}}>
-           <Pressable className='flex-row justify-between p-1' onPress={() => router.push('VerifyPass')}>
-            <View className='flex-row items-start' style={{gap: 15}}>
-              <Icon name='mail-fill' size={moderateScale(20)} color='#81A969'/>  
-              <Text className='font-pregular' style={{fontSize: moderateScale(13)}}>Change Email</Text>
-            </View>
-            <Icon name='arrow-right-s-line' size={moderateScale(20)} color='#81A969'/>
-           </Pressable>
-
            <Pressable className='flex-row justify-between p-1' onPress={() => router.push('ChangePass')}>
             <View className='flex-row items-start' style={{gap: 15}}>
               <Icon name='lock-2-fill' size={moderateScale(20)} color='#81A969'/>  

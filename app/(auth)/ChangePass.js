@@ -40,7 +40,7 @@ const SetUpPass = () => {
                     };
 
                     try{
-                        const res = await axios.patch(`${apiVercel}/user/login/profile/change_password`, data)
+                        const res = await axios.patch('https://waste-redux-server-side.vercel.app/user/login/profile/change_password', data)
                         if(res.status === 200){
                             router.push('SuccessReset')
                         }
@@ -48,7 +48,9 @@ const SetUpPass = () => {
                         console.log(err)
                         if(err.response.status === 403) {
                             actions.setFieldError('oldPass', 'Incorrect password. Please try again.');
-                        }
+                        }else if(err.response && err.response === 500){
+                            Alert.alert('Error Occured', 'Please try again.')
+                          }
                     }
                 
                 }}

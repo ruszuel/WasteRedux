@@ -24,7 +24,7 @@ const otpVerification = () => {
     }
 
     try{
-      const response = await axios.post(`${apiVercel}/user/request/verify_otp`, data)
+      const response = await axios.post('https://waste-redux-server-side.vercel.app/user/request/verify_otp', data)
       if(response && response.status){
         if(response.status === 200){
           router.push(`/ResetPass?email=${encodeURIComponent(email)}`)
@@ -42,7 +42,7 @@ const otpVerification = () => {
 
   const resend = async () => {
     try{
-      const response = await axios.post('http://192.168.100.117:3000/user/request/otp', {email_address: email})
+      const response = await axios.post('https://waste-redux-server-side.vercel.app/user/request/otp', {email_address: email})
       if(response && response.status){
         if(response.status === 200){
           setOtp(['','','',''])
@@ -53,6 +53,8 @@ const otpVerification = () => {
       console.log(err)
       if(err.response.status === 429){
         Alert.alert('Error', 'Too many request. Please try again after 4hrs.')
+      }else if(err.response && err.response === 500){
+        Alert.alert('Error Occured', 'Please try again.')
       }
     }
   }

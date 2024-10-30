@@ -16,11 +16,14 @@ const SignUp = () => {
   useEffect(() => {
     const fetchmail = async () => {
       try{
-        const res = await axios.get(`${apiVercel}/user`)
+        const res = await axios.get('https://waste-redux-server-side.vercel.app/user')
         const mails = res.data.map(mail => mail.email_address)
         setUSerMail(mails)
       }catch(err){
         console.log(err)
+        if(err.response && err.response === 500){
+          Alert.alert('Error Occured', 'Please try again.')
+        }
       }
     }
 

@@ -62,7 +62,7 @@ const Upload = () => {
       };
 
       try{
-        const response = await axios.post(`${apiVercel}/user/register_waste`, formData, config)
+        const response = await axios.post('https://waste-redux-server-side.vercel.app/user/register_waste', formData, config)
         if(response && response.status){
           if(response.status === 204){
             Alert.alert('Error', 'Please upload an image')
@@ -74,6 +74,8 @@ const Upload = () => {
         console.log(err)
         if(err.response && err.response.status === 403){
           Alert.alert('Forbidden', 'You are temporarily ban for registering waste.')
+        }else if(err.response && err.response === 500){
+          Alert.alert('Error Occured', 'Please try again.')
         }
       }
     }else{

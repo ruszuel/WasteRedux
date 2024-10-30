@@ -19,10 +19,6 @@ const mainSetting = ({props}) => {
         <SettingsButton name='About this app' push='aboutUs'/>
         <SettingsButton name='Legal & Policies' push='legalPolicies'/>
       </View>
-
-      <View>
-        <SettingsButton name='Contact us' push='contactUs'/>
-      </View>
     </SafeAreaView>
   )
 }

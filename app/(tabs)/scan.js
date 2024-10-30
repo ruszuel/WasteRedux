@@ -16,6 +16,20 @@ const Scan = () => {
   const locationSubscription = useRef(null);
   const [isTracking, setIsTracking] = useState(false);
 
+  function isPointInPolygon(point, polygon) {
+    const [x, y] = point;
+    let isInside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+        const [xi, yi] = polygon[i];
+        const [xj, yj] = polygon[j];
+
+        const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) isInside = !isInside;
+    }
+    return isInside;
+  }
+
+
   const openSettingsAlert = () => {
     Alert.alert(
       'Permissions Required',
@@ -65,16 +79,27 @@ const Scan = () => {
 
       await stopLocationTracking();
 
+      const polygon = [
+        [14.858244786305413, 120.81414662855575],  // BSU Center
+        [14.859796811404639, 120.81436436348872],  // Gate 4
+        [14.858098713344246, 120.81590931588866],  // Gate 3
+        [14.856539076923555, 120.81336566043512],  // End of Pimentel
+        [14.857244248016649, 120.81223645044504],  // Gate 1
+        [14.857767939763484, 120.81207551790634],  // COL of Industrial
+      ];
+
       locationSubscription.current = await Location.watchPositionAsync({accuracy: Location.Accuracy.Highest,
         timeInterval: 10000, distanceInterval: 20
       }, async (newLocation) => {
-        const geocodedlo = await Location.reverseGeocodeAsync({latitude: newLocation.coords.latitude, longitude: newLocation.coords.longitude})
-        if(geocodedlo){
-          const add = `${geocodedlo[0].streetNumber} ${geocodedlo[0].street}, ${geocodedlo[0].district}, ${geocodedlo[0].city}, ${geocodedlo[0].subregion}`
-          setFormattedAddress(add)
-          Alert.alert("Address", add)
+        const { latitude, longitude } = newLocation.coords;
+        const isInsideArea = isPointInPolygon([latitude, longitude], polygon);
+        if (isInsideArea) {
+          Alert.alert('Location Update', 'You are inside the BSU');
+        } else {
+          Alert.alert('Location Update', 'You are outside the BSU');
         }
-        console.log(formattedAddress)
+        // Alert.alert('Location', `lat: ${newLocation.coords.latitude} \n long: ${newLocation.coords.longitude}`)
+        // const geocodedlo = await Location.reverseGeocodeAsync({latitude: newLocation.coords.latitude, longitude: newLocation.coords.longitude})
       })
       
     }catch(error){

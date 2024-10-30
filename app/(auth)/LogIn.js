@@ -50,7 +50,7 @@ const LogIn = () => {
                                 user_password: val.password,
                                 rememberme: val.rememberme
                             }
-                            const res = await axios.post(`${apiVercel}/user/login`, data)
+                            const res = await axios.post('https://waste-redux-server-side.vercel.app/user/login', data)
                             if(res && res.status){
                                 if(res.status === 200){
                                     if(val.rememberme){
@@ -70,6 +70,8 @@ const LogIn = () => {
                                     // Alert.alert("Unauthorized", "Invalid credentials");
                                     actions.setFieldError('email', 'Invalid credential')
                                     actions.setFieldError('password', 'Invalid credential')
+                                }else if(err.response && err.response === 500){
+                                    Alert.alert('Error Occured', 'Please try again.')
                                 }
                             } 
                             
@@ -140,25 +142,7 @@ const LogIn = () => {
             )}
             </Formik>
         </View>
-        
-        <View className="flex-row items-center gap-6" style={{padding: width * 0.035}}>
-            {/* or seperator */}
-            <View className="flex-1 h-[1px] bg-slate-400 border-solid"></View>
-            <View>
-                <Text className="text-center text-slate-400" style={{fontSize: width * 0.035}}>or</Text>
-            </View>
-            <View className="flex-1 h-[1px] bg-slate-400 border-solid"></View>
-        </View>
-        <View className='ml-3'>
-            {/* Google API */}
-            <TouchableOpacity className="p-4 bg-white rounded-full flex-row items-center justify-center gap-x-4">
-                <MaterialCommunityIcons
-                name='google'
-                color={'#81A969'}
-                size={24}/>
-                <Text className="text-center self-center text-primary font-psemibold" style={{fontSize: moderateScale(14)}}>Continue with Google</Text>
-            </TouchableOpacity>
-        </View>
+       
         <View className="flex-row gap-2 items-center justify-center mt-16" style={{marginTop: height * 0.09}}>
             <Text style={{fontSize: moderateScale(12)}}>Don't have an account?</Text>
             <Text className="text-primary font-medium" style={{fontSize: moderateScale(12)}} onPress={() => router.push("SignUp")}>Register</Text>

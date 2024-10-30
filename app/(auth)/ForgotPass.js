@@ -28,7 +28,7 @@ const ForgotPass = () => {
             validationSchema={mySchema}
             onSubmit={ async (values, actions) => {
               try{
-                const response = await axios.post(`${apiVercel}/user/request/otp`, {email_address: values.email})
+                const response = await axios.post('https://waste-redux-server-side.vercel.app/user/request/otp', {email_address: values.email})
                 if(response && response.status){
                   if(response.status === 200){
                     router.push(`/otpVerification?email=${encodeURIComponent(values.email)}`)
@@ -42,6 +42,9 @@ const ForgotPass = () => {
                 }
                 else if(err.response.status === 429){
                   Alert.alert('Error', 'Too many request. Please try again after 4hrs.')
+                }
+                else if(err.response && err.response === 500){
+                  Alert.alert('Error Occured', 'Please try again.')
                 }
               }
             }}

@@ -56,13 +56,16 @@ const SetPass = () => {
                   email_address: email
                 }
 
-                const res = await axios.post(`${apiVercel}/user/create`, data)
-                const response = await axios.post(`${apiVercel}/user/verify`, mail)
+                const res = await axios.post('https://waste-redux-server-side.vercel.app/user/create', data)
+                const response = await axios.post('https://waste-redux-server-side.vercel.app/user/verify', mail)
                 console.log(res.data)
                 console.log(response.data)
                 router.push('/SuccessSignUp')
               }catch(err){
                 console.log(err)
+                if(err.response && err.response === 500){
+                  Alert.alert('Error Occured', 'Please try again.')
+                }
               }
             }
 

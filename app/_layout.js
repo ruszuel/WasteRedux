@@ -29,7 +29,7 @@ export default function RootLayout() {
       const data = {
         auto_id: id
       }
-      const res = await axios.post(`${apiVercel}/user/auto_login`, data)
+      const res = await axios.post('https://waste-redux-server-side.vercel.app/user/auto_login', data)
       if(res.status && res){
         if(res.status === 200){
           router.push('home')

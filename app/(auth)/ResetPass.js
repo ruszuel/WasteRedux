@@ -38,7 +38,7 @@ const ResetPass = () => {
                     }
 
                     try{    
-                        const response = await axios.patch(`${apiVercel}/user/reset_pass`, data)
+                        const response = await axios.patch('https://waste-redux-server-side.vercel.app/user/reset_pass', data)
                         if(response && response.status){
                             if(response.status === 200){
                                 router.push('SuccessReset')
@@ -47,6 +47,9 @@ const ResetPass = () => {
                         }
                     }catch(err){
                         console.log(err)
+                        if(err.response && err.response === 500){
+                            Alert.alert('Error Occured', 'Please try again.')
+                        }
                     }
                 }}
             >

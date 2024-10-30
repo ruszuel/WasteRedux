@@ -11,7 +11,7 @@ const index = () => {
   const checkSession = async () => {
     const isValidId = await AsyncStorage.getItem('auto_log_id')
     if(isValidId){
-      const response = await axios.post('http://192.168.100.117:3000/user/auto_login', {auto_id: isValidId})
+      const response = await axios.post('https://waste-redux-server-side.vercel.app/user/auto_login', {auto_id: isValidId})
       if(response && response.status){
         if(response.status === 200){
           router.replace('home')
