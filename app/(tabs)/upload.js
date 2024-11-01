@@ -67,7 +67,7 @@ const Upload = () => {
           if(response.status === 204){
             Alert.alert('Error', 'Please upload an image')
           }else if(response.status === 200){
-            router.push('SuccessRegister')
+            router.replace('SuccessRegister')
           }
         }
       }catch(err){

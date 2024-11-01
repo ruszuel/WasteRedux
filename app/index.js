@@ -1,27 +1,50 @@
-import { View, Text, TouchableOpacity, Image, useWindowDimensions, Dimensions, PixelRatio, ImageBackground } from 'react-native'
+import { View, Text, TouchableOpacity, Image, useWindowDimensions, Dimensions, PixelRatio, ImageBackground, ActivityIndicator, Alert } from 'react-native'
 import { router } from 'expo-router'
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const index = () => {
   const {height, width} = useWindowDimensions();
-
+  const [loading, setLoading] = useState(true)
  
   const checkSession = async () => {
-    const isValidId = await AsyncStorage.getItem('auto_log_id')
-    if(isValidId){
-      const response = await axios.post('https://waste-redux-server-side.vercel.app/user/auto_login', {auto_id: isValidId})
-      if(response && response.status){
-        if(response.status === 200){
-          router.replace('home')
-        }
-
-        if(response.status === 201){
-          router.replace('LogIn')
+    try {
+      const isValidId = await AsyncStorage.getItem('auto_log_id')
+      if(isValidId){
+        const response = await axios.post('https://waste-redux-server-side.vercel.app/user/auto_login', {auto_id: isValidId})
+        if(response && response.status){
+          if(response.status === 200){
+            router.replace('home')
+            setLoading(false)
+          }
+          if(response.status === 201){
+            setLoading(false)
+          }
         }
       }
+    } catch (error) {
+      if(error && error.response.status === 500){
+        Alert.alert('Error occured', 'Please try again.')
+        setLoading(false)
+      }
     }
+    
+  }
+
+  useEffect(() => {
+    checkSession()
+  }, [])
+
+  if(loading){
+    return(
+      <View className='absolute top-0 left-0 right-0 bottom-0 justify-center items-center'>
+          <ActivityIndicator size="large" color="#81A969" />
+          <Text>Logging in...</Text>
+      </View>
+     
+    )
   }
 
   return (

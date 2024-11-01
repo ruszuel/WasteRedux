@@ -17,6 +17,7 @@ const AuthLayout = () => {
       <Stack.Screen name='VerifyPass'/>
       <Stack.Screen name='ChangeEmail'/>  
       <Stack.Screen name='SuccessRegister'/>
+      <Stack.Screen name='resetSuccess'/>
     </Stack>
   )
 }

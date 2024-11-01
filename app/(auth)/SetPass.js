@@ -60,7 +60,7 @@ const SetPass = () => {
                 const response = await axios.post('https://waste-redux-server-side.vercel.app/user/verify', mail)
                 console.log(res.data)
                 console.log(response.data)
-                router.push('/SuccessSignUp')
+                router.replace('/SuccessSignUp')
               }catch(err){
                 console.log(err)
                 if(err.response && err.response === 500){

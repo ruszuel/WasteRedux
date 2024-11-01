@@ -1,8 +1,6 @@
 import { router, SplashScreen, Stack, useNavigation } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from "axios";
 import Constant from 'expo-constants'
 
 SplashScreen.preventAutoHideAsync();
@@ -23,28 +21,8 @@ export default function RootLayout() {
     "Batangas" : require("../assets/fonts/Batangas Bold 700.ttf"),
   });
 
-  const persistLog = async () => {
-    try {
-      const id = await AsyncStorage.getItem('auto_log_id')
-      const data = {
-        auto_id: id
-      }
-      const res = await axios.post('https://waste-redux-server-side.vercel.app/user/auto_login', data)
-      if(res.status && res){
-        if(res.status === 200){
-          router.push('home')
-          SplashScreen.hideAsync();
-        }
-        SplashScreen.hideAsync();
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   useEffect(() => {
     if (fontsLoaded) {
-      persistLog()
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, error]);
