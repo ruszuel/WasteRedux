@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon'
+import { router } from 'expo-router'
 
 const Recycle = () => {
   return (
@@ -57,7 +58,7 @@ const Recycle = () => {
         <Text className='text-xl font-pregular text-justify'>The number on the bottom of a plastic bottle indicates its resin type, determining its recyclability. Resin numbers range from 1 to 7, with 1 and 2 being the most recyclable, while 7 is the least recyclable.</Text>
       </View>
     
-      <TouchableOpacity className='bg-primary h-20 rounded-2xl justify-center items-center'>
+      <TouchableOpacity className='bg-primary h-20 rounded-2xl justify-center items-center' onPress={() => router.replace('/scan')}>
         <Text className='text-white font-psemibold text-xl'>Scan again</Text>
       </TouchableOpacity>
       

@@ -6,11 +6,8 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Formik } from 'formik';
 import * as yup from 'yup'
 import axios from 'axios';
-import Constant from 'expo-constants'
 
 const ForgotPass = () => {
-  const apiURl = Constant.expoConfig.extra.apiUrl
-  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
 
   const mySchema = yup.object().shape({
     email: yup.string().email('Please provide a valid email').required('Please provide your email')
@@ -28,7 +25,7 @@ const ForgotPass = () => {
             validationSchema={mySchema}
             onSubmit={ async (values, actions) => {
               try{
-                const response = await axios.post('https://waste-redux-server-side.vercel.app/user/request/otp', {email_address: values.email})
+                const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/request/otp', {email_address: values.email})
                 if(response && response.status){
                   if(response.status === 200){
                     router.push(`/otpVerification?email=${encodeURIComponent(values.email)}`)

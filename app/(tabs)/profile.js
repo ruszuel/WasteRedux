@@ -1,5 +1,5 @@
 import { View, Text, Image, Pressable, TextInput, ScrollView, TouchableHighlight, Alert, ActivityIndicator} from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-remix-icon';
 import { router } from 'expo-router';
@@ -10,13 +10,11 @@ import * as yup from 'yup'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 import { LinearGradient } from 'expo-linear-gradient';
-import Constant from 'expo-constants'
+
+import { useFocusEffect } from '@react-navigation/native';
 
 const Profile = () => {
-  const apiURl = Constant.expoConfig.extra.apiUrl
-  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
-  const apiLocal = Constant.expoConfig.extra.apiLocal
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const [press, setPress] = useState(true);
   const [edit, setEdit] = useState(false);
@@ -57,10 +55,9 @@ const Profile = () => {
      }
   }
 
-  const getData = async () => {
-    setLoading(true)
+  const getData = useCallback(async () => {
     try{
-      const res = await axios.get('https://waste-redux-server-side.vercel.app/user/login/profile')
+      const res = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/login/profile')
       const users = res.data
       setInfos(res.data)
 
@@ -83,18 +80,20 @@ const Profile = () => {
     }finally{
       setLoading(false)
     }
-  }
+  }, [])
 
-  useEffect(() => {
-    getData()
-  }, [submit])
+  useFocusEffect(
+    useCallback(() => {
+      getData();
+    }, [])
+  );
 
   const sessionDestroy = async () => {
     try{
-      const response = await axios.get('https://waste-redux-server-side.vercel.app/user/logout')
+      const response = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/logout')
       if(response && response.status){
         if(response.status === 200){
-          router.push('LogIn')
+          router.replace('LogIn')
         }
       }
     }catch(err){
@@ -157,6 +156,7 @@ const Profile = () => {
               initialValues={{fname: infos.length > 0 ? infos[0].first_name : '', lname: infos.length > 0 ? infos[0].last_name : ''}}
               validationSchema={profileSchema}
               onSubmit={(val, actions) => {
+                setLoading(true)
                 actions.setSubmitting(true)
                 setEdit(false)
                 const update = async () => {
@@ -180,11 +180,11 @@ const Profile = () => {
                     };
   
                     try{
-                      const res = await axios.patch('https://waste-redux-server-side.vercel.app/user/login/update_profile', formData, config)
+                      const res = await axios.patch('https://seal-app-uuotj.ondigitalocean.app/user/login/update_profile', formData, config)
     
                       if(res && res.status){
                         if(res.status === 200) {
-                          setSubmit(true)
+                          // setSubmit(true)
                         }else {
                           console.log(err.response ? err.response.data : err.response);
                         }
@@ -200,6 +200,7 @@ const Profile = () => {
                       }else if(err.response && err.response === 500){
                         Alert.alert('Error Occured', 'Please try again.')
                       }
+                      Alert.alert('Error Occured', 'Please try again.')
                     }
                   }
   
@@ -209,18 +210,18 @@ const Profile = () => {
                   }
   
                   try{
-                    const res = await axios.patch('https://waste-redux-server-side.vercel.app/user/login/update_profile', data)
+                    const res = await axios.patch('https://seal-app-uuotj.ondigitalocean.app/user/login/update_profile', data)
                     if(res && res.status){
                       if(res.status === 200) {
                         console.log('Profile picture updated successfully');
-                        setSubmit(true)
+                        // setSubmit(true)
                       }else {
                         console.log(err.response ? err.response.data : err.message);
                       }
                     }
                     
                   }catch(err){
-                    console.log(err.response ? err.response.data : err.message);
+                    
                     if(err.response && err.response.status === 401){
                       Alert.alert('Session Expired', 'Please Log in again', [
                         {
@@ -229,6 +230,7 @@ const Profile = () => {
                     }else if(err.response && err.response === 500){
                       Alert.alert('Error Occured', 'Please try again.')
                     }
+                    Alert.alert('Error Occured', 'Please try again.')
                   }
                   getData()
                 }

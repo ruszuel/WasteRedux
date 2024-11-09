@@ -11,12 +11,11 @@ import Constant from 'expo-constants'
 
 const SignUp = () => {
   const [usermail, setUSerMail] = useState([])
-  const apiURl = Constant.expoConfig.extra.apiUrl
-  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
+
   useEffect(() => {
     const fetchmail = async () => {
       try{
-        const res = await axios.get('https://waste-redux-server-side.vercel.app/user')
+        const res = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user')
         const mails = res.data.map(mail => mail.email_address)
         setUSerMail(mails)
       }catch(err){

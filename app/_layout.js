@@ -1,13 +1,10 @@
 import { router, SplashScreen, Stack, useNavigation } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
-import Constant from 'expo-constants'
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const apiURl = Constant.expoConfig.extra.apiUrl
-  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),

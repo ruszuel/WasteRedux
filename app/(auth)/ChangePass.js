@@ -7,15 +7,11 @@ import axios from 'axios'
 import { Formik } from 'formik';
 import * as yup from 'yup'
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import Constant from 'expo-constants'
 
 const SetUpPass = () => {
     const [visible, setVisible] = useState(false);
     const [newP, setNewP] = useState(false);
     const [confirm, setConfirm] = useState(false);
-
-    const apiURl = Constant.expoConfig.extra.apiUrl
-    const apiVercel = Constant.expoConfig.extra.apiUrlVercel
 
     const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/
     const changePassSchema = yup.object().shape({
@@ -40,7 +36,7 @@ const SetUpPass = () => {
                     };
 
                     try{
-                        const res = await axios.patch('https://waste-redux-server-side.vercel.app/user/login/profile/change_password', data)
+                        const res = await axios.patch('https://seal-app-uuotj.ondigitalocean.app/user/login/profile/change_password', data)
                         if(res.status === 200){
                             router.push('resetSuccess')
                         }

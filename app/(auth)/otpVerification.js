@@ -11,8 +11,6 @@ const otpVerification = () => {
   const { email } = useLocalSearchParams()
   const [otp, setOtp] = useState(['', '', '', '']);
   const inputRefs = useRef([])
-  const apiURl = Constant.expoConfig.extra.apiUrl
-  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
 
   const handleVerify = async () => {
     const otpValue = otp.join('')
@@ -24,7 +22,7 @@ const otpVerification = () => {
     }
 
     try{
-      const response = await axios.post('https://waste-redux-server-side.vercel.app/user/request/verify_otp', data)
+      const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/request/verify_otp', data)
       if(response && response.status){
         if(response.status === 200){
           router.push(`/ResetPass?email=${encodeURIComponent(email)}`)

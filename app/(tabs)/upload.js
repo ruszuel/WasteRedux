@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Pressable, Image, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, Pressable, Image, Alert, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon'
@@ -8,13 +8,13 @@ import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
-import Constant from 'expo-constants'
+
 
 const Upload = () => {
-  const apiURl = Constant.expoConfig.extra.apiUrl
-  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
+
   const [category, setCategory] = useState('')
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false)
 
   const picker = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -62,7 +62,8 @@ const Upload = () => {
       };
 
       try{
-        const response = await axios.post('https://waste-redux-server-side.vercel.app/user/register_waste', formData, config)
+        setLoading(true)
+        const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/register_waste', formData, config)
         if(response && response.status){
           if(response.status === 204){
             Alert.alert('Error', 'Please upload an image')
@@ -71,12 +72,14 @@ const Upload = () => {
           }
         }
       }catch(err){
-        console.log(err)
         if(err.response && err.response.status === 403){
           Alert.alert('Forbidden', 'You are temporarily ban for registering waste.')
         }else if(err.response && err.response === 500){
           Alert.alert('Error Occured', 'Please try again.')
         }
+        Alert.alert('Error Occured', 'Please try again.')
+      }finally{
+        setLoading(false)
       }
     }else{
       Alert.alert('Error', 'Please upload an image and choose a category')
@@ -113,6 +116,21 @@ const Upload = () => {
           <Text className='font-pmedium text-white' style={{fontSize: moderateScale(14)}}>Register</Text>
         </TouchableOpacity>
       </View>
+
+      {loading && (
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          justifyContent: 'center',
+          alignItems: 'center'
+          }}>
+          <ActivityIndicator size="large" color="#81A969" />
+      </View>
+      )}
     </SafeAreaView>
   )
 }

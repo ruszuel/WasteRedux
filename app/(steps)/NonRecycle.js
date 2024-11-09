@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon'
+import { router } from 'expo-router'
 
 const NonRecycle = () => {
   return (
@@ -42,7 +43,7 @@ const NonRecycle = () => {
             </View>
         </View>
         <View className='flex-1 justify-end'>  
-            <TouchableOpacity className='bg-primary h-20 rounded-xl justify-center items-center mb-8'>
+            <TouchableOpacity className='bg-primary h-20 rounded-xl justify-center items-center mb-8' onPress={() => router.replace('/scan')}>
                 <Text className='text-white font-psemibold text-2xl'>Scan again</Text>
             </TouchableOpacity>
         </View>

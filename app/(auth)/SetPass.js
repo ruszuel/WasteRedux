@@ -9,8 +9,7 @@ import axios from 'axios'
 import Constant from 'expo-constants'
 
 const SetPass = () => {
-  const apiURl = Constant.expoConfig.extra.apiUrl
-  const apiVercel = Constant.expoConfig.extra.apiUrlVercel
+
   const [showPassword, setShowPassword] = useState(false);
   const {fname, lname, email, college} = useLocalSearchParams()
   const [confPass, setConfPass] = useState(false);
@@ -56,8 +55,8 @@ const SetPass = () => {
                   email_address: email
                 }
 
-                const res = await axios.post('https://waste-redux-server-side.vercel.app/user/create', data)
-                const response = await axios.post('https://waste-redux-server-side.vercel.app/user/verify', mail)
+                const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/create', data)
+                const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/verify', mail)
                 console.log(res.data)
                 console.log(response.data)
                 router.replace('/SuccessSignUp')

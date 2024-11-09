@@ -10,8 +10,6 @@ import axios from 'axios';
 import Constant from 'expo-constants'
 
 const ResetPass = () => {
-    const apiURl = Constant.expoConfig.extra.apiUrl
-    const apiVercel = Constant.expoConfig.extra.apiUrlVercel
     const [newP, setNewP] = useState(false);
     const [confirm, setConfirm] = useState(false);
     const { email } = useLocalSearchParams()
@@ -38,7 +36,7 @@ const ResetPass = () => {
                     }
 
                     try{    
-                        const response = await axios.patch('https://waste-redux-server-side.vercel.app/user/reset_pass', data)
+                        const response = await axios.patch('https://seal-app-uuotj.ondigitalocean.app/user/reset_pass', data)
                         if(response && response.status){
                             if(response.status === 200){
                                 router.push('SuccessReset')

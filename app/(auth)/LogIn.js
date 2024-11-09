@@ -9,7 +9,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Constant from 'expo-constants'
+
 
 
 const LogIn = () => {
@@ -21,10 +21,6 @@ const LogIn = () => {
         password: yup.string().required("Password is required"),
         rememberme: yup.boolean()
     })
-    const apiURl = Constant.expoConfig.extra.apiUrl
-    const apiVercel = Constant.expoConfig.extra.apiUrlVercel
-    const apiULocal = Constant.expoConfig.extra.apiLocal
-
   return (
     <SafeAreaView className="flex-1 px-5 justify-center" style={{paddingVertical: width * 0.16}}>
         <View className='flex gap-2' style={{paddingTop: height * 0.07}}>
@@ -50,7 +46,7 @@ const LogIn = () => {
                                 user_password: val.password,
                                 rememberme: val.rememberme
                             }
-                            const res = await axios.post('https://waste-redux-server-side.vercel.app/user/login', data)
+                            const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/login', data)
                             if(res && res.status){
                                 if(res.status === 200){
                                     if(val.rememberme){
@@ -66,11 +62,11 @@ const LogIn = () => {
                             if(err.response){
                                 if (err.response.status === 403){
                                     Alert.alert("Error", "Email not yet verified")
-                                }else if(err.response.status === 401){
+                                }if(err.response.status === 401){
                                     // Alert.alert("Unauthorized", "Invalid credentials");
                                     actions.setFieldError('email', 'Invalid credential')
                                     actions.setFieldError('password', 'Invalid credential')
-                                }else if(err.response && err.response === 500){
+                                }if(err.response && err.response === 500){
                                     Alert.alert('Error Occured', 'Please try again.')
                                 }
                             } 

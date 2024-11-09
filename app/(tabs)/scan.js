@@ -5,12 +5,15 @@ import Icon from 'react-native-remix-icon';
 import { router } from 'expo-router';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import * as Location from 'expo-location'
+import axios from 'axios';
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 
 const Scan = () => {
   const [type, setType] = useState('back');
   const cameraRef = useRef(null);
-  let [formattedAddress, setFormattedAddress] = useState()
-  let [location, setLocation] = useState(null)
+  const [long, setLong] = useState("")
+  const [lat, setLat] = useState("")
+  const [loc, setLoc] = useState()
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
   const [locationPermission, requestLocationPermission] = Location.useForegroundPermissions();
   const locationSubscription = useRef(null);
@@ -92,10 +95,14 @@ const Scan = () => {
       }, async (newLocation) => {
         const { latitude, longitude } = newLocation.coords;
         const isInsideArea = isPointInPolygon([latitude, longitude], polygon);
+        setLat(latitude)
+        setLong(longitude)
         if (isInsideArea) {
           Alert.alert('Location Update', 'You are inside the BSU');
+          setLoc('Bulacan State University')
         } else {
           Alert.alert('Location Update', 'You are outside the BSU');
+          setLoc('Outside BSU')
         }
         // Alert.alert('Location', `lat: ${newLocation.coords.latitude} \n long: ${newLocation.coords.longitude}`)
         // const geocodedlo = await Location.reverseGeocodeAsync({latitude: newLocation.coords.latitude, longitude: newLocation.coords.longitude})
@@ -120,6 +127,7 @@ const Scan = () => {
   };
 
   useEffect(() => {
+    startLocationTracking()
     return () => {
       stopLocationTracking();
       console.log('Untracking')
@@ -146,6 +154,54 @@ const Scan = () => {
       openSettingsAlert();
     } else {
       requestPermissions();
+    }
+  };
+
+  const takePicture = async () => {
+    if (cameraRef) {
+      handleCameraPress()
+      try{
+        if(loc){
+          const photo = await cameraRef.current.takePictureAsync();
+          const compressed = await manipulateAsync(
+          photo.uri,
+          [{resize: {width: 180, height: 180}}],
+          {format: SaveFormat.JPEG})
+
+          const formData = new FormData()
+          formData.append('image', {
+            uri: compressed.uri,
+            type: 'image/jpeg',
+            name: 'waste.jpeg'
+          })
+          formData.append('lat', lat)
+          formData.append('long',long)
+          formData.append('loc',loc)
+
+          const config = {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'multipart/form-data',
+            },
+            withCredentials: true
+          };
+
+          const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/predict', formData, config)
+          console.log(res.data.prediction.predictedClass)
+          Alert.alert('Prediction', res.data.prediction.predictedClass, [
+            {
+              text: 'Proceed', onPress: () => {
+                res.data.type === 'Non-recyclable' ? router.push('/(steps)/NonRecycle') : router.replace('/(steps)/Recycle')
+              }
+            }
+          ]);
+        }
+        
+      }catch(err){
+        console.log(err)
+        Alert.alert('Error Occured', 'Please scan again')
+      }
+      
     }
   };
 
@@ -186,7 +242,7 @@ const Scan = () => {
           </Pressable>
         </Pressable>
         <View className='rounded-full border-white border-2 justify-center p-1' style={{height: verticalScale(55), width: scale(60)}}>
-          <Pressable className='bg-white rounded-full flex-1' onPress={() => handleCameraPress()}>
+          <Pressable className='bg-white rounded-full flex-1' onPress={() => takePicture()}>
           </Pressable>
         </View>
         <View className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
