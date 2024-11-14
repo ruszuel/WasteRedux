@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+
 import React from 'react'
 import { Stack } from 'expo-router'
 
@@ -8,6 +8,9 @@ const StepsLayout = () => {
         <Stack.Screen name='Recycle'/>
         <Stack.Screen name='NonRecycle'/>
         <Stack.Screen name='NonRecognizable'/>
+        <Stack.Screen name='recyclePlastic'/>
+        <Stack.Screen name='recycleGlass' />
+        <Stack.Screen name='nonRecycleGlass' />
     </Stack>
   )
 }

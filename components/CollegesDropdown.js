@@ -13,8 +13,16 @@ const CollegesDropdown = ({onSelect}) => {
         {label: 'CIT', value: 'CIT'}, 
         {label: 'CAFA', value: 'CAFA'},
         {label: 'COE', value: 'COE'},
-        {label: 'COED', value: 'CON'},
-        {label: 'NONE', value: 'NONE'},
+        {label: 'COED', value: 'COED'},
+        {label: 'CAL', value: 'CAL'},
+        {label: 'CBEA', value: 'CBEA'},
+        {label: 'CCJE', value: 'CCJE'},
+        {label: 'CHTM', value: 'CHTM'},
+        {label: 'CLAW', value: 'CLAW'},
+        {label: 'CS', value: 'CS'},
+        {label: 'CSER', value: 'CSER'},
+        {label: 'NSTP', value: 'NSTP'},
+        {label: 'GS', value: 'GS'},
     ]
   return ( 
     <View className='justify-center items-center w-full gap-y-2 relative'>

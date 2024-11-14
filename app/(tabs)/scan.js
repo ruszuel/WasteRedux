@@ -7,6 +7,8 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import * as Location from 'expo-location'
 import axios from 'axios';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
+import { useFocusEffect } from '@react-navigation/native';
+import { Modal } from 'react-native';
 
 const Scan = () => {
   const [type, setType] = useState('back');
@@ -18,6 +20,9 @@ const Scan = () => {
   const [locationPermission, requestLocationPermission] = Location.useForegroundPermissions();
   const locationSubscription = useRef(null);
   const [isTracking, setIsTracking] = useState(false);
+  const [isModelOpen, setIsModalOpen] = useState(false)
+  const [predictedClass, setPredictedClass] = useState('')
+  const [wasteType, setWasteType] = useState('')
 
   function isPointInPolygon(point, polygon) {
     const [x, y] = point;
@@ -98,10 +103,8 @@ const Scan = () => {
         setLat(latitude)
         setLong(longitude)
         if (isInsideArea) {
-          Alert.alert('Location Update', 'You are inside the BSU');
           setLoc('Bulacan State University')
         } else {
-          Alert.alert('Location Update', 'You are outside the BSU');
           setLoc('Outside BSU')
         }
         // Alert.alert('Location', `lat: ${newLocation.coords.latitude} \n long: ${newLocation.coords.longitude}`)
@@ -110,11 +113,10 @@ const Scan = () => {
       
     }catch(error){
       setIsTracking(false);
-      Alert.alert(
-        'Location Error',
-        'Unable to track location. Please check your settings.'
-      );
-      console.error('Location tracking error:', error);
+      // Alert.alert(
+      //   'Location Error',
+      //   'Unable to track location. Please check your settings.'
+      // );
     }
   })
 
@@ -126,8 +128,13 @@ const Scan = () => {
     setIsTracking(false);
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      startLocationTracking();
+    }, [locationPermission])
+  );
+
   useEffect(() => {
-    startLocationTracking()
     return () => {
       stopLocationTracking();
       console.log('Untracking')
@@ -187,14 +194,16 @@ const Scan = () => {
           };
 
           const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/predict', formData, config)
-          console.log(res.data.prediction.predictedClass)
-          Alert.alert('Prediction', res.data.prediction.predictedClass, [
-            {
-              text: 'Proceed', onPress: () => {
-                res.data.type === 'Non-recyclable' ? router.push('/(steps)/NonRecycle') : router.replace('/(steps)/Recycle')
-              }
-            }
-          ]);
+          setPredictedClass(res.data.prediction.predictedClass)
+          setIsModalOpen(true)
+          setWasteType(res.data.type)
+          // Alert.alert('Prediction', res.data.prediction.predictedClass, [
+          //   {
+          //     text: 'Proceed', onPress: () => {
+          //       res.data.type === 'Non-recyclable' ? router.push('/(steps)/nonRecycleGlass') : router.replace('/(steps)/recyclePlastic')
+          //     }
+          //   }
+          // ]);
         }
         
       }catch(err){
@@ -235,7 +244,23 @@ const Scan = () => {
 
   return (
     <View className='flex-1'>
-      <CameraView className='flex-1 justify-center items-end flex-row' facing={type} ref={cameraRef} flash='auto' style={{gap:90, paddingBottom: moderateScale(40)}}>
+      <Modal animationType='fade' visible={isModelOpen} transparent={true}>
+        <View className='bg-black/50 flex-1 justify-center items-center'>
+          <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
+            <View className='flex-row items-center' style={{gap: 20}}>
+              <View className='h-12 w-12 bg-primary rounded-full justify-center items-center'>
+                <Icon name='qr-scan-2-line' color='white' size={32}/>
+              </View>
+              <Text className='font-pmedium' style={{fontSize: moderateScale(15)}}>The scanned item is <Text className='text-primary font-psemibold'>{predictedClass}</Text></Text>
+            </View>
+            <Pressable className='items-end' onPress={() => {setIsModalOpen(false); wasteType === 'Non-recyclable' ? router.replace('/(steps)/nonRecycleGlass') : router.replace('/(steps)/recyclePlastic')}}>
+              <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Proceed</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      <CameraView className='flex-1 justify-center items-end flex-row' facing={type} ref={cameraRef} style={{gap:80, paddingBottom: moderateScale(40)}}>
         <Pressable className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
           <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => router.push('upload')}>
             <Icon name='upload-fill' size={28} color='black'/>

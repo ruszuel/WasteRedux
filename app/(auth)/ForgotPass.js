@@ -28,6 +28,7 @@ const ForgotPass = () => {
                 const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/request/otp', {email_address: values.email})
                 if(response && response.status){
                   if(response.status === 200){
+                    Alert.alert('Verification', 'Please check your outlook for OTP')
                     router.push(`/otpVerification?email=${encodeURIComponent(values.email)}`)
                   }
                   

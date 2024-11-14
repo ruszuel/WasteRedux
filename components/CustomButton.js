@@ -28,7 +28,7 @@ const CustomButton = ({flatlistIndex, flatlistRef, dataLength}) => {
 
   const updateData = async () => {
     try{
-      const response = await axios.get('https://waste-redux-server-side.vercel.app/user/first_time')
+      const response = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/first_time')
       if(response && response.status){
         if(response.status === 200){
           AsyncStorage.setItem('auto_log_id', response.data.sessionId)

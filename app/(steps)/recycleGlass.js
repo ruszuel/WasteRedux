@@ -5,7 +5,7 @@ import Icon from 'react-native-remix-icon'
 import { router } from 'expo-router'
 import { moderateScale } from 'react-native-size-matters'
 
-const Recycle = () => {
+const recycleGlass = () => {
   return (
     <SafeAreaView className='flex-1 mt-20 px-5' style={{gap: 50}}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -15,46 +15,46 @@ const Recycle = () => {
         </View>
 
         <View className='gap-y-4'>
-          <Text className='text-secondary font-pbold' style={{fontSize: moderateScale(22)}}> How to Recycle </Text>
+          <Text className='text-secondary font-pbold' style={{fontSize: moderateScale(22)}}> How to recycleGlass </Text>
           <View className='flex-row items-center gap-2'>
               <View className='h-10 w-10 bg-white rounded-full justify-center items-center'>
                   <Text className='font-pbold text-primary' style={{fontSize: moderateScale(16)}}>1</Text>
               </View>
-              <Text className='font-pregular' style={{fontSize: moderateScale(14)}}> Make sure the bottle is empty. </Text>
+              <Text className='font-pregular' style={{fontSize: moderateScale(14)}}> Empty the glass container </Text>
           </View>
 
           <View className='flex-row items-center gap-2'>
               <View className='h-10 w-10 bg-white rounded-full justify-center items-center'>
                   <Text className='font-pbold text-primary' style={{fontSize: moderateScale(16)}}>2</Text>
               </View>
-              <Text className='font-pregular' style={{fontSize: moderateScale(14)}}> Rinse the bottle and remove the cap and label. </Text>
+              <Text className='font-pregular' style={{fontSize: moderateScale(14)}}> Rinse the glass item to remove residue. </Text>
           </View>
 
           <View className='flex-row items-center gap-2'>
               <View className='h-10 w-10 bg-white rounded-full justify-center items-center'>
                   <Text className='font-pbold text-primary' style={{fontSize: moderateScale(16)}}>3</Text>
               </View>
-              <Text className='font-pregular w-96' style={{fontSize: moderateScale(14)}}> Recycle plastic bottle with the numbers 1 or 2 on the bottom. </Text>
+              <Text className='font-pregular w-96' style={{fontSize: moderateScale(14)}}> Detach plastic or metal lids, as these are recycled separately. </Text>
           </View>
 
           <View className='flex-row items-center gap-2'>
               <View className='h-10 w-10 bg-white rounded-full justify-center items-center'>
                   <Text className='font-pbold text-primary' style={{fontSize: moderateScale(16)}}>4</Text>
               </View>
-              <Text className='font-pregular' style={{fontSize: moderateScale(14)}}> Squash to save space and throw it in the rubbish. </Text>
+              <Text className='font-pregular' style={{fontSize: moderateScale(14)}}> Sort by color if required </Text>
           </View>
 
           <View className='flex-row items-center gap-2'>
               <View className='h-10 w-10 bg-white rounded-full justify-center items-center'>
                   <Text className='font-pbold text-primary' style={{fontSize: moderateScale(16)}}>5</Text>
               </View>
-              <Text className='font-pregular' style={{fontSize: moderateScale(14)}}> You can also drop your plastic bottles off at a recycling center as an alternative. </Text>
+              <Text className='font-pregular' style={{fontSize: moderateScale(14)}}> Consider repurposing glass items for gardening, food storage, or decoration. </Text>
           </View>
         </View>
 
         <View className='gap-4'>
           <Text className='text-secondary font-pbold' style={{fontSize: moderateScale(22)}}>Did you know</Text>
-          <Text className='font-pregular text-justify' style={{fontSize: moderateScale(14)}}>The number on the bottom of a plastic bottle indicates its resin type, determining its recyclability. Resin numbers range from 1 to 7, with 1 and 2 being the most recyclable, while 7 is the least recyclable.</Text>
+          <Text className='font-pregular text-justify' style={{fontSize: moderateScale(14)}}>Most glass types can be endlessly recycled without losing quality, but certain varieties should be kept out of the recycling bin.</Text>
         </View>
 
         <View className='justify-end flex-[0.8]'>
@@ -68,4 +68,4 @@ const Recycle = () => {
   )
 }
 
-export default Recycle
+export default recycleGlass
