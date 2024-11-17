@@ -12,6 +12,7 @@ import { Modal } from 'react-native';
 
 const Scan = () => {
   const [type, setType] = useState('back');
+  const [light, setLight] = useState(false)
   const cameraRef = useRef(null);
   const [long, setLong] = useState("")
   const [lat, setLat] = useState("")
@@ -194,16 +195,9 @@ const Scan = () => {
           };
 
           const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/predict', formData, config)
-          setPredictedClass(res.data.prediction.predictedClass)
+          setPredictedClass(res.data.prediction)
           setIsModalOpen(true)
           setWasteType(res.data.type)
-          // Alert.alert('Prediction', res.data.prediction.predictedClass, [
-          //   {
-          //     text: 'Proceed', onPress: () => {
-          //       res.data.type === 'Non-recyclable' ? router.push('/(steps)/nonRecycleGlass') : router.replace('/(steps)/recyclePlastic')
-          //     }
-          //   }
-          // ]);
         }
         
       }catch(err){
@@ -242,6 +236,38 @@ const Scan = () => {
     );
   }
 
+  const classificationRes = () => {
+    if(wasteType === 'Disposable'){
+      switch (predictedClass) {
+        case 'Plastic':
+          router.push('/(steps)/NonRecycle')
+        break;
+
+        case 'Glass':
+          router.push('/(steps)/nonRecycleGlass')
+        break;
+
+        case 'Metal':
+          router.push('/(steps)/nonRecycleMetal')
+        break;
+      }
+    }else if(wasteType === 'Recyclable'){
+      switch (predictedClass) {
+        case 'Plastic':
+          router.push('/(steps)/recyclePlastic')
+        break;
+
+        case 'Glass':
+          router.push('/(steps)/recycleGlass')
+        break;
+
+        case 'Metal':
+          router.push('/(steps)/recycleMetal')
+        break;
+      }
+    }
+  }
+
   return (
     <View className='flex-1'>
       <Modal animationType='fade' visible={isModelOpen} transparent={true}>
@@ -253,17 +279,17 @@ const Scan = () => {
               </View>
               <Text className='font-pmedium' style={{fontSize: moderateScale(15)}}>The scanned item is <Text className='text-primary font-psemibold'>{predictedClass}</Text></Text>
             </View>
-            <Pressable className='items-end' onPress={() => {setIsModalOpen(false); wasteType === 'Non-recyclable' ? router.replace('/(steps)/nonRecycleGlass') : router.replace('/(steps)/recyclePlastic')}}>
+            <Pressable className='items-end' onPress={() => {setIsModalOpen(false); classificationRes()}}>
               <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Proceed</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
 
-      <CameraView className='flex-1 justify-center items-end flex-row' facing={type} ref={cameraRef} style={{gap:80, paddingBottom: moderateScale(40)}}>
+      <CameraView className='flex-1 justify-center items-end flex-row' facing={type} enableTorch={light} ref={cameraRef} style={{gap:80, paddingBottom: moderateScale(40)}}>
         <Pressable className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
-          <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => router.push('upload')}>
-            <Icon name='upload-fill' size={28} color='black'/>
+          <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setLight((prev) => prev ? false : true)}>
+            <Icon name='flashlight-line' size={28} color='black'/>
           </Pressable>
         </Pressable>
         <View className='rounded-full border-white border-2 justify-center p-1' style={{height: verticalScale(55), width: scale(60)}}>

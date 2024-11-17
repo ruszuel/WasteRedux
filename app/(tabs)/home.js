@@ -51,7 +51,7 @@ const Home = () => {
           <>
           <View className='mb-5 flex-row flex-1 gap-x-3'>
             <View className='bg-white rounded-xl justify-center items-center' style={{width: scale(35), height: verticalScale(33)}}>
-              <Icon name={items.waste_type === 'Non-recyclable' ? 'close-fill' : 'check-line'} size={moderateScale(26)} color={ items.waste_type === 'Non-recyclable' ? 'red' : '#81A969'}/>
+              <Icon name={items.waste_type === 'Disposable' ? 'close-fill' : 'check-line'} size={moderateScale(26)} color={ items.waste_type === 'Disposable' ? 'red' : '#81A969'}/>
             </View>
             <View>
               <Text className='text-gray-400 font-pregular' style={{fontSize: moderateScale(12)}}>{items.waste_type}</Text>
