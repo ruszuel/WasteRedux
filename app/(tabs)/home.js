@@ -127,18 +127,20 @@ const Home = () => {
         </View>
       </View>
       {/* Recent Scan */}
-      <View style={{marginTop: moderateScale(26)}}>
+      <View style={{marginTop: moderateScale(26)}} className='flex-1'>
         <View className='flex-row justify-between items-center'>
           <Text className='font-pextrabold text-secondary' style={{fontSize: moderateScale(22)}}> Recent Scan</Text>
           <Link href='/(tabs)/history' className='font-pregular' style={{fontSize: moderateScale(14)}}>See all</Link>
         </View>
-        <View className='mt-6 flex-row' style={{gap: 10}}>
-            {/*History of user getting into database*/}
+        {/* <View className='flex-1 mt-6' style={{gap: 10}}> */}
             <FlatList
               data={userData}
               renderItem={({item}) => <Item items={item}/>}
+              scrollEnabled={true}
+              showsVerticalScrollIndicator={false}
+              className='flex-1 mt-6'
             />
-        </View>
+        {/* </View> */}
       </View>
     </SafeAreaProvider>
   )

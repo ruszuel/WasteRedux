@@ -24,6 +24,7 @@ const Scan = () => {
   const [isModelOpen, setIsModalOpen] = useState(false)
   const [predictedClass, setPredictedClass] = useState('')
   const [wasteType, setWasteType] = useState('')
+  const [loading, setLoading] = useState(true)
 
   function isPointInPolygon(point, polygon) {
     const [x, y] = point;
@@ -97,7 +98,7 @@ const Scan = () => {
       ];
 
       locationSubscription.current = await Location.watchPositionAsync({accuracy: Location.Accuracy.Highest,
-        timeInterval: 10000, distanceInterval: 20
+        timeInterval: 1000, distanceInterval: 20
       }, async (newLocation) => {
         const { latitude, longitude } = newLocation.coords;
         const isInsideArea = isPointInPolygon([latitude, longitude], polygon);
@@ -169,13 +170,13 @@ const Scan = () => {
     if (cameraRef) {
       handleCameraPress()
       try{
-        if(loc){
-          const photo = await cameraRef.current.takePictureAsync();
-          const compressed = await manipulateAsync(
-          photo.uri,
-          [{resize: {width: 180, height: 180}}],
-          {format: SaveFormat.JPEG})
+        const photo = await cameraRef.current.takePictureAsync();
+        const compressed = await manipulateAsync(
+        photo.uri,
+        [{resize: {width: 180, height: 180}}],
+        {format: SaveFormat.JPEG})
 
+        if(loc){
           const formData = new FormData()
           formData.append('image', {
             uri: compressed.uri,
@@ -198,6 +199,10 @@ const Scan = () => {
           setPredictedClass(res.data.prediction)
           setIsModalOpen(true)
           setWasteType(res.data.type)
+        }
+        else{
+          // setLoading(true)
+          Alert.alert('Error Occured', 'Please scan again')
         }
         
       }catch(err){
@@ -293,8 +298,7 @@ const Scan = () => {
           </Pressable>
         </Pressable>
         <View className='rounded-full border-white border-2 justify-center p-1' style={{height: verticalScale(55), width: scale(60)}}>
-          <Pressable className='bg-white rounded-full flex-1' onPress={() => takePicture()}>
-          </Pressable>
+          <Pressable className='bg-white rounded-full flex-1' onPress={() => takePicture()}></Pressable>
         </View>
         <View className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
           <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}>

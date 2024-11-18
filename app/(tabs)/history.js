@@ -43,7 +43,6 @@ const History = () => {
             <Text className='text-gray-400 font-pregular' style={{fontSize: moderateScale(12)}}>{item.scan_date}</Text>
           </View>
           </>
-          
         )}
       </View>
     )

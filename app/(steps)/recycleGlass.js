@@ -7,8 +7,8 @@ import { moderateScale } from 'react-native-size-matters'
 
 const recycleGlass = () => {
   return (
-    <SafeAreaView className='flex-1 mt-20 px-5' style={{gap: 50}}>
-      <ScrollView contentContainerStyle={{flexGrow: 1, gap: 20}}>
+    <SafeAreaView className='flex-1 mt-20 px-5'>
+      <ScrollView contentContainerStyle={{flexGrow: 1, gap: 30}}>
         <View className='flex-row items-center gap-2'>
           <Icon name='check-line' size={32} color='#81A969'/>
           <Text className='text-primary font-psemibold text-lg'>The waste material is recyclable!</Text>
@@ -57,9 +57,9 @@ const recycleGlass = () => {
           <Text className='font-pregular text-justify' style={{fontSize: moderateScale(14)}}>Most glass types can be endlessly recycled without losing quality, but certain varieties should be kept out of the recycling bin.</Text>
         </View>
 
-        <View className='justify-end flex-[0.8]'>
+        <View className='justify-end flex-1 mb-5 mt-5'>
           <TouchableOpacity className='bg-primary rounded-2xl items-center' style={{padding: moderateScale(15)}} onPress={() => router.replace('/scan')}>
-            <Text className='text-white font-psemibold' style={{fontSize: moderateScale(14)}}>Scan again</Text>
+            <Text className='text-white font-psemibold flex-1' style={{fontSize: moderateScale(14)}}>Scan again</Text>
           </TouchableOpacity>
         </View>
       

@@ -9,7 +9,7 @@ const nonRecycleMetal = () => {
   return (
     <SafeAreaView className='px-5 mt-20 flex-1'>
         <View className='flex-1'> 
-            <ScrollView className='mb-8' contentContainerStyle={{flexGrow: 1}}>
+            <ScrollView className='mb-8' contentContainerStyle={{flexGrow: 1, gap: 30}}>
                 <View style={{gap: 40}} className='pb-4'>
                     <View className='flex-row items-center gap-4'>
                         <Icon name='close-circle-fill' size={28} color='#9B3A1C'/>

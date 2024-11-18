@@ -200,7 +200,7 @@ const Profile = () => {
                       }else if(err.response && err.response === 500){
                         Alert.alert('Error Occured', 'Please try again.')
                       }
-                      Alert.alert('Error Occured', 'Please try again.')
+                      // Alert.alert('Error Occured', 'Please try again.')
                     }
                   }
   
@@ -230,7 +230,7 @@ const Profile = () => {
                     }else if(err.response && err.response === 500){
                       Alert.alert('Error Occured', 'Please try again.')
                     }
-                    Alert.alert('Error Occured', 'Please try again.')
+                    // Alert.alert('Error Occured', 'Please try again.')
                   }
                   getData()
                 }
