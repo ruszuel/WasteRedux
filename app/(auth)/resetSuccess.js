@@ -10,10 +10,10 @@ const SuccessReset = () => {
 
     const sessionDestroy = async () => {
         try{
-          const response = await axios.get('http://192.168.100.117:3000/user/logout')
+          const response = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/logout')
           if(response && response.status){
             if(response.status === 200){
-              router.push('LogIn')
+              router.replace('LogIn')
             }
           }
         }catch(err){

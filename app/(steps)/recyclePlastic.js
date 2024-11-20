@@ -83,9 +83,9 @@ const recyclePlastic = () => {
             </View>
         </View>
 
-        <View className='justify-end flex-1 mb-2 mt-5'>
+        <View className='justify-end flex-1 mb-5 mt-3'>
           <TouchableOpacity className='bg-primary rounded-2xl items-center' style={{padding: moderateScale(15)}} onPress={() => router.replace('/scan')}>
-            <Text className='text-white font-psemibold flex-1' style={{fontSize: moderateScale(14)}}>Scan again</Text>
+            <Text className='text-white font-psemibold' style={{fontSize: moderateScale(14)}}>Scan again</Text>
           </TouchableOpacity>
         </View>
       

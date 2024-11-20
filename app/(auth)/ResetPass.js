@@ -40,7 +40,6 @@ const ResetPass = () => {
                         if(response && response.status){
                             if(response.status === 200){
                                 router.push('SuccessReset')
-                                actions.resetForm()
                             }
                         }
                     }catch(err){

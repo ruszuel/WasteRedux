@@ -7,21 +7,6 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import axios from 'axios';
 
 const SuccessReset = () => {
-
-    const sessionDestroy = async () => {
-        try{
-          const response = await axios.get('http://192.168.100.117:3000/user/logout')
-          if(response && response.status){
-            if(response.status === 200){
-              router.push('LogIn')
-            }
-          }
-        }catch(err){
-          console.log(err)
-          console.log(err.response)
-        }
-      }
-
   return (
     <SafeAreaView className="px-16 flex-1 justify-center gap-10">
         <View className='items-center'>
@@ -33,7 +18,7 @@ const SuccessReset = () => {
             <Text className="font-pregular text-center" style={{fontSize: moderateScale(14)}}>Your password has been changed successfully!</Text>
         </View>
         <View className="mt-16">
-            <TouchableOpacity className="bg-primary rounded-xl" style={{padding: moderateScale(15)}} onPress={() => router.push('LogIn')}>
+            <TouchableOpacity className="bg-primary rounded-xl" style={{padding: moderateScale(15)}} onPress={() => router.replace('LogIn')}>
                 <Text className=" font-pmedium text-center text-white" style={{fontSize: moderateScale(14)}}>Go to Login</Text>
             </TouchableOpacity>
         </View>

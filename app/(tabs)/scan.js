@@ -24,7 +24,7 @@ const Scan = () => {
   const [isModelOpen, setIsModalOpen] = useState(false)
   const [predictedClass, setPredictedClass] = useState('')
   const [wasteType, setWasteType] = useState('')
-  const [loading, setLoading] = useState(true)
+  const [errorModal, setErrorModal] = useState(false)
 
   function isPointInPolygon(point, polygon) {
     const [x, y] = point;
@@ -98,7 +98,7 @@ const Scan = () => {
       ];
 
       locationSubscription.current = await Location.watchPositionAsync({accuracy: Location.Accuracy.Highest,
-        timeInterval: 1000, distanceInterval: 20
+        timeInterval: 60000, distanceInterval: 20
       }, async (newLocation) => {
         const { latitude, longitude } = newLocation.coords;
         const isInsideArea = isPointInPolygon([latitude, longitude], polygon);
@@ -130,13 +130,14 @@ const Scan = () => {
     setIsTracking(false);
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      startLocationTracking();
-    }, [locationPermission])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     startLocationTracking();
+  //   }, [locationPermission])
+  // );
 
   useEffect(() => {
+    startLocationTracking();
     return () => {
       stopLocationTracking();
       console.log('Untracking')
@@ -170,16 +171,12 @@ const Scan = () => {
     if (cameraRef) {
       handleCameraPress()
       try{
-        const photo = await cameraRef.current.takePictureAsync();
-        const compressed = await manipulateAsync(
-        photo.uri,
-        [{resize: {width: 180, height: 180}}],
-        {format: SaveFormat.JPEG})
-
         if(loc){
+          const photo = await cameraRef.current.takePictureAsync();
+      
           const formData = new FormData()
           formData.append('image', {
-            uri: compressed.uri,
+            uri: photo.uri,
             type: 'image/jpeg',
             name: 'waste.jpeg'
           })
@@ -201,13 +198,14 @@ const Scan = () => {
           setWasteType(res.data.type)
         }
         else{
-          // setLoading(true)
-          Alert.alert('Error Occured', 'Please scan again')
+          setErrorModal(true)
+          // Alert.alert('Error Occured', 'Please scan again')
         }
         
       }catch(err){
         console.log(err)
-        Alert.alert('Error Occured', 'Please scan again')
+        // Alert.alert('Error Occured', 'Please scan again')
+        setErrorModal(true)
       }
       
     }
@@ -291,19 +289,45 @@ const Scan = () => {
         </View>
       </Modal>
 
-      <CameraView className='flex-1 justify-center items-end flex-row' facing={type} enableTorch={light} ref={cameraRef} style={{gap:80, paddingBottom: moderateScale(40)}}>
-        <Pressable className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
-          <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setLight((prev) => prev ? false : true)}>
-            <Icon name='flashlight-line' size={28} color='black'/>
-          </Pressable>
-        </Pressable>
-        <View className='rounded-full border-white border-2 justify-center p-1' style={{height: verticalScale(55), width: scale(60)}}>
-          <Pressable className='bg-white rounded-full flex-1' onPress={() => takePicture()}></Pressable>
+      <Modal animationType='fade' visible={errorModal} transparent={true}>
+        <View className='bg-black/50 flex-1 justify-center items-center'>
+          <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
+            <View className='flex-row items-center' style={{gap: 20}}>
+              <View className='h-14 w-14 bg-red-700 rounded-full justify-center items-center'>
+                <Icon name='close-line' color='white' size={35}/>
+              </View>
+              <Text className='font-pmedium text-red-700 flex-1' style={{fontSize: moderateScale(13)}}>Oops! We couldn't process your scan. Please try again.</Text>
+            </View>
+            <Pressable className='items-end' onPress={() => {setErrorModal(false)}}>
+              <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Scan again</Text>
+            </Pressable>
+          </View>
         </View>
-        <View className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
-          <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}>
-            <Icon name='repeat-2-line' size={28} color='black'/>
+      </Modal>
+
+      <CameraView className='flex-1 justify-center items-center' facing={type} enableTorch={light} ref={cameraRef} style={{gap:80, paddingBottom: moderateScale(40)}}>
+      <View className='w-full flex-[0.9] items-center justify-center'>
+          <View className='w-[90%] h-[80%] items-center'>
+            <View style={{position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5}} className='top-0 left-0 border-r-0 border-b-0'/>
+            <View style={{position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5}} className='top-0 right-0 border-l-0 border-b-0' />
+            <View style={{position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5}} className='bottom-0 left-0 border-r-0 border-t-0' />
+            <View style={{position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5}} className='bottom-0 right-0 border-l-0 border-t-0' />
+          </View>  
+        </View>
+        <View className='flex-[0.1] w-full justify-center items-end flex-row' style={{gap:90}}>
+          <Pressable className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
+            <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setLight((prev) => prev ? false : true)}>
+              <Icon name='flashlight-line' size={28} color='black'/>
+            </Pressable>
           </Pressable>
+          <View className='rounded-full border-white border-2 justify-center p-1' style={{height: verticalScale(55), width: scale(60)}}>
+            <Pressable className='bg-white rounded-full flex-1' onPress={() => takePicture()}></Pressable>
+          </View>
+          <View className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
+            <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}>
+              <Icon name='repeat-2-line' size={28} color='black'/>
+            </Pressable>
+          </View>
         </View>
       </CameraView>
     </View>

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions, PixelRatio, Pressable, Alert, ActivityIndicator } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions, PixelRatio, Pressable, Alert, ActivityIndicator, Modal } from 'react-native'
 import React, { useState } from 'react'
 import { Checkbox } from 'expo-checkbox'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -16,6 +16,8 @@ const LogIn = () => {
     const [showPassword, setShowPassword] = useState(false); 
     const [loading, setLoading] = useState(false)
     const {height, width} = Dimensions.get('window');
+    const [errorModal, setErrorModal] = useState(false)
+    const [violationModal, setViolationModal] = useState(false)
     const loginSchema = yup.object().shape({
         email: yup.string().email("Enter a valid email").required("Email is required"),
         password: yup.string().required("Password is required"),
@@ -23,6 +25,39 @@ const LogIn = () => {
     })
   return (
     <SafeAreaView className="flex-1 px-5 justify-center" style={{paddingVertical: width * 0.16}}>
+
+        <Modal animationType='fade' visible={errorModal} transparent={true}>
+            <View className='bg-black/50 flex-1 justify-center items-center'>
+                <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
+                    <View className='flex-row items-center' style={{gap: 20}}>
+                        <View className='h-14 w-14 bg-red-700 rounded-full justify-center items-center'>
+                            <Icon name='close-line' color='white' size={35}/>
+                        </View>
+                        <Text className='font-pmedium text-red-700 flex-1' style={{fontSize: moderateScale(13)}}>Oops! Your email is not yet verified</Text>
+                    </View>
+                    <Pressable className='items-end' onPress={() => {setErrorModal(false)}}>
+                        <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Try again</Text>
+                    </Pressable>
+                </View>
+            </View>
+        </Modal>
+
+        <Modal animationType='fade' visible={violationModal} transparent={true}>
+            <View className='bg-black/50 flex-1 justify-center items-center'>
+                <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
+                    <View className='flex-row items-center' style={{gap: 20}}>
+                        <View className='h-14 w-14 bg-red-700 rounded-full justify-center items-center'>
+                            <Icon name='close-line' color='white' size={35}/>
+                        </View>
+                        <Text className='font-pmedium text-red-700 flex-1' style={{fontSize: moderateScale(13)}}>Notice: You violated one of our policies.</Text>
+                    </View>
+                    <Pressable className='items-end' onPress={() => {setViolationModal(false); router.push('home')}}>
+                        <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Ok</Text>
+                    </Pressable>
+                </View>
+            </View>
+        </Modal>
+
         <View className='flex gap-2' style={{paddingTop: height * 0.07}}>
             {/* header */}
             <Text className='font-psemibold text-secondary text-center' style={{fontSize: moderateScale(27), lineHeight: 45 }}>
@@ -53,17 +88,18 @@ const LogIn = () => {
                                         await AsyncStorage.setItem('auto_log_id', res.data.sessionId)
                                     }
                                     router.push('home')
-                                }else if(res.status === 201){
+                                }if(res.status === 201){
                                     router.push('Onboard')
+                                }if(res.status === 204){
+                                    setViolationModal(true)
                                 }
                             }
                         }catch(err){
                             console.log(err)
                             if(err.response){
                                 if (err.response.status === 403){
-                                    Alert.alert("Error", "Email not yet verified")
+                                   setErrorModal(true)
                                 }if(err.response.status === 401){
-                                    // Alert.alert("Unauthorized", "Invalid credentials");
                                     actions.setFieldError('email', 'Invalid credential')
                                     actions.setFieldError('password', 'Invalid credential')
                                 }if(err.response && err.response === 500){

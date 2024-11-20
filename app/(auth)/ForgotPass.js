@@ -1,14 +1,17 @@
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
-import React from 'react'
+import { View, Text, TextInput, TouchableOpacity, Alert, Modal, Pressable } from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Link, router } from 'expo-router'
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { scale, verticalScale, moderateScale, s } from 'react-native-size-matters';
 import { Formik } from 'formik';
 import * as yup from 'yup'
+import Icon from 'react-native-remix-icon';
 import axios from 'axios';
 
 const ForgotPass = () => {
-
+  const [verifModal, setVerifModal] = useState(false)
+  const [errorModal, setErrorModal] = useState(false)
+  const [mail, setMail] = useState(false)
   const mySchema = yup.object().shape({
     email: yup.string().email('Please provide a valid email').required('Please provide your email')
   })
@@ -28,8 +31,8 @@ const ForgotPass = () => {
                 const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/request/otp', {email_address: values.email})
                 if(response && response.status){
                   if(response.status === 200){
-                    Alert.alert('Verification', 'Please check your outlook for OTP')
-                    router.push(`/otpVerification?email=${encodeURIComponent(values.email)}`)
+                    setMail(values.email)
+                    setVerifModal(true)
                   }
                   
                 }
@@ -39,7 +42,7 @@ const ForgotPass = () => {
                   actions.setFieldError('email', "Email doesn't exist");
                 }
                 else if(err.response.status === 429){
-                  Alert.alert('Error', 'Too many request. Please try again after 4hrs.')
+                  setErrorModal(true)
                 }
                 else if(err.response && err.response === 500){
                   Alert.alert('Error Occured', 'Please try again.')
@@ -68,7 +71,38 @@ const ForgotPass = () => {
           )}
           </Formik>
         </View>
-       
+
+        <Modal animationType='fade' visible={verifModal} transparent={true}>
+            <View className='bg-black/50 flex-1 justify-center items-center'>
+                <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
+                    <View className='flex-row items-center' style={{gap: 20}}>
+                        <View className='h-14 w-14 bg-secondary rounded-full justify-center items-center'>
+                            <Icon name='mail-send-line' color='white' size={35}/>
+                        </View>
+                        <Text className='font-pmedium flex-1' style={{fontSize: moderateScale(13)}}>Please check your oultook for OTP code</Text>
+                    </View>
+                    <Pressable className='items-end' onPress={() => {setVerifModal(false); router.push(`/otpVerification?email=${encodeURIComponent(mail)}`)}}>
+                        <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Ok</Text>
+                    </Pressable>
+                </View>
+            </View>
+        </Modal>
+
+        <Modal animationType='fade' visible={errorModal} transparent={true}>
+          <View className='bg-black/50 flex-1 justify-center items-center'>
+            <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
+              <View className='flex-row items-center' style={{gap: 20}}>
+                <View className='h-14 w-14 bg-red-700 rounded-full justify-center items-center'>
+                  <Icon name='close-line' color='white' size={35}/>
+                </View>
+                <Text className='font-pmedium text-red-700 flex-1' style={{fontSize: moderateScale(13)}}>Too many request! Please try again tomorrow.</Text>
+              </View>
+              <Pressable className='items-end' onPress={() => {setErrorModal(false)}}>
+                <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Ok</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         
         <Link href={'/LogIn'} className='text-center text-primary font-pmedium' style={{fontSize: moderateScale(11.5)}}>Back to Login</Link>
     </SafeAreaView>
