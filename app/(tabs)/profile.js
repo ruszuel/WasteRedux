@@ -241,7 +241,7 @@ const Profile = () => {
 
             {(props) => (
               <View className='w-full' style={{display: press ? 'flex' : 'none'}}>
-                <ScrollView contentContainerStyle={{rowGap: 35, paddingVertical: 7, paddingBottom: verticalScale(20)}} showsVerticalScrollIndicator={false}>
+                <ScrollView contentContainerStyle={{rowGap: 35, paddingVertical: 7, paddingBottom: verticalScale(60)}} showsVerticalScrollIndicator={false}>
                   <View className='mb-10 gap-y-7'>
                     <View style={{gap: 10}}>
                       <View className='flex-row justify-between'>

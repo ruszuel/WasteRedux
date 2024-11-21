@@ -1,4 +1,4 @@
-import { View, Text, Button, Pressable, StatusBar, Alert, Linking } from 'react-native'
+import { View, Text, Button, Pressable, StatusBar, Alert, Linking, ActivityIndicator } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { CameraView, useCameraPermissions } from 'expo-camera'
 import Icon from 'react-native-remix-icon';
@@ -25,6 +25,7 @@ const Scan = () => {
   const [predictedClass, setPredictedClass] = useState('')
   const [wasteType, setWasteType] = useState('')
   const [errorModal, setErrorModal] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   function isPointInPolygon(point, polygon) {
     const [x, y] = point;
@@ -168,6 +169,7 @@ const Scan = () => {
   };
 
   const takePicture = async () => {
+    setLoading(true)
     if (cameraRef) {
       handleCameraPress()
       try{
@@ -196,15 +198,17 @@ const Scan = () => {
           setPredictedClass(res.data.prediction)
           setIsModalOpen(true)
           setWasteType(res.data.type)
+          setLoading(false)
         }
         else{
+          setLoading(false)
           setErrorModal(true)
           // Alert.alert('Error Occured', 'Please scan again')
         }
         
       }catch(err){
         console.log(err)
-        // Alert.alert('Error Occured', 'Please scan again')
+        setLoading(false)
         setErrorModal(true)
       }
       
@@ -320,9 +324,15 @@ const Scan = () => {
               <Icon name='flashlight-line' size={28} color='black'/>
             </Pressable>
           </Pressable>
+
           <View className='rounded-full border-white border-2 justify-center p-1' style={{height: verticalScale(55), width: scale(60)}}>
-            <Pressable className='bg-white rounded-full flex-1' onPress={() => takePicture()}></Pressable>
+            <Pressable className='bg-white rounded-full flex-1 items-center justify-center bg-gra' style={{backgroundColor: loading ? '#9ca3af' : 'white'}} disabled={loading ? true : false} onPress={() => takePicture()}>
+              {loading && (
+                <ActivityIndicator size="large" color="white"/>
+              )}
+            </Pressable>
           </View>
+
           <View className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
             <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}>
               <Icon name='repeat-2-line' size={28} color='black'/>
