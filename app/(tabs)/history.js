@@ -25,23 +25,23 @@ const History = () => {
     }, [])
   );
 
-  const Items = ({item}) => {
-    return(
+  const Items = ({ item }) => {
+    return (
       <View className='flex-row justify-between items-center'>
         {data && (
           <>
-          <View className='mb-5 flex-row flex-1 gap-x-3'>
-            <View className='bg-white rounded-xl justify-center items-center' style={{width: scale(35), height: verticalScale(33)}}>
-              <Icon name={item.waste_type === 'Disposable' ? 'close-fill' : 'check-line'} size={moderateScale(26)} color={ item.waste_type === 'Disposable' ? 'red' : '#81A969'}/>
+            <View className='mb-5 flex-row flex-1 gap-x-3'>
+              <View className='bg-white rounded-xl justify-center items-center' style={{ width: scale(35), height: verticalScale(33)}}>
+                <Icon name={item.waste_type === 'Disposable' || item.category === 'Unrecognizable' ? 'close-fill' : 'check-line'} size={moderateScale(26)} color={item.waste_type === 'Disposable' || item.category === 'Unrecognizable' ? 'red' : '#81A969'} />
+              </View>
+              <View className='justify-center'>
+                <Text className='text-gray-400 font-pregular' style={{ fontSize: moderateScale(12), display: item.category === 'Unrecognizable' ? 'none' : 'flex'}}>{item.waste_type}</Text>
+                <Text className='text-secondary font-pregular' style={{ fontSize: moderateScale(14) }}>{item.category}</Text>
+              </View>
             </View>
             <View>
-              <Text className='text-gray-400 font-pregular' style={{fontSize: moderateScale(12)}}>{item.waste_type}</Text>
-              <Text className='text-secondary font-pregular' style={{fontSize: moderateScale(14)}}>{item.category}</Text>
+              <Text className='text-gray-400 font-pregular' style={{ fontSize: moderateScale(12) }}>{item.scan_date}</Text>
             </View>
-          </View>
-          <View>
-            <Text className='text-gray-400 font-pregular' style={{fontSize: moderateScale(12)}}>{item.scan_date}</Text>
-          </View>
           </>
         )}
       </View>
@@ -49,19 +49,19 @@ const History = () => {
   }
 
   return (
-    <SafeAreaView className='flex-1 px-5 gap-y-16' style={{paddingTop: moderateScale(40)}}>
+    <SafeAreaView className='flex-1 px-5 gap-y-16' style={{ paddingTop: moderateScale(40) }}>
       <View className='flex-row justify-between items-center'>
-        <Text className='font-batangas text-secondary' style={{fontSize: moderateScale(34)}}>Scan <Text className='text-primary'>History</Text></Text>
-        <Icon name='equalizer-line' size={moderateScale(24)} color='gray'/>
+        <Text className='font-batangas text-secondary' style={{ fontSize: moderateScale(34) }}>Scan <Text className='text-primary'>History</Text></Text>
+        <Icon name='equalizer-line' size={moderateScale(24)} color='gray' />
       </View>
-      <FlatList 
+      <FlatList
         data={data}
-        renderItem={({item, index}) => <Items item={item} index={index}/>} 
+        renderItem={({ item, index }) => <Items item={item} index={index} />}
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         className='flex-1'
       />
-      
+
     </SafeAreaView>
   )
 }

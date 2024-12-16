@@ -13,6 +13,7 @@ const StepsLayout = () => {
         <Stack.Screen name='recycleMetal' />
         <Stack.Screen name='nonRecycleGlass' />
         <Stack.Screen name='nonRecycleMetal' />
+        <Stack.Screen name='unrecognizable' />
     </Stack>
   )
 }

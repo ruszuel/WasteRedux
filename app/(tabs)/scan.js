@@ -6,8 +6,6 @@ import { router } from 'expo-router';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import * as Location from 'expo-location'
 import axios from 'axios';
-import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
-import { useFocusEffect } from '@react-navigation/native';
 import { Modal } from 'react-native';
 
 const Scan = () => {
@@ -191,13 +189,16 @@ const Scan = () => {
               'Accept': 'application/json',
               'Content-Type': 'multipart/form-data',
             },
-            withCredentials: true
+            withCredentials: true,
+            timeout: 10000,
           };
 
           const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/predict', formData, config)
           setPredictedClass(res.data.prediction)
-          setIsModalOpen(true)
-          setWasteType(res.data.type)
+          if(res.data.prediction !== 'Unrecognizable'){
+            setIsModalOpen(true)
+            setWasteType(res.data.type)
+          }
           setLoading(false)
         }
         else{
@@ -304,6 +305,22 @@ const Scan = () => {
             </View>
             <Pressable className='items-end' onPress={() => {setErrorModal(false)}}>
               <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Scan again</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal animationType='fade' visible={predictedClass === 'Unrecognizable' ? true : false} transparent={true}>
+        <View className='bg-black/50 flex-1 justify-center items-center'>
+          <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
+            <View className='flex-row items-center' style={{gap: 20}}>
+              <View className='h-14 w-14 bg-red-700 rounded-full justify-center items-center'>
+                <Icon name='close-line' color='white' size={35}/>
+              </View>
+              <Text className='font-pmedium text-red-700 flex-1' style={{fontSize: moderateScale(13)}}>Oops! The waste you are trying to scan is not recognizable.</Text>
+            </View>
+            <Pressable className='items-end' onPress={() => {setPredictedClass(''); router.push('/unrecognizable')}}>
+            <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Proceed</Text>
             </Pressable>
           </View>
         </View>
