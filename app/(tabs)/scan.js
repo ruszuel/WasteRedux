@@ -7,6 +7,7 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import * as Location from 'expo-location'
 import axios from 'axios';
 import { Modal } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Scan = () => {
   const [type, setType] = useState('back');
@@ -24,16 +25,16 @@ const Scan = () => {
   const [wasteType, setWasteType] = useState('')
   const [errorModal, setErrorModal] = useState(false)
   const [loading, setLoading] = useState(false)
-
+  const [disclaimer, setDisclaimer] = useState('')
   function isPointInPolygon(point, polygon) {
     const [x, y] = point;
     let isInside = false;
     for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-        const [xi, yi] = polygon[i];
-        const [xj, yj] = polygon[j];
+      const [xi, yi] = polygon[i];
+      const [xj, yj] = polygon[j];
 
-        const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-        if (intersect) isInside = !isInside;
+      const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+      if (intersect) isInside = !isInside;
     }
     return isInside;
   }
@@ -83,7 +84,9 @@ const Scan = () => {
 
   const startLocationTracking = useCallback(async () => {
     console.log('Tracking')
-    try{
+    const discc = await AsyncStorage.getItem('disclaimer')
+    setDisclaimer(discc)
+    try {
       setIsTracking(true)
 
       await stopLocationTracking();
@@ -96,7 +99,8 @@ const Scan = () => {
         [14.857767939763484, 120.81207551790634],  // COL of Industrial
       ];
 
-      locationSubscription.current = await Location.watchPositionAsync({accuracy: Location.Accuracy.Highest,
+      locationSubscription.current = await Location.watchPositionAsync({
+        accuracy: Location.Accuracy.Highest,
         timeInterval: 60000, distanceInterval: 20
       }, async (newLocation) => {
         const { latitude, longitude } = newLocation.coords;
@@ -108,16 +112,10 @@ const Scan = () => {
         } else {
           setLoc('Outside BSU')
         }
-        // Alert.alert('Location', `lat: ${newLocation.coords.latitude} \n long: ${newLocation.coords.longitude}`)
-        // const geocodedlo = await Location.reverseGeocodeAsync({latitude: newLocation.coords.latitude, longitude: newLocation.coords.longitude})
       })
-      
-    }catch(error){
+
+    } catch (error) {
       setIsTracking(false);
-      // Alert.alert(
-      //   'Location Error',
-      //   'Unable to track location. Please check your settings.'
-      // );
     }
   })
 
@@ -128,12 +126,6 @@ const Scan = () => {
     }
     setIsTracking(false);
   };
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     startLocationTracking();
-  //   }, [locationPermission])
-  // );
 
   useEffect(() => {
     startLocationTracking();
@@ -170,10 +162,10 @@ const Scan = () => {
     setLoading(true)
     if (cameraRef) {
       handleCameraPress()
-      try{
-        if(loc){
+      try {
+        if (loc) {
           const photo = await cameraRef.current.takePictureAsync();
-      
+
           const formData = new FormData()
           formData.append('image', {
             uri: photo.uri,
@@ -181,8 +173,8 @@ const Scan = () => {
             name: 'waste.jpeg'
           })
           formData.append('lat', lat)
-          formData.append('long',long)
-          formData.append('loc',loc)
+          formData.append('long', long)
+          formData.append('loc', loc)
 
           const config = {
             headers: {
@@ -195,32 +187,31 @@ const Scan = () => {
 
           const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/predict', formData, config)
           setPredictedClass(res.data.prediction)
-          if(res.data.prediction !== 'Unrecognizable'){
+          if (res.data.prediction !== 'Unrecognizable') {
             setIsModalOpen(true)
             setWasteType(res.data.type)
           }
           setLoading(false)
         }
-        else{
+        else {
           setLoading(false)
           setErrorModal(true)
-          // Alert.alert('Error Occured', 'Please scan again')
         }
-        
-      }catch(err){
+
+      } catch (err) {
         console.log(err)
         setLoading(false)
         setErrorModal(true)
       }
-      
+
     }
   };
 
-  if(!cameraPermission || !locationPermission){
-    return <View/>
+  if (!cameraPermission || !locationPermission) {
+    return <View />
   }
 
-  if (!cameraPermission.granted || !locationPermission.granted ) {
+  if (!cameraPermission.granted || !locationPermission.granted) {
     return (
       <View className="flex-1 justify-center items-center bg-black p-4 space-y-6">
         <View className="items-center space-y-4">
@@ -245,66 +236,71 @@ const Scan = () => {
   }
 
   const classificationRes = () => {
-    if(wasteType === 'Disposable'){
+    if (wasteType === 'Disposable') {
       switch (predictedClass) {
         case 'Plastic':
           router.push('/(steps)/NonRecycle')
-        break;
+          break;
 
         case 'Glass':
           router.push('/(steps)/nonRecycleGlass')
-        break;
+          break;
 
         case 'Metal':
           router.push('/(steps)/nonRecycleMetal')
-        break;
+          break;
       }
-    }else if(wasteType === 'Recyclable'){
+    } else if (wasteType === 'Recyclable') {
       switch (predictedClass) {
         case 'Plastic':
           router.push('/(steps)/recyclePlastic')
-        break;
+          break;
 
         case 'Glass':
           router.push('/(steps)/recycleGlass')
-        break;
+          break;
 
         case 'Metal':
           router.push('/(steps)/recycleMetal')
-        break;
+          break;
       }
     }
+  }
+
+  const updateDisclaimer = async () => {
+    await AsyncStorage.setItem('disclaimer', '0')
+    setDisclaimer('0')
   }
 
   return (
     <View className='flex-1'>
       <Modal animationType='fade' visible={isModelOpen} transparent={true}>
         <View className='bg-black/50 flex-1 justify-center items-center'>
-          <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
-            <View className='flex-row items-center' style={{gap: 20}}>
+          <View className='bg-white w-[90%] rounded-md p-5' style={{ gap: 20 }}>
+            <View className='flex-row items-center' style={{ gap: 20 }}>
               <View className='h-12 w-12 bg-primary rounded-full justify-center items-center'>
-                <Icon name='qr-scan-2-line' color='white' size={32}/>
+                <Icon name='qr-scan-2-line' color='white' size={32} />
               </View>
-              <Text className='font-pmedium' style={{fontSize: moderateScale(15)}}>The scanned item is <Text className='text-primary font-psemibold'>{predictedClass}</Text></Text>
+              <Text className='font-pmedium' style={{ fontSize: moderateScale(15) }}>The scanned item is <Text className='text-primary font-psemibold'>{predictedClass}</Text></Text>
             </View>
-            <Pressable className='items-end' onPress={() => {setIsModalOpen(false); classificationRes()}}>
-              <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Proceed</Text>
+            <Pressable className='items-end' onPress={() => { setIsModalOpen(false); classificationRes() }}>
+              <Text className='font-pmedium text-secondary' style={{ fontSize: moderateScale(12) }}>Proceed</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
-
+      {console.log(disclaimer)}
       <Modal animationType='fade' visible={errorModal} transparent={true}>
         <View className='bg-black/50 flex-1 justify-center items-center'>
-          <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
-            <View className='flex-row items-center' style={{gap: 20}}>
+          <View className='bg-white w-[90%] rounded-md p-5' style={{ gap: 20 }}>
+            <View className='flex-row items-center' style={{ gap: 20 }}>
               <View className='h-14 w-14 bg-red-700 rounded-full justify-center items-center'>
-                <Icon name='close-line' color='white' size={35}/>
+                <Icon name='close-line' color='white' size={35} />
               </View>
-              <Text className='font-pmedium text-red-700 flex-1' style={{fontSize: moderateScale(13)}}>Oops! We couldn't process your scan. Please try again.</Text>
+              <Text className='font-pmedium text-red-700 flex-1' style={{ fontSize: moderateScale(13) }}>Oops! We couldn't process your scan. Please try again.</Text>
             </View>
-            <Pressable className='items-end' onPress={() => {setErrorModal(false)}}>
-              <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Scan again</Text>
+            <Pressable className='items-end' onPress={() => { setErrorModal(false) }}>
+              <Text className='font-pmedium text-secondary' style={{ fontSize: moderateScale(12) }}>Scan again</Text>
             </Pressable>
           </View>
         </View>
@@ -312,47 +308,63 @@ const Scan = () => {
 
       <Modal animationType='fade' visible={predictedClass === 'Unrecognizable' ? true : false} transparent={true}>
         <View className='bg-black/50 flex-1 justify-center items-center'>
-          <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
-            <View className='flex-row items-center' style={{gap: 20}}>
+          <View className='bg-white w-[90%] rounded-md p-5' style={{ gap: 20 }}>
+            <View className='flex-row items-center' style={{ gap: 20 }}>
               <View className='h-14 w-14 bg-red-700 rounded-full justify-center items-center'>
-                <Icon name='close-line' color='white' size={35}/>
+                <Icon name='close-line' color='white' size={35} />
               </View>
-              <Text className='font-pmedium text-red-700 flex-1' style={{fontSize: moderateScale(13)}}>Oops! The waste you are trying to scan is not recognizable.</Text>
+              <Text className='font-pmedium text-red-700 flex-1' style={{ fontSize: moderateScale(13) }}>Oops! The waste you are trying to scan is not recognizable.</Text>
             </View>
-            <Pressable className='items-end' onPress={() => {setPredictedClass(''); router.push('/unrecognizable')}}>
-            <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Proceed</Text>
+            <Pressable className='items-end' onPress={() => { setPredictedClass(''); router.push('/unrecognizable') }}>
+              <Text className='font-pmedium text-secondary' style={{ fontSize: moderateScale(12) }}>Proceed</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
 
-      <CameraView className='flex-1 justify-center items-center' facing={type} enableTorch={light} ref={cameraRef} style={{gap:80, paddingBottom: moderateScale(40)}}>
-      <View className='w-full flex-[0.9] items-center justify-center'>
-          <View className='w-[90%] h-[80%] items-center'>
-            <View style={{position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5}} className='top-0 left-0 border-r-0 border-b-0'/>
-            <View style={{position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5}} className='top-0 right-0 border-l-0 border-b-0' />
-            <View style={{position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5}} className='bottom-0 left-0 border-r-0 border-t-0' />
-            <View style={{position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5}} className='bottom-0 right-0 border-l-0 border-t-0' />
-          </View>  
+      <Modal animationType='fade' visible={disclaimer === '1' ? true : false} transparent={true}>
+        <View className='bg-black/50 flex-1 justify-center items-center'>
+          <View className='bg-white w-[90%] rounded-xl p-5' style={{ gap: 20 }}>
+            <View>
+              <Pressable className='items-end' onPress={() => {updateDisclaimer()}}>
+                <Icon name='close-line' size={24} color='gray'/>
+              </Pressable>
+              <Text className='text-center text-primary text-2xl font-psemibold'>Disclaimer</Text>
+            </View>
+            <View className='flex-row items-center' style={{ gap: 20 }}>
+              <Text className='font-pmedium flex-1 text-justify leading-6 px-5' style={{ fontSize: moderateScale(13) }}>The WasteRedux Scanner App’s accuracy depends on the quality of the CNN model's dataset and may sometimes misidentify waste items due to factors like poor lighting, blurry images, or bad angles. For best results, ensure clear and well-framed images.</Text>
+            </View>
+          </View>
         </View>
-        <View className='flex-[0.1] w-full justify-center items-end flex-row' style={{gap:90}}>
-          <Pressable className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
+      </Modal>
+
+      <CameraView className='flex-1 justify-center items-center' facing={type} enableTorch={light} ref={cameraRef} style={{ gap: 80, paddingBottom: moderateScale(40) }}>
+        <View className='w-full flex-[0.9] items-center justify-center'>
+          <View className='w-[90%] h-[80%] items-center'>
+            <View style={{ position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5 }} className='top-0 left-0 border-r-0 border-b-0' />
+            <View style={{ position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5 }} className='top-0 right-0 border-l-0 border-b-0' />
+            <View style={{ position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5 }} className='bottom-0 left-0 border-r-0 border-t-0' />
+            <View style={{ position: 'absolute', width: 30, height: 30, borderColor: 'white', borderWidth: 4, borderRadius: 5 }} className='bottom-0 right-0 border-l-0 border-t-0' />
+          </View>
+        </View>
+        <View className='flex-[0.1] w-full justify-center items-end flex-row' style={{ gap: 90 }}>
+          <Pressable className='rounded-full justify-center' style={{ height: verticalScale(45), width: scale(50) }}>
             <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setLight((prev) => prev ? false : true)}>
-              <Icon name='flashlight-line' size={28} color='black'/>
+              <Icon name='flashlight-line' size={28} color='black' />
             </Pressable>
           </Pressable>
 
-          <View className='rounded-full border-white border-2 justify-center p-1' style={{height: verticalScale(55), width: scale(60)}}>
-            <Pressable className='bg-white rounded-full flex-1 items-center justify-center bg-gra' style={{backgroundColor: loading ? '#9ca3af' : 'white'}} disabled={loading ? true : false} onPress={() => takePicture()}>
+          <View className='rounded-full border-white border-2 justify-center p-1' style={{ height: verticalScale(55), width: scale(60) }}>
+            <Pressable className='bg-white rounded-full flex-1 items-center justify-center bg-gra' style={{ backgroundColor: loading ? '#9ca3af' : 'white' }} disabled={loading ? true : false} onPress={() => takePicture()}>
               {loading && (
-                <ActivityIndicator size="large" color="white"/>
+                <ActivityIndicator size="large" color="white" />
               )}
             </Pressable>
           </View>
 
-          <View className='rounded-full justify-center' style={{height: verticalScale(45), width: scale(50)}}>
+          <View className='rounded-full justify-center' style={{ height: verticalScale(45), width: scale(50) }}>
             <Pressable className='bg-white rounded-full flex-1 justify-center items-center' onPress={() => setType((prev) => prev === 'back' ? 'front' : 'back')}>
-              <Icon name='repeat-2-line' size={28} color='black'/>
+              <Icon name='repeat-2-line' size={28} color='black' />
             </Pressable>
           </View>
         </View>

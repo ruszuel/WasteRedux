@@ -87,9 +87,12 @@ const LogIn = () => {
                                     if(val.rememberme){
                                         await AsyncStorage.setItem('auto_log_id', res.data.sessionId)
                                     }
+                                    console.log(res.data.frstme)
+                                    await AsyncStorage.setItem('disclaimer', res.data.frstme.toString())
                                     router.push('home')
                                 }if(res.status === 201){
                                     router.push('Onboard')
+                                    await AsyncStorage.setItem('disclaimer', res.data.frstme.toString())
                                 }if(res.status === 204){
                                     setViolationModal(true)
                                 }
