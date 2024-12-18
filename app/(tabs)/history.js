@@ -4,7 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import axios from 'axios'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from 'expo-router'
+
 
 
 const History = () => {

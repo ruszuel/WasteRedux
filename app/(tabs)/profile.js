@@ -2,7 +2,7 @@ import { View, Text, Image, Pressable, TextInput, ScrollView, TouchableHighlight
 import React, { useCallback, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-remix-icon';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios'
 import { Formik } from 'formik';
@@ -11,7 +11,6 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { useFocusEffect } from '@react-navigation/native';
 
 const Profile = () => {
   const [loading, setLoading] = useState(true)

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions, PixelRatio, Pressable, Alert, ActivityIndicator, Modal } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Dimensions, PixelRatio, Pressable, Alert, ActivityIndicator, Modal, BackHandler } from 'react-native'
 import React, { useState } from 'react'
 import { Checkbox } from 'expo-checkbox'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -18,6 +18,7 @@ const LogIn = () => {
     const {height, width} = Dimensions.get('window');
     const [errorModal, setErrorModal] = useState(false)
     const [violationModal, setViolationModal] = useState(false)
+    const [blockedModal, setBlockedModal] = useState(false)
     const loginSchema = yup.object().shape({
         email: yup.string().email("Enter a valid email").required("Email is required"),
         password: yup.string().required("Password is required"),
@@ -46,12 +47,29 @@ const LogIn = () => {
             <View className='bg-black/50 flex-1 justify-center items-center'>
                 <View className='bg-white w-[90%] rounded-md p-5' style={{gap: 20}}>
                     <View className='flex-row items-center' style={{gap: 20}}>
-                        <View className='h-14 w-14 bg-red-700 rounded-full justify-center items-center'>
-                            <Icon name='close-line' color='white' size={35}/>
+                        <View className='gap-3'>
+                            <Text className='font-psemibold text-red-700' style={{fontSize: moderateScale(15)}}>Notice</Text>
+                            <Text className='font-pmedium text-red-700' style={{fontSize: moderateScale(13)}}>You have violated one of our policies. Repeated violations may result in your account being blocked.</Text>
                         </View>
-                        <Text className='font-pmedium text-red-700 flex-1' style={{fontSize: moderateScale(13)}}>Notice: You violated one of our policies.</Text>
+                        
                     </View>
                     <Pressable className='items-end' onPress={() => {setViolationModal(false); router.push('home')}}>
+                        <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Ok</Text>
+                    </Pressable>
+                </View>
+            </View>
+        </Modal>
+
+        <Modal animationType='fade' visible={blockedModal} transparent={true} onRequestClose={() => setBlockedModal(false)}>
+            <View className='bg-black/50 flex-1 justify-center items-center'>
+                <View className='bg-white w-[90%] rounded-md p-5 h-fit' style={{gap: 20}}>
+                    <View className='flex-row items-center flex-wrap' style={{gap: 20}}>
+                        <View className='gap-4'>
+                            <Text className='font-psemibold text-red-700' style={{fontSize: moderateScale(15)}}>Account blocked!</Text>
+                            <Text className='font-pmedium text-red-700' style={{fontSize: moderateScale(13)}}>Your account has been blocked due to uploading inappropriate images.</Text>
+                        </View>
+                    </View>
+                    <Pressable className='items-end' onPress={() => {setBlockedModal(false)}}>
                         <Text className='font-pmedium text-secondary' style={{fontSize: moderateScale(12)}}>Ok</Text>
                     </Pressable>
                 </View>
@@ -105,6 +123,8 @@ const LogIn = () => {
                                 }if(err.response.status === 401){
                                     actions.setFieldError('email', 'Invalid credential')
                                     actions.setFieldError('password', 'Invalid credential')
+                                }if(err.response.status === 423){
+                                    setBlockedModal(true)
                                 }if(err.response && err.response === 500){
                                     Alert.alert('Error Occured', 'Please try again.')
                                 }

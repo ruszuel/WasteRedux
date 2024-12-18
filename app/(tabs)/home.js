@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, Image, FlatList, useWindowDimensions, Pressable } from 'react-native'
 import React, { useCallback, useState } from 'react'
-import { Link, router } from 'expo-router'
+import { Link, router, useFocusEffect } from 'expo-router'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Icon from 'react-native-remix-icon';
 import TriviaList from '@/components/TriviaList';
@@ -9,7 +9,6 @@ import articleList from '../(articles)/articleList';
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient'
 import axios from 'axios';
-import { useFocusEffect } from '@react-navigation/native';
 
 const Home = () => {
   const {width} = useWindowDimensions();

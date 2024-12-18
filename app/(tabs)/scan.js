@@ -2,7 +2,7 @@ import { View, Text, Button, Pressable, StatusBar, Alert, Linking, ActivityIndic
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { CameraView, useCameraPermissions } from 'expo-camera'
 import Icon from 'react-native-remix-icon';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import * as Location from 'expo-location'
 import axios from 'axios';
@@ -127,13 +127,15 @@ const Scan = () => {
     setIsTracking(false);
   };
 
-  useEffect(() => {
-    startLocationTracking();
-    return () => {
-      stopLocationTracking();
-      console.log('Untracking')
-    };
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      startLocationTracking();
+      return () => {
+        stopLocationTracking();
+        console.log('Untracking');
+      };
+    }, [])
+  );
 
   const handleCameraPress = async () => {
     try {

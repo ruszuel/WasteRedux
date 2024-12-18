@@ -8,7 +8,7 @@ import { View } from 'react-native';
 const TabsLayout = () => {
 
   return (
-    <Tabs screenOptions={{headerShown: false, tabBarActiveTintColor: '#41644A', tabBarShowLabel: false, tabBarStyle: {height: 60}}}>
+    <Tabs screenOptions={{headerShown: false, tabBarActiveTintColor: '#41644A', tabBarShowLabel: false, tabBarStyle: {height: 60, justifyContent: 'center', paddingTop: 10}}}>
       <Tabs.Screen 
       name='home'
       options={{
