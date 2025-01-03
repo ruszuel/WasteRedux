@@ -55,8 +55,8 @@ const SetPass = () => {
                   email_address: email
                 }
 
-                const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/create', data)
-                const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/verify', mail)
+                const res = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/create', data)
+                const response = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/verify', mail)
                 console.log(res.data)
                 console.log(response.data)
                 router.replace('/SuccessSignUp')

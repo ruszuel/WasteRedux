@@ -28,7 +28,7 @@ const ForgotPass = () => {
             validationSchema={mySchema}
             onSubmit={ async (values, actions) => {
               try{
-                const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/request/otp', {email_address: values.email})
+                const response = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/request/otp', {email_address: values.email})
                 if(response && response.status){
                   if(response.status === 200){
                     setMail(values.email)

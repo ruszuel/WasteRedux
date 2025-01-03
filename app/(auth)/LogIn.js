@@ -99,7 +99,7 @@ const LogIn = () => {
                                 user_password: val.password,
                                 rememberme: val.rememberme
                             }
-                            const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/login', data)
+                            const res = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/login', data)
                             if(res && res.status){
                                 if(res.status === 200){
                                     if(val.rememberme){

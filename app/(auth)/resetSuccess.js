@@ -10,7 +10,7 @@ const SuccessReset = () => {
 
     const sessionDestroy = async () => {
         try{
-          const response = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/logout')
+          const response = await axios.get('https://wasteredux-wl7q8.ondigitalocean.app/user/logout')
           if(response && response.status){
             if(response.status === 200){
               router.replace('LogIn')

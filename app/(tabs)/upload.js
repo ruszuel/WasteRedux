@@ -63,7 +63,7 @@ const Upload = () => {
 
       try{
         setLoading(true)
-        const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/register_waste', formData, config)
+        const response = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/register_waste', formData, config)
         if(response && response.status){
           if(response.status === 204){
             Alert.alert('Error', 'Please upload an image')

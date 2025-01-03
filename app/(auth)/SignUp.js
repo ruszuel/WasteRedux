@@ -15,7 +15,7 @@ const SignUp = () => {
   useEffect(() => {
     const fetchmail = async () => {
       try{
-        const res = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user')
+        const res = await axios.get('https://wasteredux-wl7q8.ondigitalocean.app/user')
         const mails = res.data.map(mail => mail.email_address)
         setUSerMail(mails)
       }catch(err){

@@ -70,7 +70,7 @@ const Home = () => {
   const getData = async () => {
     console.log('retrieving');
     try {
-      const result = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/home')
+      const result = await axios.get('https://wasteredux-wl7q8.ondigitalocean.app/user/home')
       if(result && result.data){
         setUserData(result.data)
       }

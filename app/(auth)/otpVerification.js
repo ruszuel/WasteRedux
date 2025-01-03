@@ -22,7 +22,7 @@ const otpVerification = () => {
     }
 
     try{
-      const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/request/verify_otp', data)
+      const response = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/request/verify_otp', data)
       if(response && response.status){
         if(response.status === 200){
           router.push(`/ResetPass?email=${encodeURIComponent(email)}`)
@@ -40,7 +40,7 @@ const otpVerification = () => {
 
   const resend = async () => {
     try{
-      const response = await axios.post('https://waste-redux-server-side.vercel.app/user/request/otp', {email_address: email})
+      const response = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/request/otp', {email_address: email})
       if(response && response.status){
         if(response.status === 200){
           setOtp(['','','',''])

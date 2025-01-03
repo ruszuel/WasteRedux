@@ -35,7 +35,7 @@ const ResetPass = () => {
                     }
 
                     try{    
-                        const response = await axios.patch('https://seal-app-uuotj.ondigitalocean.app/user/reset_pass', data)
+                        const response = await axios.patch('https://wasteredux-wl7q8.ondigitalocean.app/user/reset_pass', data)
                         if(response && response.status){
                             if(response.status === 200){
                                 router.push('SuccessReset')

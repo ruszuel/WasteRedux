@@ -56,7 +56,7 @@ const Profile = () => {
 
   const getData = useCallback(async () => {
     try{
-      const res = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/login/profile')
+      const res = await axios.get('https://wasteredux-wl7q8.ondigitalocean.app/user/login/profile')
       const users = res.data
       setInfos(res.data)
 
@@ -89,7 +89,7 @@ const Profile = () => {
 
   const sessionDestroy = async () => {
     try{
-      const response = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/logout')
+      const response = await axios.get('https://wasteredux-wl7q8.ondigitalocean.app/user/logout')
       if(response && response.status){
         if(response.status === 200){
           router.replace('LogIn')
@@ -179,7 +179,7 @@ const Profile = () => {
                     };
   
                     try{
-                      const res = await axios.patch('https://seal-app-uuotj.ondigitalocean.app/user/login/update_profile', formData, config)
+                      const res = await axios.patch('https://wasteredux-wl7q8.ondigitalocean.app/user/login/update_profile', formData, config)
     
                       if(res && res.status){
                         if(res.status === 200) {
@@ -209,7 +209,7 @@ const Profile = () => {
                   }
   
                   try{
-                    const res = await axios.patch('https://seal-app-uuotj.ondigitalocean.app/user/login/update_profile', data)
+                    const res = await axios.patch('https://wasteredux-wl7q8.ondigitalocean.app/user/login/update_profile', data)
                     if(res && res.status){
                       if(res.status === 200) {
                         console.log('Profile picture updated successfully');

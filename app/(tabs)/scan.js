@@ -187,7 +187,7 @@ const Scan = () => {
             timeout: 10000,
           };
 
-          const res = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/predict', formData, config)
+          const res = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/predict', formData, config)
           setPredictedClass(res.data.prediction)
           if (res.data.prediction !== 'Unrecognizable') {
             setIsModalOpen(true)

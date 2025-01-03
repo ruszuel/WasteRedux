@@ -9,13 +9,13 @@ const index = () => {
   const { height, width } = useWindowDimensions();
   const [loading, setLoading] = useState(true)
   const [blockedModal, setBlockedModal] = useState(false)
-  // const router = useRouter();
+  const [warnedModal, setWarnedModal] = useState(false)
 
-  const checkSession = async () => {
+  const checkSession = useCallback(async () => {
     try {
       const isValidId = await AsyncStorage.getItem('auto_log_id')
       if (isValidId) {
-        const response = await axios.post('https://seal-app-uuotj.ondigitalocean.app/user/auto_login', { auto_id: isValidId })
+        const response = await axios.post('https://wasteredux-wl7q8.ondigitalocean.app/user/auto_login', { auto_id: isValidId })
         if (response && response.status) {
           if (response.status === 200) {
             router.replace('home')
@@ -23,16 +23,17 @@ const index = () => {
           }
           if (response.status === 201) {
             setLoading(false)
-          }
-          if (response.status === 423) {
-            setLoading(false)
-            setBlockedModal(true)
+            console.log("session expired")
           }
         }
       }
     } catch (error) {
       if (error && error.response.status === 423) {
         setBlockedModal(true)
+      }
+      if (error && error.response.status === 403) {
+        console.log("session expired")
+        setWarnedModal(true)
       }
       if (error && error.response.status === 500) {
         Alert.alert('Error occured', 'Please try again.')
@@ -42,14 +43,13 @@ const index = () => {
       setLoading(false)
     }
 
-  }
+  }, [])
 
   const sessionDestroy = async () => {
     try {
-      const response = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/logout')
+      const response = await axios.get('https://wasteredux-wl7q8.ondigitalocean.app/user/logout')
       if (response && response.status) {
         if (response.status === 200) {
-          router.replace('LogIn')
         }
       }
     } catch (err) {
@@ -83,12 +83,30 @@ const index = () => {
                 <Text className='font-pmedium text-red-700' style={{ fontSize: moderateScale(13) }}>Your account has been blocked due to uploading inappropriate images.</Text>
               </View>
             </View>
-            <Pressable className='items-end' onPress={() => {setBlockedModal(false); sessionDestroy()}}>
+            <Pressable className='items-end' onPress={() => { setBlockedModal(false); sessionDestroy() }}>
               <Text className='font-pmedium text-secondary' style={{ fontSize: moderateScale(12) }}>Ok</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
+
+      <Modal animationType='fade' visible={warnedModal} transparent={true} onRequestClose={() => setWarnedModal(false)}>
+        <View className='bg-black/50 flex-1 justify-center items-center'>
+          <View className='bg-white w-[90%] rounded-md p-5' style={{ gap: 20 }}>
+            <View className='flex-row items-center' style={{ gap: 20 }}>
+              <View className='gap-3'>
+                <Text className='font-psemibold text-red-700' style={{ fontSize: moderateScale(15) }}>Notice</Text>
+                <Text className='font-pmedium text-red-700' style={{ fontSize: moderateScale(13) }}>You have violated one of our policies. Repeated violations may result in your account being blocked.</Text>
+              </View>
+
+            </View>
+            <Pressable className='items-end' onPress={() => { setWarnedModal(false); router.replace('home') }}>
+              <Text className='font-pmedium text-secondary' style={{ fontSize: moderateScale(12) }}>Ok</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
       {/* Top Image */}
       <View className="flex-[0.9] items-center justify-end bg-tertiary">
         <Image

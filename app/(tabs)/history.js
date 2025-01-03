@@ -13,7 +13,7 @@ const History = () => {
   const retrieve = async () => {
     console.log('retrieving')
     try {
-      const res = await axios.get('https://seal-app-uuotj.ondigitalocean.app/user/history')
+      const res = await axios.get('https://wasteredux-wl7q8.ondigitalocean.app/user/history')
       setData(res.data)
     } catch (error) {
       console.log(error.data)
