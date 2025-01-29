@@ -55,7 +55,7 @@ const index = () => {
     } catch (err) {
       console.log(err)
       if (err.response && err.response === 500) {
-        Alert.alert('Error Occured', 'Please try again.')
+        Alert.alert('Error', 'Please try again.')
       }
     }
   }
